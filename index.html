@@ -36,6 +36,14 @@
     --indigo: #4F46E5;
     --violet: #7C3AED;
 
+    /* Colori dei pallini Timeline */
+    --dot-fotografia: #3B7DD8;
+    --dot-video: #2E9E7B;
+    --dot-musica: #C6494A;
+    --dot-cinema: #4B4FC4;
+    --dot-gaming: #7B4FC4;
+    --dot-note: #C97B2E;
+
     --radius: 10px;
     --nav-w: 210px;
     --shadow-sm: 0 1px 2px rgba(20,19,15,0.05), 0 6px 16px -10px rgba(20,19,15,0.15);
@@ -44,7 +52,6 @@
   }
 
   html[data-theme="dark"]{
-    --paper: #17161200;
     --paper: #19180F;
     --paper-raised: #232016;
     --ink: #F3EFE4;
@@ -370,6 +377,128 @@
     to{ opacity:1; transform:translateY(0); }
   }
 
+  /* ============ TIMELINE INTEGRATA IN HOME ============ */
+  .home-timeline-box {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .home-timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .home-timeline-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .home-timeline-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+
+  .timeline {
+    position: relative;
+    margin-left: 6px;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .entry {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    padding: 14px 0;
+  }
+
+  .entry:not(:last-child) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .dot {
+    position: relative;
+    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    margin-top: 5px;
+    z-index: 1;
+  }
+
+  .entry-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    flex: 1;
+  }
+
+  .entry-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    min-width: 58px;
+  }
+
+  .entry-text {
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  .entry-text .highlight {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .entry-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-left: auto;
+    background: var(--paper);
+  }
+
+  .load-more {
+    display: block;
+    margin: 20px auto 0;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .load-more:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
   /* ============ ABOUT ============ */
   .about-body{ display:flex; gap:2.2rem; align-items:flex-start; }
   .about-portrait{
@@ -686,42 +815,82 @@
     .yt-modal-foot{ flex-direction:column; align-items:flex-start; gap:0.6rem; }
   }
 
-  /* ============ VIDEO ============ */
-  .video-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-    gap:1rem;
+  /* ============ VIDEO SLIDER (SINGOLO VIDEO CON NAVIGAZIONE) ============ */
+  .video-slider-container {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
   }
-  .video-card{
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    background:var(--paper);
-    box-shadow:var(--shadow-sm);
-    transition:background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+
+  .video-card {
+    display: none; /* Nasconde tutti i video di default */
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: var(--shadow-sm);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
-  .video-card:hover{
-    box-shadow:var(--shadow-md);
-    transform:translateY(-2px);
+
+  .video-card.active {
+    display: block; /* Mostra solo il video attivo */
+    animation: fadeIn 0.3s ease;
   }
-  .video-frame{
-    aspect-ratio:16/9;
-    width:100%;
-    background:#111;
-    display:block;
-    border:none;
+
+  .video-frame {
+    aspect-ratio: 16/9;
+    width: 100%;
+    background: #111;
+    display: block;
+    border: none;
   }
-  .video-caption{
-    padding:0.8rem 1rem;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+
+  .video-caption {
+    padding: 0.8rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  .video-caption .t{ font-size:0.85rem; font-weight:600; }
-  .video-caption .d{
-    font-family:'Space Mono', monospace;
-    font-size:0.68rem;
-    color:var(--ink-soft);
+
+  .video-caption .t { font-size: 0.85rem; font-weight: 600; }
+  .video-caption .d {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+  }
+
+  /* Frecce slider video uniche posizionate ai lati del player */
+  .video-slider-nav {
+    position: absolute;
+    top: calc(50% - 20px);
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .video-slider-nav:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: var(--paper);
+  }
+
+  .video-slider-nav.prev { left: -21px; }
+  .video-slider-nav.next { right: -21px; }
+  .video-slider-nav svg { width: 18px; height: 18px; }
+
+  @media (max-width: 768px) {
+    .video-slider-nav.prev { left: 8px; }
+    .video-slider-nav.next { right: 8px; }
   }
 
   /* ============ MEDIA GRIDS ============ */
@@ -966,12 +1135,64 @@
           Gaming
         </span>
       </div>
+
+      <!-- ============ TIMELINE INTEGRATA CORRETTAMENTE DENTRO LA HOME ============ -->
+      <div class="home-timeline-box">
+        <div class="home-timeline-header">
+          <h2 class="home-timeline-title">Attività recente</h2>
+          <span class="home-timeline-sub">Log</span>
+        </div>
+
+        <div class="timeline">
+
+          <div class="entry">
+            <div class="dot" style="background: var(--dot-fotografia);"></div>
+            <div class="entry-body">
+              <span class="entry-date">14 ago 2026</span>
+              <span class="entry-text">Idea e Creazione del sito WEB<span class="highlight"></span></span>
+              <span class="entry-tag">Ufficio💼 </span>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="dot" style="background: var(--dot-note);"></div>
+            <div class="entry-body">
+              <span class="entry-date">15 ago 2026</span>
+              <span class="entry-text">Implementazione del sito web sia di contenuti che a livello codice <span class="highlight"></span></span>
+              <span class="entry-tag">Casa 🏠</span>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="dot" style="background: var(--dot-musica);"></div>
+            <div class="entry-body">
+              <span class="entry-date">16 ago 2026</span>
+              <span class="entry-text">nuovi brani in <span class="highlight">YouTube</span> — Chuwi Tiny Desk &amp; Bad Bunny</span>
+              <span class="entry-tag">YouTube</span>
+            </div>
+          </div>
+
+          <!-- Eventi extra caricati con "Carica altro" -->
+          <div class="entry extra-entry" style="display:none;">
+            <div class="dot" style="background: var(--dot-note);"></div>
+            <div class="entry-body">
+              <span class="entry-date">17 ago 2026</span>
+              <span class="entry-text">Partito per le vacanze estive </span>
+              <span class="entry-tag">foto</span>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="load-more" id="loadMoreBtn">Carica altro</button>
+      </div>
+
     </section>
 
     <!-- ============ ABOUT ============ -->
     <section id="about" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--forest)"></span>
+        <span class="card-index" style="--tab-color:var(--forest)">BIO</span>
         <h2 class="card-title">Chi sono<small>Bio</small></h2>
       </div>
       <div class="card-body about-body">
@@ -984,19 +1205,18 @@
             <dt>Base</dt><dd>Padova, IT</dd>
             <dt>Età</dt><dd>Classe 99</dd>
             <dt>Interessi</dt><dd>Foto · Video · Videogiochi · Sport · Scrittura</dd>
-            <dt>Stato</dt><dd>In costante aggiornamento</dd>
+            <dt>Stato</dt><dd>In constante aggiornamento</dd>
           </dl>
         </div>
       </div>
 
-      <!-- ============ FOGLIO A QUADRETTI: note random / aggiornamenti sparsi ============ -->
-      <!-- MODIFICA QUI: aggiungi una riga <p> per ogni nuova nota. Usa class="fresh" sull'ultima novità se vuoi il bollino "nuovo". -->
+      <!-- ============ FOGLIO A QUADRETTI: note random ============ -->
       <div class="scribble-pad">
-        <div class="scribble-pad-head">Foglio degli appunti</div>
+        <div class="scribble-pad-head">Pensieri</div>
         <div class="scribble-content">
-          <p class="fresh">+ Sto pensando di andare a Lisbona quest'estate</p>
-          <p>+ Nuova playlist da provare questa settimana</p>
-          <p>+ Ricordati di aggiornare la sezione Film & Serie</p>
+       <!-- ============  <p class="fresh">+ QUESTA RIGA DI CODICE SERVE PER AVERE IL GLAGGHINO DI "NUOVO"</p> ============ -->
+          <p>+ Il 14 agosto 2026 mi trovavo da solo a lavoro senza nulla da fare , e ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale</p>
+          <p>+ Il 15 agosto 2026 il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti  😱 .  </p>
         </div>
       </div>
     </section>
@@ -1004,7 +1224,7 @@
     <!-- ============ GALLERY ============ -->
     <section id="gallery" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--sky)"></span>
+        <span class="card-index" style="--tab-color:var(--sky)">FOTO</span>
         <h2 class="card-title">Galleria<small>Foto</small></h2>
       </div>
       <div class="card-body">
@@ -1045,17 +1265,25 @@
       </div>
     </section>
 
-    <!-- ============ VIDEO ============ -->
+    <!-- ============ VIDEO (SLIDER UNICO MOSTRATO UNO ALLA VOLTA) ============ -->
     <section id="video" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--plum)"></span>
+        <span class="card-index" style="--tab-color:var(--plum)">CLIP</span>
         <h2 class="card-title">Video<small>Clip &amp; riprese</small></h2>
       </div>
       <div class="card-body">
-        <div class="video-grid">
+        <div class="video-slider-container">
 
-          <!-- Video 01 -->
-          <div class="video-card">
+          <!-- Frecce di navigazione uniche -->
+          <button class="video-slider-nav prev" id="videoPrevBtn" aria-label="Video precedente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="video-slider-nav next" id="videoNextBtn" aria-label="Video successivo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+
+          <!-- Video 01 (Attivo di default) -->
+          <div class="video-card active">
             <video class="video-frame" controls playsinline preload="metadata" src="video/VID1.MP4"></video>
             <div class="video-caption">
               <span class="t">Stazione in Chill</span>
@@ -1236,7 +1464,7 @@
     <!-- ============ NOTES / BLOG ============ -->
     <section id="notes" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--ochre)"></span>
+        <span class="card-index" style="--tab-color:var(--ochre)">NOTE</span>
         <h2 class="card-title">Note<small>Pensieri sparsi</small></h2>
       </div>
       <div class="card-body">
@@ -1260,7 +1488,7 @@
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--rose)"></span>
+        <span class="card-index" style="--tab-color:var(--rose)">INFO</span>
         <h2 class="card-title">Contatti<small>Dove trovarmi</small></h2>
       </div>
       <div class="card-body">
@@ -1316,7 +1544,7 @@
   </div>
 </div>
 
-<!-- ============ YOUTUBE MODAL (video incorporato) ============ -->
+<!-- ============ YOUTUBE MODAL ============ -->
 <div class="yt-modal" id="ytModal">
   <div class="yt-modal-inner">
     <div class="yt-modal-video">
@@ -1351,7 +1579,41 @@
     }
   });
 
-  // ---- Lightbox con supporto immagini reali, tastiera e navigazione avanti/indietro ----
+  // ---- Timeline "Carica altro" ----
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      const extras = document.querySelectorAll('.extra-entry');
+      extras.forEach(el => el.style.display = 'flex');
+      loadMoreBtn.style.display = 'none';
+    });
+  }
+
+  // ---- Slider Video (Un video alla volta con nav) ----
+  const videoCards = Array.from(document.querySelectorAll('#video .video-card'));
+  const videoPrevBtn = document.getElementById('videoPrevBtn');
+  const videoNextBtn = document.getElementById('videoNextBtn');
+  let currentVideoIndex = 0;
+
+  function showVideo(index) {
+    // Ferma la riproduzione di qualsiasi video stia suonando
+    videoCards.forEach(card => {
+      const vid = card.querySelector('video');
+      if (vid) vid.pause();
+      card.classList.remove('active');
+    });
+
+    // Calcola l'indice ciclico
+    currentVideoIndex = (index + videoCards.length) % videoCards.length;
+    videoCards[currentVideoIndex].classList.add('active');
+  }
+
+  if (videoPrevBtn && videoNextBtn) {
+    videoPrevBtn.addEventListener('click', () => showVideo(currentVideoIndex - 1));
+    videoNextBtn.addEventListener('click', () => showVideo(currentVideoIndex + 1));
+  }
+
+  // ---- Lightbox con navigazione ----
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxCap = document.getElementById('lightboxCap');
@@ -1451,7 +1713,7 @@
     if (e.key === 'Escape' && mediaModal.classList.contains('open')) closeMediaModal();
   });
 
-  // ---- Modale YouTube: apre il video incorporato senza lasciare la pagina ----
+  // ---- Modale YouTube ----
   const ytModal = document.getElementById('ytModal');
   const ytFrame = document.getElementById('ytFrame');
   const ytModalTitle = document.getElementById('ytModalTitle');
@@ -1490,7 +1752,7 @@
     if (e.key === 'Escape' && ytModal.classList.contains('open')) closeYtModal();
   });
 
-  // ---- Navigazione a schede: mostra solo la sezione cliccata ----
+  // ---- Navigazione a schede ----
   const allSections = document.querySelectorAll('main section[id]');
   const navLinks = document.querySelectorAll('[data-tab]');
 
