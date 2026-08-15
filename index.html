@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giancarlo Flores World</title>
+<meta name="description" content="Un archivio personale: foto, video, note, youtube, film, giochi e contatti.">
+
+<!-- Favicon per Browser Desktop -->
+<link rel="icon" href="foto/favicon.ico">
+<link rel="shortcut icon" href="foto/favicon.ico">
+
+<!-- Favicon per Cellulari (Schermata Home iOS e Android) -->
+<link rel="apple-touch-icon" sizes="180x180" href="foto/apple-touch-icon.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper: #EFEEE6;
+    --paper-raised: #F8F7F2;
+    --ink: #1A1A16;
+    --ink-soft: #59564C;
+    --line: #D9D5C7;
+
+    --forest: #2F5D4E;
+    --plum: #5B3A6B;
+    --ochre: #B8842A;
+    --sky: #3B6E8C;
+    --rose: #A5384A;
+    --amber: #D97706;
+    --emerald: #059669;
+    --indigo: #4F46E5;
+    --violet: #7C3AED;
+
+    --radius: 3px;
+    --nav-w: 210px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  }
+
+  a{ color:inherit; }
+
+  .label{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-size:0.72rem;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+
+  /* ============ LAYOUT SHELL ============ */
+  .shell{
+    display:flex;
+    max-width:1180px;
+    margin:0 auto;
+    align-items:flex-start;
+  }
+
+  /* ============ SIDE NAV (catalog drawer) ============ */
+  .drawer{
+    width:var(--nav-w);
+    flex-shrink:0;
+    position:sticky;
+    top:0;
+    height:100vh;
+    padding:2.5rem 0 2rem 2rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+
+  .drawer-top .mark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.15rem;
+    margin-top:1.5rem;
+    margin-bottom:2.5rem;
+    display:block;
+    max-height:120px;
+    width:auto;
+  }
+
+  .drawer-nav{ list-style:none; }
+  .drawer-nav li{ margin-bottom:0.35rem; }
+
+  .drawer-nav a{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    text-decoration:none;
+    padding:0.4rem 0.6rem;
+    border-radius:var(--radius);
+    font-family:'Space Mono', monospace;
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    transition:background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    border-left:2px solid transparent;
+    cursor:pointer;
+  }
+
+  .drawer-nav a .swatch{
+    width:8px; height:8px;
+    flex-shrink:0;
+    background:var(--tab-color, var(--ink-soft));
+    transition:transform 0.2s ease;
+  }
+
+  .drawer-nav a:hover{ color:var(--ink); background:var(--paper-raised); transform:translateX(2px); }
+  .drawer-nav a:hover .swatch{ transform:scale(1.3); }
+
+  .drawer-nav a.active{
+    color:var(--ink);
+    background:var(--paper-raised);
+    border-left-color:var(--tab-color, var(--ink));
+    font-weight:700;
+  }
+
+  .drawer-foot{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    color:var(--ink-soft);
+    opacity:0.7;
+  }
+
+  /* ============ MOBILE NAV ============ */
+  .mobile-nav{
+    display:none;
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+    white-space:nowrap;
+    padding:0.9rem 1.25rem;
+    gap:1.25rem;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .mobile-nav::-webkit-scrollbar { display:none; }
+
+  .mobile-nav a{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    text-decoration:none;
+    color:var(--ink-soft);
+    padding-bottom:0.2rem;
+    border-bottom:2px solid transparent;
+    cursor:pointer;
+  }
+  .mobile-nav a.active{ color:var(--ink); border-color:var(--tab-color); }
+
+  /* ============ MAIN ============ */
+  .main{
+    flex:1;
+    min-width:0;
+    padding:2.5rem 2.5rem 2.5rem 0;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+
+  /* ============ SEZIONI A SCHEDA: solo una visibile alla volta ============ */
+  main section[id]{
+    display:none;
+  }
+  main section[id].active-section{
+    display:block;
+    animation:fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes fadeIn{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    margin-bottom:1.5rem;
+    overflow:hidden;
+  }
+
+  .card-head{
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+    padding:1.1rem 1.5rem;
+    border-bottom:1px solid var(--line);
+  }
+
+  .card-index{
+    font-family:'Space Mono', monospace;
+    font-size:0.75rem;
+    color:var(--paper);
+    background:var(--tab-color, var(--ink));
+    padding:0.15rem 0.45rem;
+    border-radius:2px;
+  }
+
+  .card-title{ font-size:1rem; }
+  .card-title small{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-weight:400;
+    font-size:0.68rem;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-top:0.15rem;
+  }
+
+  .card-body{ padding:2rem 2.2rem; }
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:3.5rem 2.2rem 3rem;
+    position:relative;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    max-width:12ch;
+  }
+  .hero p{
+    margin-top:1.1rem;
+    max-width:46ch;
+    color:var(--ink-soft);
+    font-size:1.05rem;
+  }
+  .hero .tags{
+    margin-top:1.6rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.5rem;
+  }
+  .hero .tags span{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    padding:0.3rem 0.6rem;
+    border:1px solid var(--line);
+    border-radius:20px;
+    color:var(--ink-soft);
+    opacity:0;
+    animation:tagIn 0.4s ease forwards;
+  }
+  .hero .tags span:nth-child(1){ animation-delay:0.05s; }
+  .hero .tags span:nth-child(2){ animation-delay:0.1s; }
+  .hero .tags span:nth-child(3){ animation-delay:0.15s; }
+  .hero .tags span:nth-child(4){ animation-delay:0.2s; }
+  .hero .tags span:nth-child(5){ animation-delay:0.25s; }
+  .hero .tags span:nth-child(6){ animation-delay:0.3s; }
+  @keyframes tagIn{
+    from{ opacity:0; transform:translateY(4px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ============ ABOUT ============ */
+  .about-body{ display:flex; gap:2.2rem; align-items:flex-start; }
+  .about-portrait{
+    width:130px; height:130px;
+    flex-shrink:0;
+    border-radius:var(--radius);
+    background:var(--paper);
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .about-portrait img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .about-text p{ margin-bottom:0.9rem; color:var(--ink-soft); }
+  .about-text p:last-child{ margin-bottom:0; }
+  .about-facts{
+    margin-top:1.3rem;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:0.6rem 1.5rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+  }
+  .about-facts dt{ color:var(--ink-soft); }
+  .about-facts dd{ color:var(--ink); font-weight:700; }
+
+  /* ============ GALLERY ============ */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:0.9rem;
+  }
+  .photo-card{
+    aspect-ratio:1;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    background:var(--paper);
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  }
+  .photo-card:focus-visible{
+    outline:2px solid var(--sky);
+    outline-offset:2px;
+  }
+  .photo-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px -12px rgba(26,26,22,0.25);
+  }
+  .photo-card img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform 0.4s ease;
+  }
+  .photo-card:hover img{
+    transform:scale(1.04);
+  }
+  .gallery-note{
+    margin-top:1rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    color:var(--ink-soft);
+  }
+
+  /* Lightbox */
+  .lightbox{
+    position:fixed; inset:0;
+    background:rgba(20,19,15,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:2rem;
+  }
+  .lightbox.open{ display:flex; animation:overlayIn 0.2s ease; }
+  .lightbox-inner{
+    max-width:720px;
+    width:100%;
+    background:var(--paper-raised);
+    border-radius:var(--radius);
+    overflow:hidden;
+    animation:modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lightbox-img{
+    width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    background:var(--paper);
+    display:block;
+  }
+  .lightbox-cap{
+    padding:1.2rem 1.5rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .lightbox-close{
+    background:none; border:none;
+    font-family:'Space Mono', monospace;
+    cursor:pointer;
+    color:var(--ink-soft);
+    font-size:0.78rem;
+  }
+
+  /* Media modal (Film & Serie, Videogiochi): poster + descrizione affiancati */
+  .media-modal{
+    position:fixed; inset:0;
+    background:rgba(20,19,15,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:2rem;
+  }
+  .media-modal.open{ display:flex; animation:overlayIn 0.2s ease; }
+  .media-modal-inner{
+    max-width:820px;
+    width:100%;
+    max-height:85vh;
+    overflow:auto;
+    background:var(--paper-raised);
+    border-radius:var(--radius);
+    display:flex;
+    animation:modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes overlayIn{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+  @keyframes modalIn{
+    from{ opacity:0; transform:scale(0.96) translateY(6px); }
+    to{ opacity:1; transform:scale(1) translateY(0); }
+  }
+  .media-modal-img{
+    width:280px;
+    flex-shrink:0;
+    object-fit:cover;
+    display:block;
+    background:var(--paper);
+  }
+  .media-modal-body{
+    padding:2rem;
+    display:flex;
+    flex-direction:column;
+    gap:0.9rem;
+    min-width:0;
+  }
+  .media-modal-body h3{ font-size:1.5rem; }
+  .media-modal-body p{
+    color:var(--ink-soft);
+    font-size:0.95rem;
+    line-height:1.75;
+  }
+  .media-modal-close{
+    align-self:flex-start;
+    margin-top:auto;
+    background:none; border:none;
+    cursor:pointer;
+    font-family:'Space Mono', monospace;
+    color:var(--ink-soft);
+    font-size:0.78rem;
+  }
+  @media (max-width: 640px){
+    .media-modal-inner{ flex-direction:column; max-height:90vh; }
+    .media-modal-img{ width:100%; aspect-ratio:2/3; }
+  }
+
+  /* ============ VIDEO ============ */
+  .video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:1rem;
+  }
+  .video-card{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--paper);
+  }
+  .video-frame{
+    aspect-ratio:16/9;
+    width:100%;
+    background:#111;
+    display:block;
+    border:none;
+  }
+  .video-caption{
+    padding:0.8rem 1rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .video-caption .t{ font-size:0.85rem; font-weight:600; }
+  .video-caption .d{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    color:var(--ink-soft);
+  }
+
+  /* ============ MEDIA GRIDS (YOUTUBE, FILM, GIOCHI) ============ */
+  .media-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:1rem;
+  }
+  .media-item{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:1rem;
+    background:var(--paper);
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+    transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    overflow:hidden;
+  }
+  .media-item:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px -12px rgba(26,26,22,0.25);
+  }
+  .media-item.clickable{ cursor:pointer; }
+  .media-item.clickable:focus-visible{
+    outline:2px solid var(--sky);
+    outline-offset:2px;
+  }
+  .media-item img{
+    width:100%;
+    border-radius:var(--radius);
+    background:var(--line);
+    display:block;
+    transition:transform 0.4s ease;
+  }
+  .media-item:hover img{
+    transform:scale(1.03);
+  }
+
+  /* Locandine film e giochi in formato 16:9 o 2:3 */
+  .movie-card img{
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  .game-card img{
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .media-item .title{ font-weight:600; font-size:0.95rem; }
+  .media-item .sub{ font-family:'Space Mono', monospace; font-size:0.72rem; color:var(--ink-soft); }
+  /* Su Film & Serie / Videogiochi la descrizione si vede solo nel modale al click, non nella card */
+  .media-item.clickable .sub{ display:none; }
+
+  /* ============ NOTES ============ */
+  .note-entry{
+    display:flex;
+    gap:1.3rem;
+    padding:1.2rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .note-entry:last-child{ border-bottom:none; padding-bottom:0; }
+  .note-date{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    width:80px;
+    flex-shrink:0;
+    padding-top:0.15rem;
+  }
+  .note-content h3{ font-size:1.05rem; margin-bottom:0.35rem; font-weight:500; }
+  .note-content p{ color:var(--ink-soft); font-size:0.94rem; }
+
+  /* ============ CONTACT ============ */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+    gap:0.8rem;
+  }
+  .contact-link{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    padding:0.85rem 1rem;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    text-decoration:none;
+    color:var(--ink);
+    font-size:0.88rem;
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .contact-link:hover{ border-color:var(--tab-color); transform:translateY(-1px); }
+  .contact-link svg{ width:17px; height:17px; flex-shrink:0; stroke:var(--tab-color); }
+
+  footer{
+    margin-top:auto;
+    padding:2rem 0 1.5rem;
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    color:var(--ink-soft);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 860px){
+    .shell{ flex-direction:column; }
+    .drawer{ display:none; }
+    .mobile-nav{ display:flex; }
+    .main{ padding:1.5rem 1.25rem 2rem; width:100%; }
+    .about-body{ flex-direction:column; }
+    .gallery-grid{ grid-template-columns:repeat(2, 1fr); }
+    .card-body{ padding:1.5rem; }
+  }
+
+  @media (max-width: 480px){
+    .gallery-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ MOBILE NAV ============ -->
+<nav class="mobile-nav" id="mobileNav">
+  <a data-tab="home" style="--tab-color:var(--ink)">Home</a>
+  <a data-tab="about" style="--tab-color:var(--forest)">Chi sono</a>
+  <a data-tab="gallery" style="--tab-color:var(--sky)">Galleria</a>
+  <a data-tab="video" style="--tab-color:var(--plum)">Video</a>
+  <a data-tab="yt" style="--tab-color:var(--amber)">YouTube</a>
+  <a data-tab="film" style="--tab-color:var(--indigo)">Film</a>
+  <a data-tab="games" style="--tab-color:var(--violet)">Giochi</a>
+  <a data-tab="notes" style="--tab-color:var(--ochre)">Note</a>
+  <a data-tab="contact" style="--tab-color:var(--rose)">Contatti</a>
+</nav>
+
+<div class="shell">
+
+  <!-- ============ SIDE DRAWER NAV ============ -->
+  <aside class="drawer">
+    <div class="drawer-top">
+      <img src="foto/logo.png" alt="Logo" class="mark">
+      <ul class="drawer-nav" id="drawerNav">
+        <li><a data-tab="home" style="--tab-color:var(--ink)"><span class="swatch" style="background:var(--ink)"></span>Home</a></li>
+        <li><a data-tab="about" style="--tab-color:var(--forest)"><span class="swatch" style="background:var(--forest)"></span>Chi sono</a></li>
+        <li><a data-tab="gallery" style="--tab-color:var(--sky)"><span class="swatch" style="background:var(--sky)"></span>Galleria</a></li>
+        <li><a data-tab="video" style="--tab-color:var(--plum)"><span class="swatch" style="background:var(--plum)"></span>Video</a></li>
+        <li><a data-tab="yt" style="--tab-color:var(--amber)"><span class="swatch" style="background:var(--amber)"></span>YouTube</a></li>
+        <li><a data-tab="film" style="--tab-color:var(--indigo)"><span class="swatch" style="background:var(--indigo)"></span>Film &amp; Serie</a></li>
+        <li><a data-tab="games" style="--tab-color:var(--violet)"><span class="swatch" style="background:var(--violet)"></span>Videogiochi</a></li>
+        <li><a data-tab="notes" style="--tab-color:var(--ochre)"><span class="swatch" style="background:var(--ochre)"></span>Note</a></li>
+        <li><a data-tab="contact" style="--tab-color:var(--rose)"><span class="swatch" style="background:var(--rose)"></span>Contatti</a></li>
+      </ul>
+    </div>
+    <div class="drawer-foot">ARCHIVIO PERSONALE<br>EST. 2026</div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- ============ HOME / HERO ============ -->
+    <section id="home" class="card hero">
+      <h1>Il mio archivio personale</h1>
+      <p>Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate.</p>
+      <div class="tags">
+        <span>Fotografia</span>
+        <span>Video</span>
+        <span>Musica</span>
+        <span>Cinema</span>
+        <span>Gaming</span>
+        <span>In continuo aggiornamento</span>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="card">
+      <div class="card-head">
+        <span class="card-index" style="--tab-color:var(--forest)"></span>
+        <h2 class="card-title">Chi sono<small>Bio</small></h2>
+      </div>
+      <div class="card-body about-body">
+        <div class="about-portrait">
+          <img src="foto/profilo.jpg" alt="Foto profilo">
+        </div>
+        <div class="about-text">
+          <p>Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.</p>
+          <dl class="about-facts">
+            <dt>Base</dt><dd>Padova, IT</dd>
+            <dt>Età</dt><dd>Classe 99</dd>
+            <dt>Interessi</dt><dd>Foto · Video · Videogiochi · Sport · Scrittura</dd>
+            <dt>Stato</dt><dd>In costante aggiornamento</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section id="gallery" class="card">
+      <div class="card-head">
+        <span class="card-index" style="--tab-color:var(--sky)"></span>
+        <h2 class="card-title">Galleria<small>Foto</small></h2>
+      </div>
+      <div class="card-body">
+        <div class="gallery-grid" id="galleryGrid">
+
+          <!-- Foto 01 -->
+          <div class="photo-card"
+               tabindex="0"
+               role="button"
+               aria-label="Ingrandisci Foto 01"
+               data-caption="Santorini walking on"
+               data-fullsrc="foto/GAL1.JPEG">
+            <img src="foto/GAL1.JPEG" alt="Foto 01">
+          </div>
+
+          <!-- Foto 02 -->
+          <div class="photo-card"
+               tabindex="0"
+               role="button"
+               aria-label="Ingrandisci Foto 02"
+               data-caption="Like Tyler The Crator"
+               data-fullsrc="foto/GAL2.JPEG">
+            <img src="foto/GAL2.JPEG" alt="Foto 02">
+          </div>
+
+          <!-- Foto 03 -->
+          <div class="photo-card"
+               tabindex="0"
+               role="button"
+               aria-label="Ingrandisci Foto 03"
+               data-caption="Insta 360 X4"
+               data-fullsrc="foto/GAL3.JPEG">
+            <img src="foto/GAL3.JPEG" alt="Foto 03">
+          </div>
+
+        </div>
+        <div class="gallery-note">Clicca o premi Invio su una foto per ingrandirla.</div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO ============ -->
+    <section id="video" class="card">
+      <div class="card-head">
+        <span class="card-index" style="--tab-color:var(--plum)"></span>
+        <h2 class="card-title">Video<small>Clip &amp; riprese</small></h2>
+      </div>
+      <div class="card-body">
+        <div class="video-grid">
+
+          <!-- Video 01 -->
+          <div class="video-card">
+            <video class="video-frame" controls playsinline preload="metadata" src="video/VID1.MP4"></video>
+            <div class="video-caption">
+              <span class="t">Stazione in Chill</span>
+              <span class="d">MP4</span>
+            </div>
+          </div>
+
+          <!-- Video 02 -->
+          <div class="video-card">
+            <video class="video-frame" controls playsinline preload="metadata" src="video/VID2.MOV"></video>
+            <div class="video-caption">
+              <span class="t">Bad Bunny 🐰😈</span>
+              <span class="d">MOV</span>
+            </div>
+          </div>
+
+          <!-- Video 03 -->
+          <div class="video-card">
+            <video class="video-frame" controls playsinline preload="metadata" src="video/VID3.MOV"></video>
+            <div class="video-caption">
+              <span class="t">Marley 🐶</span>
+              <span class="d">MOV</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ YOUTUBE ============ -->
+    <section id="yt" class="card">
+      <div class="card-head">
+        <span class="card-index" style="background:#FF0000; padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#FFFFFF">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </span>
+        <h2 class="card-title">YouTube<small>Canali &amp; Contenuti</small></h2>
+      </div>
+      <div class="card-body">
+        <div class="media-grid">
+
+          <!-- Video 1 -->
+          <a class="media-item" href="https://www.youtube.com/watch?v=r3ZPhIZ6_bM&list=RDr3ZPhIZ6_bM&start_radio=1" target="_blank" rel="noopener" style="text-decoration:none;">
+            <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Miniatura video YouTube 1" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius);">
+            <div class="title">Chuwi: Tiny Desk Concert🎵</div>
+            <div class="sub">Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.</div>
+          </a>
+
+          <!-- Video 2 -->
+          <a class="media-item" href="https://www.youtube.com/watch?v=Nr_Km2sqsCY&list=RDNr_Km2sqsCY&start_radio=1" target="_blank" rel="noopener" style="text-decoration:none;">
+            <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Miniatura video YouTube 2" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius);">
+            <div class="title">Victony - SLICK (Official Visualizer)🎵</div>
+            <div class="sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FILM & SERIE ============ -->
+    <section id="film" class="card">
+      <div class="card-head">
+        <span class="card-index" style="--tab-color:var(--indigo); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 12h.01"></path>
+          </svg>
+        </span>
+        <h2 class="card-title">Film &amp; Serie<small>I miei preferiti</small></h2>
+      </div>
+      <div class="card-body">
+        <div class="media-grid">
+
+          <!-- Film 1 -->
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scarface">
+            <img src="foto/FILM1.jpg" alt="Locandina Scarface">
+            <div class="title">Scarface</div>
+            <div class="sub">Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.</div>
+          </div>
+
+          <!-- Film 2 -->
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Goodfellas">
+            <img src="foto/fiilm2.jpg" alt="Locandina Goodfellas">
+            <div class="title">Goodfellas</div>
+            <div class="sub"> (GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
+          </div>
+
+          <!-- Film 3 -->
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek">
+            <img src="foto/film3.jpg" alt="Locandina Shrek">
+            <div class="title">Shrek</div>
+            <div class="sub">Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+<!-- ============ VIDEOGIOCHI ============ -->
+    <section id="games" class="card">
+      <div class="card-head">
+        <span class="card-index" style="--tab-color:var(--violet); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
+          <!-- Icona Joystick Gamepad -->
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="12" x2="10" y2="12"></line>
+            <line x1="8" y1="10" x2="8" y2="14"></line>
+            <circle cx="15" cy="11" r="1" fill="#FFFFFF"></circle>
+            <circle cx="17.5" cy="13" r="1" fill="#FFFFFF"></circle>
+            <rect x="2" y="6" width="20" height="12" rx="5"></rect>
+          </svg>
+        </span>
+        <h2 class="card-title">Videogiochi<small>Gaming &amp; Titoli Preferiti</small></h2>
+      </div>
+      <div class="card-body">
+        <div class="media-grid">
+
+          <!-- Gioco 1 -->
+          <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli The last of us">
+            <img src="foto/127761.jpg" alt="Videogioco 1">
+            <div class="title">The last of us</div>
+            <div class="sub">PS4 · Azione-avventura</div>
+          </div>
+
+          <!-- Gioco 2 -->
+          <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pokémon Platino">
+            <img src="foto/51GiGTjeigL._AC_UF894,1000_QL80_.jpg" alt="Videogioco 2">
+            <div class="title">Pokémon Platino </div>
+            <div class="sub">Nintendo DS · RPG </div>
+          </div>
+
+          <!-- Gioco 3 -->
+          <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Yu-Gi-Oh">
+            <img src="foto/MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg" alt="Videogioco 3">
+            <div class="title">Yu-Gi-Oh </div>
+            <div class="sub"> Giochi di carte collezionabili </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NOTES / BLOG ============ -->
+    <section id="notes" class="card">
+      <div class="card-head">
+        <span class="card-index" style="--tab-color:var(--ochre)"></span>
+        <h2 class="card-title">Note<small>Pensieri sparsi</small></h2>
+      </div>
+      <div class="card-body">
+        <article class="note-entry">
+          <div class="note-date">14 AGO 2026</div>
+          <div class="note-content">
+            <h3>Ho iniziato questo archivio</h3>
+            <p>Per adesso nulla da dichiarare poi si vedrà</p>
+          </div>
+        </article>
+        <article class="note-entry">
+          <div class="note-date">— — ——</div>
+          <div class="note-content">
+            <h3>Prossima nota</h3>
+            <p>Per le prossime news dovete attendere</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="card">
+      <div class="card-head">
+        <span class="card-index" style="--tab-color:var(--rose)"></span>
+        <h2 class="card-title">Contatti<small>Dove trovarmi</small></h2>
+      </div>
+      <div class="card-body">
+        <div class="contact-grid">
+          <a class="contact-link" href="mailto:giancarloflores8@gmail.com" style="--tab-color:var(--rose)">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 6l9 7 9-7M3 6h18v12H3z"/></svg>
+            Email
+          </a>
+          <a class="contact-link" href="https://www.instagram.com/papi.sosa___?igsi=ZWNudXloMWhtYXU3&utm_source=qr" target="_blank" rel="noopener" style="--tab-color:var(--sky)">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            Instagram
+          </a>
+          <a class="contact-link" href="https://www.youtube.com/@giancarloflores8448" target="_blank" rel="noopener" style="--tab-color:var(--forest)">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M22 8.5a4.5 4.5 0 00-8-2.8A4.5 4.5 0 006 8.5C6 15 12 19 12 19s6-4 6-10.5z"/></svg>
+            YouTube
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer><img src="foto/titolo.png" alt="Archivio personale" style="max-height:140px; width:auto; opacity:0.9;"></footer>
+  </main>
+</div>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Anteprima">
+    <div class="lightbox-cap">
+      <span id="lightboxCap"></span>
+      <button class="lightbox-close" id="lightboxClose">CHIUDI ✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MEDIA MODAL (Film & Serie, Videogiochi) ============ -->
+<div class="media-modal" id="mediaModal">
+  <div class="media-modal-inner">
+    <img class="media-modal-img" id="mediaModalImg" src="" alt="">
+    <div class="media-modal-body">
+      <h3 id="mediaModalTitle"></h3>
+      <p id="mediaModalDesc"></p>
+      <button class="media-modal-close" id="mediaModalClose">CHIUDI ✕</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---- Lightbox con supporto immagini reali e tastiera ----
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCap = document.getElementById('lightboxCap');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  const openLightbox = (card) => {
+    const imgElement = card.querySelector('img');
+    const fullSrc = card.dataset.fullsrc || (imgElement ? imgElement.src : '');
+    const caption = card.dataset.caption || (imgElement ? imgElement.alt : '');
+
+    if (fullSrc) {
+      lightboxImg.src = fullSrc;
+      lightboxImg.alt = caption;
+      lightboxCap.textContent = caption;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('open');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  };
+
+  document.querySelectorAll('.photo-card').forEach(card => {
+    card.addEventListener('click', () => openLightbox(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(card);
+      }
+    });
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
+
+  // ---- Media modal per Film & Serie e Videogiochi ----
+  const mediaModal = document.getElementById('mediaModal');
+  const mediaModalImg = document.getElementById('mediaModalImg');
+  const mediaModalTitle = document.getElementById('mediaModalTitle');
+  const mediaModalDesc = document.getElementById('mediaModalDesc');
+  const mediaModalClose = document.getElementById('mediaModalClose');
+
+  const openMediaModal = (item) => {
+    const img = item.querySelector('img');
+    const title = item.querySelector('.title');
+    const desc = item.querySelector('.sub');
+    mediaModalImg.src = img ? img.src : '';
+    mediaModalImg.alt = img ? img.alt : '';
+    mediaModalTitle.textContent = title ? title.textContent.trim() : '';
+    mediaModalDesc.textContent = desc ? desc.textContent.trim() : '';
+    mediaModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeMediaModal = () => {
+    mediaModal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  document.querySelectorAll('.media-item.clickable').forEach(item => {
+    item.addEventListener('click', () => openMediaModal(item));
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openMediaModal(item);
+      }
+    });
+  });
+
+  mediaModalClose.addEventListener('click', closeMediaModal);
+  mediaModal.addEventListener('click', (e) => { if (e.target === mediaModal) closeMediaModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mediaModal.classList.contains('open')) closeMediaModal();
+  });
+
+  // ---- Navigazione a schede: mostra solo la sezione cliccata ----
+  const allSections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('[data-tab]');
+
+  function showSection(id){
+    allSections.forEach(sec => {
+      sec.classList.toggle('active-section', sec.id === id);
+    });
+    navLinks.forEach(a => a.classList.toggle('active', a.dataset.tab === id));
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  navLinks.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.dataset.tab;
+      showSection(id);
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+
+  // Sezione iniziale: usa l'hash nell'URL se valido, altrimenti "home"
+  const requestedId = window.location.hash ? window.location.hash.substring(1) : 'home';
+  const initialId = document.getElementById(requestedId) ? requestedId : 'home';
+  showSection(initialId);
+</script>
+
+</body>
+</html>
