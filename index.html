@@ -82,7 +82,7 @@
     align-items:flex-start;
   }
 
-  /* ============ SIDE NAV (catalog drawer) ============ */
+  /* ============ SIDE NAV ============ */
   .drawer{
     width:var(--nav-w);
     flex-shrink:0;
@@ -95,16 +95,7 @@
     justify-content:space-between;
   }
 
-  .drawer-top .mark{
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-size:1.15rem;
-    margin-top:1.5rem;
-    margin-bottom:2.5rem;
-    display:block;
-    max-height:120px;
-    width:auto;
-  }
+  .drawer-top{ margin-top:1rem; }
 
   .drawer-nav{ list-style:none; }
   .drawer-nav li{ margin-bottom:0.35rem; }
@@ -395,7 +386,7 @@
     font-size:0.78rem;
   }
 
-  /* Media modal (Film & Serie, Videogiochi): poster + descrizione affiancati */
+  /* Media modal (Film & Serie, Videogiochi) */
   .media-modal{
     position:fixed; inset:0;
     background:rgba(20,19,15,0.92);
@@ -490,7 +481,7 @@
     color:var(--ink-soft);
   }
 
-  /* ============ MEDIA GRIDS (YOUTUBE, FILM, GIOCHI) ============ */
+  /* ============ MEDIA GRIDS ============ */
   .media-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
@@ -527,7 +518,6 @@
     transform:scale(1.03);
   }
 
-  /* Locandine film e giochi in formato 16:9 o 2:3 */
   .movie-card img{
     aspect-ratio: 2 / 3;
     object-fit: cover;
@@ -540,7 +530,6 @@
 
   .media-item .title{ font-weight:600; font-size:0.95rem; }
   .media-item .sub{ font-family:'Space Mono', monospace; font-size:0.72rem; color:var(--ink-soft); }
-  /* Su Film & Serie / Videogiochi la descrizione si vede solo nel modale al click, non nella card */
   .media-item.clickable .sub{ display:none; }
 
   /* ============ NOTES ============ */
@@ -591,6 +580,12 @@
     font-size:0.68rem;
     color:var(--ink-soft);
   }
+  footer img{
+    max-height:140px;
+    width:auto;
+    opacity:0.9;
+    display:inline-block;
+  }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 860px){
@@ -628,7 +623,6 @@
   <!-- ============ SIDE DRAWER NAV ============ -->
   <aside class="drawer">
     <div class="drawer-top">
-      <img src="foto/logo.png" alt="Logo" class="mark">
       <ul class="drawer-nav" id="drawerNav">
         <li><a data-tab="home" style="--tab-color:var(--ink)"><span class="swatch" style="background:var(--ink)"></span>Home</a></li>
         <li><a data-tab="about" style="--tab-color:var(--forest)"><span class="swatch" style="background:var(--forest)"></span>Chi sono</a></li>
@@ -664,7 +658,7 @@
     <!-- ============ ABOUT ============ -->
     <section id="about" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--forest)"></span>
+        <span class="card-index" style="--tab-color:var(--forest)">02</span>
         <h2 class="card-title">Chi sono<small>Bio</small></h2>
       </div>
       <div class="card-body about-body">
@@ -686,7 +680,7 @@
     <!-- ============ GALLERY ============ -->
     <section id="gallery" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--sky)"></span>
+        <span class="card-index" style="--tab-color:var(--sky)">03</span>
         <h2 class="card-title">Galleria<small>Foto</small></h2>
       </div>
       <div class="card-body">
@@ -730,7 +724,7 @@
     <!-- ============ VIDEO ============ -->
     <section id="video" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--plum)"></span>
+        <span class="card-index" style="--tab-color:var(--plum)">04</span>
         <h2 class="card-title">Video<small>Clip &amp; riprese</small></h2>
       </div>
       <div class="card-body">
@@ -794,6 +788,20 @@
             <div class="sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
           </a>
 
+          <!-- Video 3 -->
+          <a class="media-item" href="https://www.youtube.com/watch?v=m-FggUm8G0g&list=RDm-FggUm8G0g&start_radio=1" target="_blank" rel="noopener" style="text-decoration:none;">
+            <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Miniatura video YouTube 3" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius);">
+            <div class="title">Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵</div>
+            <div class="sub">Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.</div>
+          </a>
+
+          <!-- Video 4 -->
+          <a class="media-item" href="https://www.youtube.com/watch?v=3af9KM3Eq-E&list=RD3af9KM3Eq-E&start_radio=1" target="_blank" rel="noopener" style="text-decoration:none;">
+            <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="Miniatura video YouTube 4" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius);">
+            <div class="title">BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵</div>
+            <div class="sub">Lui l'ha scritta, io l'ho vissuta 🙁 .</div>
+          </a>
+
         </div>
       </div>
     </section>
@@ -824,7 +832,7 @@
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Goodfellas">
             <img src="foto/fiilm2.jpg" alt="Locandina Goodfellas">
             <div class="title">Goodfellas</div>
-            <div class="sub"> (GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
+            <div class="sub">(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
           </div>
 
           <!-- Film 3 -->
@@ -835,35 +843,34 @@
           </div>
           
           <!-- Film 4 -->
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pluribus">
             <img src="foto/film4.jpg" alt="Locandina Pluribus">
             <div class="title">Pluribus</div>
-            <div class="sub"> è una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.</div>
+            <div class="sub">È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.</div>
           </div>
           
           <!-- Film 5 -->
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Il Signore degli Anelli">
             <img src="foto/film5.jpg" alt="Locandina SigAnelli">
             <div class="title">Il Signore degli Anelli</div>
             <div class="sub">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
           </div>
           
           <!-- Film 6 -->
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scrubs">
             <img src="foto/film6.jpg" alt="Locandina Scrubus">
             <div class="title">Scrubs</div>
-            <div class="sub"> è una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
+            <div class="sub">È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
           </div>
 
         </div>
       </div>
     </section>
 
-<!-- ============ VIDEOGIOCHI ============ -->
+    <!-- ============ VIDEOGIOCHI ============ -->
     <section id="games" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--violet); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
-          <!-- Icona Joystick Gamepad -->
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="6" y1="12" x2="10" y2="12"></line>
             <line x1="8" y1="10" x2="8" y2="14"></line>
@@ -887,15 +894,15 @@
           <!-- Gioco 2 -->
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pokémon Platino">
             <img src="foto/51GiGTjeigL._AC_UF894,1000_QL80_.jpg" alt="Videogioco 2">
-            <div class="title">Pokémon Platino </div>
-            <div class="sub">Nintendo DS · RPG </div>
+            <div class="title">Pokémon Platino</div>
+            <div class="sub">Nintendo DS · RPG</div>
           </div>
 
           <!-- Gioco 3 -->
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Yu-Gi-Oh">
             <img src="foto/MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg" alt="Videogioco 3">
-            <div class="title">Yu-Gi-Oh </div>
-            <div class="sub"> Giochi di carte collezionabili </div>
+            <div class="title">Yu-Gi-Oh</div>
+            <div class="sub">Giochi di carte collezionabili</div>
           </div>
 
         </div>
@@ -905,7 +912,7 @@
     <!-- ============ NOTES / BLOG ============ -->
     <section id="notes" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--ochre)"></span>
+        <span class="card-index" style="--tab-color:var(--ochre)">08</span>
         <h2 class="card-title">Note<small>Pensieri sparsi</small></h2>
       </div>
       <div class="card-body">
@@ -929,7 +936,7 @@
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--rose)"></span>
+        <span class="card-index" style="--tab-color:var(--rose)">09</span>
         <h2 class="card-title">Contatti<small>Dove trovarmi</small></h2>
       </div>
       <div class="card-body">
@@ -939,18 +946,20 @@
             Email
           </a>
           <a class="contact-link" href="https://www.instagram.com/papi.sosa___?igsi=ZWNudXloMWhtYXU3&utm_source=qr" target="_blank" rel="noopener" style="--tab-color:var(--sky)">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="17.5" cy="6.5" r="1"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg>
             Instagram
           </a>
           <a class="contact-link" href="https://www.youtube.com/@giancarloflores8448" target="_blank" rel="noopener" style="--tab-color:var(--forest)">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M22 8.5a4.5 4.5 0 00-8-2.8A4.5 4.5 0 006 8.5C6 15 12 19 12 19s6-4 6-10.5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
             YouTube
           </a>
         </div>
       </div>
     </section>
 
-    <footer><img src="foto/titolo.png" alt="Archivio personale" style="max-height:140px; width:auto; opacity:0.9;"></footer>
+    <footer>
+      <img src="foto/titolo.png" alt="Archivio personale">
+    </footer>
   </main>
 </div>
 
@@ -1081,7 +1090,6 @@
     });
   });
 
-  // Sezione iniziale: usa l'hash nell'URL se valido, altrimenti "home"
   const requestedId = window.location.hash ? window.location.hash.substring(1) : 'home';
   const initialId = document.getElementById(requestedId) ? requestedId : 'home';
   showSection(initialId);
