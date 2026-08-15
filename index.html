@@ -140,11 +140,23 @@
   }
 
   .drawer-top{ margin-top:1rem; }
+  .drawer-top .mark-link{
+    display:block;
+    width:fit-content;
+    margin-bottom:2.2rem;
+    cursor:pointer;
+    transition:transform 0.2s ease;
+  }
+  .drawer-top .mark-link:hover{
+    transform:scale(1.08);
+  }
+  .drawer-top .mark-link:active{
+    transform:scale(0.96);
+  }
   .drawer-top .mark{
     display:block;
     max-height:100px;
     width:auto;
-    margin-bottom:2.2rem;
     animation:spin 12s linear infinite;
   }
   @keyframes spin{
@@ -854,7 +866,9 @@
   <!-- ============ SIDE DRAWER NAV ============ -->
   <aside class="drawer">
     <div class="drawer-top">
-      <img src="foto/logo.png" alt="Logo" class="mark">
+      <a href="#home" data-tab="home" class="mark-link" aria-label="Torna alla Home">
+        <img src="foto/logo.png" alt="Logo" class="mark">
+      </a>
       <ul class="drawer-nav" id="drawerNav">
         <li><a data-tab="home" style="--tab-color:var(--ink)"><span class="swatch" style="background:var(--ink)"></span>Home</a></li>
         <li><a data-tab="about" style="--tab-color:var(--forest)"><span class="swatch" style="background:var(--forest)"></span>Chi sono</a></li>
@@ -946,7 +960,9 @@
       <div class="scribble-pad">
         <div class="scribble-pad-head">Foglio degli appunti</div>
         <div class="scribble-content">
-          <p class="fresh">+ oggi 15 Agosto 2026 sto sperimentando per rendere il mio sito più personale</p>
+          <p class="fresh">+ Sto pensando di andare a Lisbona quest'estate</p>
+          <p>+ Nuova playlist da provare questa settimana</p>
+          <p>+ Ricordati di aggiornare la sezione Film & Serie</p>
         </div>
       </div>
     </section>
