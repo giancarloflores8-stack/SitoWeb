@@ -35,6 +35,7 @@
     --emerald: #059669;
     --indigo: #4F46E5;
     --violet: #7C3AED;
+    --linkedin: #0A66C2;
 
     /* Colori dei pallini Timeline */
     --dot-fotografia: #3B7DD8;
@@ -165,6 +166,10 @@
     max-height:100px;
     width:auto;
     animation:spin 12s linear infinite;
+    transition:filter 0.3s ease;
+  }
+  html[data-theme="dark"] .drawer-top .mark{
+    filter:invert(1) brightness(1.6);
   }
   @keyframes spin{
     from{ transform:rotate(0deg); }
@@ -499,6 +504,80 @@
     box-shadow: var(--shadow-sm);
   }
 
+  /* ============ CANTIERE (illustrazione animata sotto la timeline) ============ */
+  .site-under-construction{
+    margin-top: 2rem;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .site-under-construction::before{
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:8px;
+    background:repeating-linear-gradient(135deg, #F2B705 0 14px, #1A1A16 14px 28px);
+    opacity:0.9;
+  }
+  .site-under-construction .suc-illustration{
+    width:120px;
+    height:90px;
+    flex-shrink:0;
+  }
+  .site-under-construction .suc-text{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .site-under-construction .suc-text strong{
+    color:var(--ink);
+    display:block;
+    font-size:0.8rem;
+    margin-bottom:0.2rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+
+  .suc-arm-hammer{
+    transform-origin: 62px 46px;
+    animation: hammerSwing 1.1s ease-in-out infinite;
+  }
+  @keyframes hammerSwing{
+    0%, 100%{ transform: rotate(0deg); }
+    40%{ transform: rotate(-32deg); }
+    55%{ transform: rotate(4deg); }
+  }
+  .suc-arm-shovel{
+    transform-origin: 24px 50px;
+    animation: shovelDig 1.4s ease-in-out infinite;
+  }
+  @keyframes shovelDig{
+    0%, 100%{ transform: translate(0,0) rotate(0deg); }
+    30%{ transform: translate(-2px,-3px) rotate(-12deg); }
+    55%{ transform: translate(1px,2px) rotate(6deg); }
+  }
+  .suc-dust{
+    animation: dustPuff 1.4s ease-in-out infinite;
+  }
+  @keyframes dustPuff{
+    0%{ opacity:0; transform:translateY(0) scale(0.6); }
+    50%{ opacity:0.55; transform:translateY(-4px) scale(1); }
+    100%{ opacity:0; transform:translateY(-8px) scale(1.1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .suc-arm-hammer, .suc-arm-shovel, .suc-dust{ animation:none; }
+  }
+  @media (max-width: 480px){
+    .site-under-construction{ flex-direction:column; text-align:center; }
+  }
+
   /* ============ ABOUT ============ */
   .about-body{ display:flex; gap:2.2rem; align-items:flex-start; }
   .about-portrait{
@@ -823,7 +902,7 @@
   }
 
   .video-card {
-    display: none; /* Nasconde tutti i video di default */
+    display: none;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
@@ -833,7 +912,7 @@
   }
 
   .video-card.active {
-    display: block; /* Mostra solo il video attivo */
+    display: block;
     animation: fadeIn 0.3s ease;
   }
 
@@ -859,7 +938,6 @@
     color: var(--ink-soft);
   }
 
-  /* Frecce slider video uniche posizionate ai lati del player */
   .video-slider-nav {
     position: absolute;
     top: calc(50% - 20px);
@@ -1093,7 +1171,7 @@
     <!-- ============ HOME / HERO ============ -->
     <section id="home" class="card hero">
       <h1>Il mio archivio personale</h1>
-      <p>Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate.</p>
+      <p>Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.</p>
       <div class="tags">
         <span style="--tag-color:var(--sky)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1187,6 +1265,47 @@
         <button class="load-more" id="loadMoreBtn">Carica altro</button>
       </div>
 
+      <!-- ============ CANTIERE: sito sempre in aggiornamento ============ -->
+      <div class="site-under-construction">
+        <svg class="suc-illustration" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="72" width="120" height="4" fill="var(--line)"></rect>
+
+          <g>
+            <circle cx="30" cy="34" r="7" fill="#E7B78A"></circle>
+            <path d="M22 32c0-6 16-6 16 0" fill="var(--ochre)"></path>
+            <rect x="24" y="41" width="12" height="18" rx="3" fill="var(--ochre)"></rect>
+            <rect x="24" y="59" width="5" height="13" rx="2" fill="#2A2A24"></rect>
+            <rect x="31" y="59" width="5" height="13" rx="2" fill="#2A2A24"></rect>
+            <g class="suc-arm-hammer">
+              <rect x="34" y="42" width="16" height="5" rx="2.5" fill="#E7B78A"></rect>
+              <rect x="47" y="34" width="5" height="16" rx="1.5" fill="#8A5A34"></rect>
+              <rect x="43" y="30" width="13" height="7" rx="1.5" fill="#59564C"></rect>
+            </g>
+          </g>
+
+          <g>
+            <circle cx="82" cy="36" r="7" fill="#C98A5E"></circle>
+            <path d="M74 34c0-6 16-6 16 0" fill="var(--rose)"></path>
+            <rect x="76" y="43" width="12" height="18" rx="3" fill="var(--rose)"></rect>
+            <rect x="76" y="61" width="5" height="13" rx="2" fill="#2A2A24"></rect>
+            <rect x="83" y="61" width="5" height="13" rx="2" fill="#2A2A24"></rect>
+            <g class="suc-arm-shovel">
+              <rect x="64" y="46" width="16" height="5" rx="2.5" fill="#C98A5E"></rect>
+              <rect x="60" y="48" width="5" height="24" rx="1.5" fill="#8A5A34"></rect>
+              <path d="M54 70h14l-3 8h-8z" fill="#8C8C86"></path>
+            </g>
+          </g>
+
+          <circle class="suc-dust" cx="50" cy="40" r="2.4" fill="var(--ink-soft)"></circle>
+          <circle class="suc-dust" cx="58" cy="66" r="2" fill="var(--ink-soft)" style="animation-delay:0.4s"></circle>
+          <circle class="suc-dust" cx="44" cy="62" r="1.6" fill="var(--ink-soft)" style="animation-delay:0.8s"></circle>
+        </svg>
+        <div class="suc-text">
+          <strong>Sito in continua costruzione</strong>
+          Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.
+        </div>
+      </div>
+
     </section>
 
     <!-- ============ ABOUT ============ -->
@@ -1215,8 +1334,8 @@
         <div class="scribble-pad-head">Pensieri</div>
         <div class="scribble-content">
        <!-- ============  <p class="fresh">+ QUESTA RIGA DI CODICE SERVE PER AVERE IL GLAGGHINO DI "NUOVO"</p> ============ -->
-          <p>+ Il 14 agosto 2026 mi trovavo da solo a lavoro senza nulla da fare , e ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale</p>
-          <p>+ Il 15 agosto 2026 il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti  😱 .  </p>
+          <p>+ Il 14 agosto 2026 mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
+          <p>+ Il 15 agosto 2026 il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱. </p>
         </div>
       </div>
     </section>
@@ -1505,6 +1624,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
             YouTube
           </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/giancarlo-flores-23a90a268" target="_blank" rel="noopener" style="--tab-color:var(--linkedin)">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A5.98 5.98 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2" fill="var(--linkedin)" stroke="none"/></svg>
+            LinkedIn
+          </a>
         </div>
       </div>
     </section>
@@ -1546,16 +1669,9 @@
 
 <!-- ============ YOUTUBE MODAL ============ -->
 <div class="yt-modal" id="ytModal">
-  <div class="yt-modal-inner">
+  <div class="yt-modal-video">
     <div class="yt-modal-video">
       <iframe id="ytFrame" src="" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    <div class="yt-modal-foot">
-      <span id="ytModalTitle"></span>
-      <div style="display:flex; gap:1.2rem; align-items:center;">
-        <a id="ytModalLink" href="#" target="_blank" rel="noopener">Apri su YouTube ↗</a>
-        <button class="lightbox-close" id="ytModalClose">CHIUDI ✕</button>
-      </div>
     </div>
   </div>
 </div>
@@ -1596,14 +1712,11 @@
   let currentVideoIndex = 0;
 
   function showVideo(index) {
-    // Ferma la riproduzione di qualsiasi video stia suonando
     videoCards.forEach(card => {
       const vid = card.querySelector('video');
       if (vid) vid.pause();
       card.classList.remove('active');
     });
-
-    // Calcola l'indice ciclico
     currentVideoIndex = (index + videoCards.length) % videoCards.length;
     videoCards[currentVideoIndex].classList.add('active');
   }
@@ -1724,8 +1837,8 @@
     const id = item.dataset.ytId;
     const title = item.querySelector('.title');
     ytFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-    ytModalTitle.textContent = title ? title.textContent.trim() : '';
-    ytModalLink.href = item.dataset.ytUrl || '#';
+    if (ytModalTitle) ytModalTitle.textContent = title ? title.textContent.trim() : '';
+    if (ytModalLink) ytModalLink.href = item.dataset.ytUrl || '#';
     ytModal.classList.add('open');
     document.body.style.overflow = 'hidden';
   };
@@ -1746,7 +1859,7 @@
     });
   });
 
-  ytModalClose.addEventListener('click', closeYtModal);
+  if (ytModalClose) ytModalClose.addEventListener('click', closeYtModal);
   ytModal.addEventListener('click', (e) => { if (e.target === ytModal) closeYtModal(); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && ytModal.classList.contains('open')) closeYtModal();
