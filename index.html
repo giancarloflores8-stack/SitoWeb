@@ -1186,6 +1186,16 @@
     filter:invert(1) brightness(1.6);
     opacity:0.85;
   }
+  .footer-mark-link{
+    display:inline-block;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:transform 0.2s ease;
+  }
+  .footer-mark-link:hover{ transform:scale(1.06); }
+  .footer-mark-link:hover img{ opacity:1; }
+  .footer-mark-link:active{ transform:scale(0.9); }
+  .footer-mark-link:active img{ opacity:0.65; }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 860px){
@@ -1729,7 +1739,9 @@
     </section>
 
     <footer>
-      <img src="foto/titolo.png" alt="Archivio personale">
+      <a href="#home" data-tab="home" class="footer-mark-link" aria-label="Torna alla Home">
+        <img src="foto/titolo.png" alt="Archivio personale">
+      </a>
     </footer>
   </main>
 </div>
@@ -1844,6 +1856,7 @@
     videoPrevBtn.addEventListener('click', () => showVideo(currentVideoIndex - 1));
     videoNextBtn.addEventListener('click', () => showVideo(currentVideoIndex + 1));
   }
+  if (videoCards.length) showVideo(0);
 
   // ---- Lightbox Galleria ----
   const lightbox = document.getElementById('lightbox');
