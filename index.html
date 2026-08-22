@@ -681,6 +681,75 @@
     vertical-align:middle;
   }
 
+  /* ============ CAROSELLO NOTE SARDEGNA ============ */
+  .note-carousel {
+    position: relative;
+    max-width: 520px;
+    margin: 1.2rem auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .carousel-track {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-item {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-item.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .carousel-item img,
+  .carousel-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    border: none;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .carousel-nav:hover {
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .carousel-nav.prev { left: 10px; }
+  .carousel-nav.next { right: 10px; }
+
   /* ============ GALLERY ============ */
   .gallery-grid{
     display:grid;
@@ -1356,9 +1425,8 @@
 
       <!-- ============ FOGLIO A QUADRETTI: note random ============ -->
       <div class="scribble-pad">
-        <div class="scribble-pad-head">Pensieri</div>
+        <div class="scribble-pad-head">Pensieri (fai un click sulla data per leggere cosa è successo 😉)</div>
         <div class="scribble-content">
-<!-- ============  <p class="fresh">+ QUESTA RIGA DI CODICE SERVE PER AVERE IL GLAGGHINO DI "NUOVO"</p> ============ -->
           
           <details class="note-item">
             <summary class="note-date">+ Il 14 agosto 2026</summary>
@@ -1371,10 +1439,43 @@
           </details>
 
           <details class="note-item">
-            <summary class="note-date">+ Il 16 agosto 2026 <span class="fresh"></span></summary>
+            <summary class="note-date">+ Il 16 agosto 2026</summary>
             <p>Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni: i tag della home compaiono a cascata, le foto si sollevano al passaggio del mouse, i modali si aprono con un effetto morbido invece che di scatto. Nella galleria ho messo le frecce avanti/indietro per scorrere le foto senza chiudere ogni volta, e la stessa cosa per i video. I video di YouTube si aprono incorporati nella pagina, senza rimbalzare fuori dal sito. Ho aggiunto un "Foglio degli appunti" con sfondo a quadretti stile quaderno e font corsivo per queste note sparse. Il logo ora gira su se stesso in loop ed è anche un bottone che riporta alla home; ho dovuto sistemare più volte il fatto che in modalità scura restasse nero invece di diventare bianco. Ho aggiunto il mio profilo LinkedIn tra i contatti, e disegnato a mano (in SVG, niente gif prese in giro) due omini da cantiere con martello e badile animati sotto la timeline. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
           </details>
 
+          <details class="note-item">
+            <summary class="note-date">+ Dal 17 al 21 agosto 2026 <span class="fresh"></span></summary>
+            <p>Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.</p>
+            <p>Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci. Tra un tuffo e l'altro, non è mancata la classica pausa rigenerante a bordo a suon di Ichnusa gelata sul mare e tanto relax al sole.</p>
+            <p>Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
+            
+            <!-- CAROSELLO FOTO & VIDEO SARDEGNA -->
+            <div class="note-carousel" id="sardiniaCarousel">
+              <button class="carousel-nav prev" type="button" onclick="moveNoteCarousel(-1)">&#10094;</button>
+              <div class="carousel-track">
+                <div class="carousel-item active">
+                  <img src="foto/sar1.jpg" alt="Sardegna 1">
+                </div>
+                <div class="carousel-item">
+                  <img src="foto/sar2.jpg" alt="Sardegna 2">
+                </div>
+                <div class="carousel-item">
+                  <img src="foto/sar3.PNG" alt="Sardegna 3">
+                </div>
+                <div class="carousel-item">
+                  <video controls playsinline preload="metadata" src="video/vidsar1.mov"></video>
+                </div>
+                <div class="carousel-item">
+                  <video controls playsinline preload="metadata" src="video/vidsar2.MP4"></video>
+                </div>
+              </div>
+              <button class="carousel-nav next" type="button" onclick="moveNoteCarousel(1)">&#10095;</button>
+            </div>
+
+            <p>L'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
+          </details>
+
+        </div>
       </div>
     </section>
 
@@ -1739,6 +1840,22 @@
       localStorage.setItem('site-theme', 'dark');
     }
   });
+
+  // ---- Gestione Carosello Multimediale Note Sardegna ----
+  let noteCarouselIndex = 0;
+
+  function moveNoteCarousel(direction) {
+    const items = document.querySelectorAll('#sardiniaCarousel .carousel-item');
+    if (!items.length) return;
+
+    // Mette in pausa eventuali video in riproduzione quando si cambia scheda
+    const currentVideo = items[noteCarouselIndex].querySelector('video');
+    if (currentVideo) currentVideo.pause();
+
+    items[noteCarouselIndex].classList.remove('active');
+    noteCarouselIndex = (noteCarouselIndex + direction + items.length) % items.length;
+    items[noteCarouselIndex].classList.add('active');
+  }
 
   // ---- Timeline "Carica altro" ----
   const loadMoreBtn = document.getElementById('loadMoreBtn');
