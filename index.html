@@ -706,6 +706,7 @@
     display: none;
     width: 100%;
     height: 100%;
+    cursor: pointer;
   }
 
   .carousel-item.active {
@@ -1308,7 +1309,7 @@
         </span>
       </div>
 
-      <!-- ============ TIMELINE INTEGRATA CORRETTAMENTE DENTRO LA HOME ============ -->
+      <!-- ============ TIMELINE INTEGRATA IN HOME ============ -->
       <div class="home-timeline-box">
         <div class="home-timeline-header">
           <h2 class="home-timeline-title">Attività recente</h2>
@@ -1344,7 +1345,6 @@
             </div>
           </div>
 
-          <!-- Eventi extra caricati con "Carica altro" -->
           <div class="entry extra-entry" style="display:none;">
             <div class="dot" style="background: var(--dot-note);"></div>
             <div class="entry-body">
@@ -1359,7 +1359,7 @@
         <button class="load-more" id="loadMoreBtn">Carica altro</button>
       </div>
 
-      <!-- ============ CANTIERE: sito sempre in aggiornamento ============ -->
+      <!-- ============ CANTIERE ============ -->
       <div class="site-under-construction">
         <svg class="suc-illustration" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
           <rect x="0" y="72" width="120" height="4" fill="var(--line)"></rect>
@@ -1449,18 +1449,24 @@
             <p>Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci. Tra un tuffo e l'altro, non è mancata la classica pausa rigenerante a bordo a suon di Ichnusa gelata sul mare e tanto relax al sole.</p>
             <p>Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
             
-            <!-- CAROSELLO FOTO & VIDEO SARDEGNA -->
+            <!-- CAROSELLO FOTO & VIDEO SARDEGNA CON INGRANDIMENTO AL CLICK -->
             <div class="note-carousel" id="sardiniaCarousel">
               <button class="carousel-nav prev" type="button" onclick="moveNoteCarousel(-1)">&#10094;</button>
               <div class="carousel-track">
-                <div class="carousel-item active">
-                  <img src="foto/sar1.jpg" alt="Dek, Fava ed Io ">
+                <div class="carousel-item active" onclick="openMediaZoom(this)">
+                  <img src="foto/sar1.jpg" alt="Dek, Fava ed Io">
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item" onclick="openMediaZoom(this)">
                   <img src="foto/sar2.jpg" alt="ichnusa con il mare piu bello d'italia">
                 </div>
+                <div class="carousel-item" onclick="openMediaZoom(this)">
+                  <img src="foto/sar3.png" alt="Tramonto Alghero">
+                </div>
                 <div class="carousel-item">
-                  <img src="foto/sar3.PNG" alt="Tramonto nella isla del encanto🏝️">
+                  <video controls playsinline preload="metadata" src="video/vidsar1.mov"></video>
+                </div>
+                <div class="carousel-item">
+                  <video controls playsinline preload="metadata" src="video/vidsar2.mp4"></video>
                 </div>
               </div>
               <button class="carousel-nav next" type="button" onclick="moveNoteCarousel(1)">&#10095;</button>
@@ -1482,33 +1488,15 @@
       <div class="card-body">
         <div class="gallery-grid" id="galleryGrid">
 
-          <!-- Foto 01 -->
-          <div class="photo-card"
-               tabindex="0"
-               role="button"
-               aria-label="Ingrandisci Foto 01"
-               data-caption="Santorini walking on"
-               data-fullsrc="foto/GAL1.JPEG">
+          <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 01" data-caption="Santorini walking on" data-fullsrc="foto/GAL1.JPEG">
             <img src="foto/GAL1.JPEG" alt="Foto 01">
           </div>
 
-          <!-- Foto 02 -->
-          <div class="photo-card"
-               tabindex="0"
-               role="button"
-               aria-label="Ingrandisci Foto 02"
-               data-caption="Like Tyler the Creator"
-               data-fullsrc="foto/GAL2.JPEG">
+          <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 02" data-caption="Like Tyler the Creator" data-fullsrc="foto/GAL2.JPEG">
             <img src="foto/GAL2.JPEG" alt="Foto 02">
           </div>
 
-          <!-- Foto 03 -->
-          <div class="photo-card"
-               tabindex="0"
-               role="button"
-               aria-label="Ingrandisci Foto 03"
-               data-caption="Insta 360 X4"
-               data-fullsrc="foto/GAL3.JPEG">
+          <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 03" data-caption="Insta 360 X4" data-fullsrc="foto/GAL3.JPEG">
             <img src="foto/GAL3.JPEG" alt="Foto 03">
           </div>
 
@@ -1517,7 +1505,7 @@
       </div>
     </section>
 
-    <!-- ============ VIDEO (SLIDER UNICO MOSTRATO UNO ALLA VOLTA) ============ -->
+    <!-- ============ VIDEO SLIDER ============ -->
     <section id="video" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--plum)">CLIP</span>
@@ -1526,7 +1514,6 @@
       <div class="card-body">
         <div class="video-slider-container">
 
-          <!-- Frecce di navigazione uniche -->
           <button class="video-slider-nav prev" id="videoPrevBtn" aria-label="Video precedente">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
@@ -1534,7 +1521,6 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
 
-          <!-- Video 01 (Attivo di default) -->
           <div class="video-card active">
             <video class="video-frame" controls playsinline preload="metadata" src="video/VID1.MP4"></video>
             <div class="video-caption">
@@ -1543,7 +1529,6 @@
             </div>
           </div>
 
-          <!-- Video 02 -->
           <div class="video-card">
             <video class="video-frame" controls playsinline preload="metadata" src="video/VID2.MOV"></video>
             <div class="video-caption">
@@ -1552,7 +1537,6 @@
             </div>
           </div>
 
-          <!-- Video 03 -->
           <div class="video-card">
             <video class="video-frame" controls playsinline preload="metadata" src="video/VID3.MOV"></video>
             <div class="video-caption">
@@ -1578,35 +1562,30 @@
       <div class="card-body">
         <div class="media-grid">
 
-          <!-- Video 1 -->
           <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Chuwi: Tiny Desk Concert" data-yt-id="r3ZPhIZ6_bM" data-yt-url="https://www.youtube.com/watch?v=r3ZPhIZ6_bM">
             <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Miniatura video YouTube 1" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Chuwi: Tiny Desk Concert🎵</div>
             <div class="sub">Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.</div>
           </div>
 
-          <!-- Video 2 -->
           <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Victony - SLICK" data-yt-id="Nr_Km2sqsCY" data-yt-url="https://www.youtube.com/watch?v=Nr_Km2sqsCY">
             <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Miniatura video YouTube 2" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Victony - SLICK (Official Visualizer)🎵</div>
             <div class="sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
           </div>
 
-          <!-- Video 3 -->
           <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro, Dongo - SANKA" data-yt-id="m-FggUm8G0g" data-yt-url="https://www.youtube.com/watch?v=m-FggUm8G0g">
             <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Miniatura video YouTube 3" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵</div>
             <div class="sub">Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.</div>
           </div>
 
-          <!-- Video 4 -->
           <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda BAD BUNNY - KLOuFRENS" data-yt-id="3af9KM3Eq-E" data-yt-url="https://www.youtube.com/watch?v=3af9KM3Eq-E">
             <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="Miniatura video YouTube 4" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵</div>
             <div class="sub">Lui l'ha scritta, io l'ho vissuta 🙁 .</div>
           </div>
 
-        <!-- Video 5 -->
           <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Bad Bunny - Si Estuviésemos Juntos" data-yt-id="EB7G3fUUaeA" data-yt-url="https://www.youtube.com/watch?v=EB7G3fUUaeA">
             <img src="https://img.youtube.com/vi/EB7G3fUUaeA/hqdefault.jpg" alt="Miniatura video YouTube 5" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Bad Bunny - Si Estuviésemos Juntos🎵</div>
@@ -1632,42 +1611,36 @@
       <div class="card-body">
         <div class="media-grid">
 
-          <!-- Film 1 -->
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scarface">
             <img src="foto/FILM1.jpg" alt="Locandina Scarface">
             <div class="title">Scarface</div>
             <div class="sub">Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.</div>
           </div>
 
-          <!-- Film 2 -->
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Goodfellas">
             <img src="foto/fiilm2.jpg" alt="Locandina Goodfellas">
             <div class="title">Goodfellas</div>
             <div class="sub">(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
           </div>
 
-          <!-- Film 3 -->
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek">
             <img src="foto/film3.jpg" alt="Locandina Shrek">
             <div class="title">Shrek</div>
             <div class="sub">Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.</div>
           </div>
 
-          <!-- Film 4 -->
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pluribus">
             <img src="foto/film4.jpg" alt="Locandina Pluribus">
             <div class="title">Pluribus</div>
             <div class="sub">È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.</div>
           </div>
 
-          <!-- Film 5 -->
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Il Signore degli Anelli">
             <img src="foto/film5.jpg" alt="Locandina SigAnelli">
             <div class="title">Il Signore degli Anelli</div>
             <div class="sub">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
           </div>
 
-          <!-- Film 6 -->
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scrubs">
             <img src="foto/film6.jpg" alt="Locandina Scrubus">
             <div class="title">Scrubs</div>
@@ -1695,21 +1668,18 @@
       <div class="card-body">
         <div class="media-grid">
 
-          <!-- Gioco 1 -->
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli The last of us">
             <img src="foto/127761.jpg" alt="Videogioco 1">
             <div class="title">The last of us</div>
             <div class="sub">PS4 · Azione-avventura</div>
           </div>
 
-          <!-- Gioco 2 -->
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pokémon Platino">
             <img src="foto/51GiGTjeigL._AC_UF894,1000_QL80_.jpg" alt="Videogioco 2">
             <div class="title">Pokémon Platino</div>
             <div class="sub">Nintendo DS · RPG</div>
           </div>
 
-          <!-- Gioco 3 -->
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Yu-Gi-Oh">
             <img src="foto/MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg" alt="Videogioco 3">
             <div class="title">Yu-Gi-Oh</div>
@@ -1720,7 +1690,7 @@
       </div>
     </section>
 
-    <!-- ============ NOTES / BLOG ============ -->
+    <!-- ============ NOTES ============ -->
     <section id="notes" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--ochre)">NOTE</span>
@@ -1810,14 +1780,12 @@
 <!-- ============ YOUTUBE MODAL ============ -->
 <div class="yt-modal" id="ytModal">
   <div class="yt-modal-video">
-    <div class="yt-modal-video">
-      <iframe id="ytFrame" src="" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+    <iframe id="ytFrame" src="" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 </div>
 
 <script>
-  // ---- Tema chiaro/scuro con memoria della preferenza ----
+  // ---- Tema chiaro/scuro ----
   const themeToggle = document.getElementById('themeToggle');
   const htmlEl = document.documentElement;
   const savedTheme = localStorage.getItem('site-theme');
@@ -1835,20 +1803,29 @@
     }
   });
 
-  // ---- Gestione Carosello Multimediale Note Sardegna ----
+  // ---- Gestione Carosello Note Sardegna ----
   let noteCarouselIndex = 0;
 
   function moveNoteCarousel(direction) {
     const items = document.querySelectorAll('#sardiniaCarousel .carousel-item');
     if (!items.length) return;
 
-    // Mette in pausa eventuali video in riproduzione quando si cambia scheda
     const currentVideo = items[noteCarouselIndex].querySelector('video');
     if (currentVideo) currentVideo.pause();
 
     items[noteCarouselIndex].classList.remove('active');
     noteCarouselIndex = (noteCarouselIndex + direction + items.length) % items.length;
     items[noteCarouselIndex].classList.add('active');
+  }
+
+  // Ingrandimento al click per le foto del carosello
+  function openMediaZoom(el) {
+    const img = el.querySelector('img');
+    if (!img) return;
+    lightboxImg.src = img.src;
+    lightboxCap.textContent = img.alt || 'Sardegna';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
   // ---- Timeline "Carica altro" ----
@@ -1861,7 +1838,7 @@
     });
   }
 
-  // ---- Slider Video (Un video alla volta con nav) ----
+  // ---- Slider Video ----
   const videoCards = Array.from(document.querySelectorAll('#video .video-card'));
   const videoPrevBtn = document.getElementById('videoPrevBtn');
   const videoNextBtn = document.getElementById('videoNextBtn');
@@ -1882,7 +1859,7 @@
     videoNextBtn.addEventListener('click', () => showVideo(currentVideoIndex + 1));
   }
 
-  // ---- Lightbox con navigazione ----
+  // ---- Lightbox Galleria ----
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxCap = document.getElementById('lightboxCap');
@@ -1942,7 +1919,7 @@
     if (e.key === 'ArrowLeft') showPrevPhoto();
   });
 
-  // ---- Media modal per Film & Serie e Videogiochi ----
+  // ---- Media Modal ----
   const mediaModal = document.getElementById('mediaModal');
   const mediaModalImg = document.getElementById('mediaModalImg');
   const mediaModalTitle = document.getElementById('mediaModalTitle');
@@ -1982,19 +1959,13 @@
     if (e.key === 'Escape' && mediaModal.classList.contains('open')) closeMediaModal();
   });
 
-  // ---- Modale YouTube ----
+  // ---- YouTube Modal ----
   const ytModal = document.getElementById('ytModal');
   const ytFrame = document.getElementById('ytFrame');
-  const ytModalTitle = document.getElementById('ytModalTitle');
-  const ytModalLink = document.getElementById('ytModalLink');
-  const ytModalClose = document.getElementById('ytModalClose');
 
   const openYtModal = (item) => {
     const id = item.dataset.ytId;
-    const title = item.querySelector('.title');
     ytFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-    if (ytModalTitle) ytModalTitle.textContent = title ? title.textContent.trim() : '';
-    if (ytModalLink) ytModalLink.href = item.dataset.ytUrl || '#';
     ytModal.classList.add('open');
     document.body.style.overflow = 'hidden';
   };
@@ -2015,7 +1986,6 @@
     });
   });
 
-  if (ytModalClose) ytModalClose.addEventListener('click', closeYtModal);
   ytModal.addEventListener('click', (e) => { if (e.target === ytModal) closeYtModal(); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && ytModal.classList.contains('open')) closeYtModal();
