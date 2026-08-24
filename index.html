@@ -647,6 +647,32 @@
     line-height:1.65;
     color:var(--ink);
   }
+
+  /* ============ STILE CARTELLA MESE ============ */
+  .month-folder {
+    margin-bottom: 1.2rem;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+    padding: 0.5rem 0.8rem;
+  }
+  .month-header {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    padding: 0.4rem 0.2rem;
+    transition: opacity 0.2s ease;
+  }
+  .month-header:hover {
+    opacity: 0.8;
+  }
+  .month-body {
+    padding-top: 0.8rem;
+    padding-left: 0.8rem;
+  }
   
   .scribble-content .note-item {
     margin-bottom: 0.8rem;
@@ -1433,57 +1459,65 @@
       <div class="scribble-pad">
         <div class="scribble-pad-head" data-i18n="scribble_head">Pensieri (fai un click sulla data per leggere cosa è successo 😉)</div>
         <div class="scribble-content">
-          <details class="note-item">
-            <summary class="note-date" data-i18n="note_14aug_date">+ 14 agosto 2026</summary>
-            <p data-i18n="note_14aug_text">Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
-          </details>
-
-          <details class="note-item">
-            <summary class="note-date" data-i18n="note_15aug_date">+ 15 agosto 2026</summary>
-            <p data-i18n="note_15aug_text">Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.</p>
-          </details>
-
-          <details class="note-item">
-            <summary class="note-date" data-i18n="note_16aug_date">+ 16 agosto 2026</summary>
-            <p data-i18n="note_16aug_text">Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
-          </details>
-
-          <details class="note-item">
-            <summary class="note-date" data-i18n="note_sardinia_date">+ Dal 17 al 21 agosto 2026</summary>
-            <p data-i18n="note_sardinia_p1">Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.</p>
-            <p data-i18n="note_sardinia_p2">Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>
-            <p data-i18n="note_sardinia_p3">Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
+          
+          <!-- CONTENITORE MESE: AGOSTO 2026 -->
+          <details class="month-folder" open>
+            <summary class="month-header" data-i18n="month_aug2026">📁 Agosto 2026</summary>
             
-            <!-- CAROSELLO FOTO SARDEGNA -->
-            <div class="note-carousel" id="sardiniaCarousel">
-              <button class="carousel-nav prev" type="button" onclick="moveNoteCarousel(-1)">&#10094;</button>
-              <div class="carousel-track">
-                <div class="carousel-item active" onclick="openMediaZoom(this)">
-                  <img src="foto/sar1.jpg" alt="Dek, Fava ed Io">
-                </div>
-                <div class="carousel-item" onclick="openMediaZoom(this)">
-                  <img src="foto/sar2.jpg" alt="ichnusa con il mare piu bello d'italia">
-                </div>
-                <div class="carousel-item" onclick="openMediaZoom(this)">
-                  <img src="foto/sar3.jpg" alt="Tramonto Alghero">
-                </div>
-              </div>
-              <button class="carousel-nav next" type="button" onclick="moveNoteCarousel(1)">&#10095;</button>
-            </div>
+            <div class="month-body">
+              <details class="note-item">
+                <summary class="note-date" data-i18n="note_14aug_date">+ 14 agosto 2026</summary>
+                <p data-i18n="note_14aug_text">Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
+              </details>
 
-            <p data-i18n="note_sardinia_p4">L'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
+              <details class="note-item">
+                <summary class="note-date" data-i18n="note_15aug_date">+ 15 agosto 2026</summary>
+                <p data-i18n="note_15aug_text">Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.</p>
+              </details>
+
+              <details class="note-item">
+                <summary class="note-date" data-i18n="note_16aug_date">+ 16 agosto 2026</summary>
+                <p data-i18n="note_16aug_text">Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
+              </details>
+
+              <details class="note-item">
+                <summary class="note-date" data-i18n="note_sardinia_date">+ Dal 17 al 21 agosto 2026</summary>
+                <p data-i18n="note_sardinia_p1">Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.</p>
+                <p data-i18n="note_sardinia_p2">Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>
+                <p data-i18n="note_sardinia_p3">Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
+                
+                <!-- CAROSELLO FOTO SARDEGNA -->
+                <div class="note-carousel" id="sardiniaCarousel">
+                  <button class="carousel-nav prev" type="button" onclick="moveNoteCarousel(-1)">&#10094;</button>
+                  <div class="carousel-track">
+                    <div class="carousel-item active" onclick="openMediaZoom(this)">
+                      <img src="foto/sar1.jpg" alt="Dek, Fava ed Io">
+                    </div>
+                    <div class="carousel-item" onclick="openMediaZoom(this)">
+                      <img src="foto/sar2.jpg" alt="ichnusa con il mare piu bello d'italia">
+                    </div>
+                    <div class="carousel-item" onclick="openMediaZoom(this)">
+                      <img src="foto/sar3.jpg" alt="Tramonto Alghero">
+                    </div>
+                  </div>
+                  <button class="carousel-nav next" type="button" onclick="moveNoteCarousel(1)">&#10095;</button>
+                </div>
+
+                <p data-i18n="note_sardinia_p4">L'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
+              </details>
+              
+              <details class="note-item">
+                <summary class="note-date" data-i18n="note_23aug_date">+ 23 agosto 2026</summary>
+                <p data-i18n="note_23aug_text">Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.</p>
+              </details>
+              
+              <details class="note-item">
+                <summary class="note-date" data-i18n="note_24aug_date">+ 24 agosto 2026 <span class="fresh"></span></summary>
+                <p data-i18n="note_24aug_text">Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .</p>
+              </details>
+            </div>
           </details>
-          
-          <details class="note-item">
-            <summary class="note-date" data-i18n="note_23aug_date">+ 23 agosto 2026</summary>
-            <p data-i18n="note_23aug_text">Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.</p>
-          </details>
-          
-           <details class="note-item">
-            <summary class="note-date" data-i18n="note_24aug_date">+ 24 agosto 2026 <span class="fresh"></span></summary>
-             <p data-i18n="note_24aug_text">Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .</p>
-          </details>
-          
+
         </div>
       </div>
     </section>
@@ -1837,6 +1871,7 @@
       about_status_label: "Stato",
       about_status_val: "In costante aggiornamento",
       scribble_head: "Pensieri (fai un click sulla data per leggere cosa è successo 😉)",
+      month_aug2026: "📁 Agosto 2026",
       note_14aug_date: "+ 14 agosto 2026",
       note_14aug_text: "Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.",
       note_15aug_date: "+ 15 agosto 2026",
@@ -1925,6 +1960,7 @@
       about_status_label: "State",
       about_status_val: "Constantly updated",
       scribble_head: "Thoughts (click on the date to read what happened 😉)",
+      month_aug2026: "📁 August 2026",
       note_14aug_date: "+ 14 August 2026",
       note_14aug_text: "I was alone at work, and I had already finished all my tasks, so I decided to create and put my personal website online, since in high school I learned to use HTML, JAVA and CSS, I decided to give it a try since I never had time for a personal project.",
       note_15aug_date: "+ 15 August 2026",
