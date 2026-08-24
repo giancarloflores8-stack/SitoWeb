@@ -719,6 +719,10 @@
     margin-left:0.5rem;
     vertical-align:middle;
   }
+  /* Il badge "nuovo" deve tradursi in "new" quando il sito è in inglese */
+  html[data-lang="en"] .scribble-content .fresh::after{
+    content:'new';
+  }
 
   /* ============ CAROSELLO NOTE SARDEGNA ============ */
   .note-carousel {
@@ -1650,37 +1654,37 @@
       </div>
       <div class="card-body">
         <div class="media-grid">
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scarface" data-i18n-key="film_scarface">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scarface">
             <img src="foto/FILM1.jpg" alt="Locandina Scarface">
             <div class="title">Scarface</div>
             <div class="sub" data-i18n="film_scarface">Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.</div>
           </div>
 
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Goodfellas" data-i18n-key="film_goodfellas">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Goodfellas">
             <img src="foto/fiilm2.jpg" alt="Locandina Goodfellas">
             <div class="title">Goodfellas</div>
             <div class="sub" data-i18n="film_goodfellas">(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
           </div>
 
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek" data-i18n-key="film_shrek">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek">
             <img src="foto/film3.jpg" alt="Locandina Shrek">
             <div class="title">Shrek</div>
             <div class="sub" data-i18n="film_shrek">Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.</div>
           </div>
 
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pluribus" data-i18n-key="film_pluribus">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pluribus">
             <img src="foto/film4.jpg" alt="Locandina Pluribus">
             <div class="title">Pluribus</div>
             <div class="sub" data-i18n="film_pluribus">È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.</div>
           </div>
 
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Il Signore degli Anelli" data-i18n-key="film_lotr">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Il Signore degli Anelli">
             <img src="foto/film5.jpg" alt="Locandina SigAnelli">
             <div class="title">Il Signore degli Anelli</div>
             <div class="sub" data-i18n="film_lotr">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
           </div>
 
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scrubs" data-i18n-key="film_scrubs">
+          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scrubs">
             <img src="foto/film6.jpg" alt="Locandina Scrubus">
             <div class="title">Scrubs</div>
             <div class="sub" data-i18n="film_scrubs">È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
@@ -1845,7 +1849,7 @@
       nav_contact: "Contatti",
       nav_film_full: "Film & Serie",
       nav_games_full: "Videogiochi",
-      drawer_foot: "ARCHIVIO PERSONALE",
+      drawer_foot: "ARCHIVIO PERSONALE<br>EST. 2026",
       hero_title: "Il mio archivio personale",
       hero_desc: "Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.",
       tag_photo: "Fotografia",
@@ -1866,7 +1870,7 @@
       load_more: "Carica altro",
       suc_title: "Sito in continua costruzione",
       suc_desc: "Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.",
-      about_title: "Chi sono",
+      about_title: "Chi sono<small>Bio</small>",
       about_intro: "Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.",
       about_base_label: "Base",
       about_age_label: "Età",
@@ -1890,12 +1894,12 @@
       note_sardinia_p4: "L'unico vero momento \"avventuroso\" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.",
       note_23aug_date: "+ 23 agosto 2026",
       note_23aug_text: "Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.",
-      note_24aug_date: "+ 24 agosto 2026",
+      note_24aug_date: "+ 24 agosto 2026 <span class=\"fresh\"></span>",
       note_24aug_text: "Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .",
-      gallery_title: "Galleria",
+      gallery_title: "Galleria<small>Foto</small>",
       gallery_note: "Clicca o premi Invio su una foto per ingrandirla.",
-      video_title: "Video",
-      yt_title: "YouTube",
+      video_title: "Video<small>Clip &amp; riprese</small>",
+      yt_title: "YouTube<small>Canali &amp; Contenuti</small>",
       yt_1_sub: "Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.",
       yt_2_sub: "Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.",
       yt_3_sub: "Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.",
@@ -1903,30 +1907,30 @@
       yt_5_sub: "Stranamente mi piacciono le canzoni tristi di Bad 🙁.",
       yt_6_sub: "Piacevole scoperta in un 23 agosto di riposo.",
       yt_7_sub: "Ryan Castro gasa mi dispiace non si discute.",
-      film_title: "Film & Serie",
+      film_title: "Film &amp; Serie<small>I miei preferiti</small>",
       film_scarface: "Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.",
       film_goodfellas: "(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.",
       film_shrek: "Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.",
       film_pluribus: "È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.",
       film_lotr: "Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.",
       film_scrubs: "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John \"J.D.\" Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
-      games_title: "Videogiochi",
+      games_title: "Videogiochi<small>Gaming &amp; Titoli Preferiti</small>",
       game_tlou: "PS4 · Azione-avventura",
       game_yugioh: "Giochi di carte collezionabili",
-      notes_title: "Note",
+      notes_title: "Note<small>Sezione memo</small>",
       memo_1_title: "Ho iniziato questo archivio",
       memo_1_text: "Per adesso nulla da dichiarare poi si vedrà",
       memo_2_title: "Prossima nota",
       memo_2_text: "Per le prossime news dovete attendere",
-      contact_title: "Contatti",
+      contact_title: "Contatti<small>Dove trovarmi</small>",
       cv_it: "Scarica CV (IT)",
       cv_en: "CV (EN version)",
-      modal_close: "CHIUDI ✕",
+      modal_close: "CHIUDI ✕"
     },
     en: {
       nav_home: "Home",
       nav_about: "Who I am",
-      nav_gallery: "Galleria",
+      nav_gallery: "Gallery",
       nav_video: "Video",
       nav_yt: "YouTube",
       nav_film: "Movies",
@@ -1935,83 +1939,83 @@
       nav_contact: "Contacts",
       nav_film_full: "Films & Series",
       nav_games_full: "Video games",
-      drawer_foot: "PERSONAL ARCHIVE",
-      hero_title: "Il mio archivio personale",
-      hero_desc: "A space where I collect photos, videos, thoughts and everything that interests me. No fixed themes: only things worth keeping and sharing.",
-      tag_photo: "Fotografia",
+      drawer_foot: "PERSONAL ARCHIVE<br>EST. 2026",
+      hero_title: "My personal archive",
+      hero_desc: "A space where I collect photos, videos, thoughts and everything that interests me. No fixed theme: only things worth keeping and sharing.",
+      tag_photo: "Photography",
       tag_video: "Video",
       tag_music: "Music",
       tag_cinema: "Cinema",
       tag_gaming: "Gaming",
       timeline_title: "Recent activity",
-      log_14aug: "Idea and Creation of the WEB site",
+      log_14aug: "Idea and creation of the WEB site",
       tag_office: "Office💼",
-      log_15aug: "Implementation of the website both in content and at code level",
+      log_15aug: "Implementation of the website, both content and code",
       tag_home: "Home 🏠",
-      log_16aug: "New songs on YouTube Chuwi Tiny Desk & Bad Bunny",
-      log_17aug: "I left for the Sardinian summer holidays, all the info in the Thoughts section",
-      tag_thoughts: "Pensieri",
+      log_16aug: "New songs on YouTube: Chuwi Tiny Desk & Bad Bunny",
+      log_17aug: "I left for my summer holidays in Sardinia, all the details in the Thoughts section",
+      tag_thoughts: "Thoughts",
       log_23aug: "New songs on YouTube + scattered thoughts of the day",
       tag_relax: "Home🏠 & RELAX",
-      load_more: "Carica altro",
+      load_more: "Load more",
       suc_title: "Site under continuous construction",
       suc_desc: "I update this place in small steps, a bit like these two — watch out for the work in progress.",
-      about_title: "Who I am",
-      about_intro: "Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.",
-      about_base_label: "Basic",
-      about_age_label: "Età",
-      about_age_val: "Classe 99",
+      about_title: "Who I am<small>Bio</small>",
+      about_intro: "Hi, here I talk about who I am, what I do and what I'm passionate about.",
+      about_base_label: "Based in",
+      about_age_label: "Age",
+      about_age_val: "Class of '99",
       about_interests_label: "Interests",
       about_interests_val: "Photo · Video · Video games · Sports · Writing",
-      about_status_label: "State",
+      about_status_label: "Status",
       about_status_val: "Constantly updated",
       scribble_head: "Thoughts (click on the date to read what happened 😉)",
-      month_aug2026: "📁 Agosto 2026",
-      note_14aug_date: "+ 14 agosto 2026",
-      note_14aug_text: "I was alone at work, and I had already finished all my tasks, so I decided to create and put my personal website online, since in high school I learned to use HTML, JAVA and CSS, I decided to give it a try since I never had time for a personal project.",
-      note_15aug_date: "+ 15 August 2026",
-      note_15aug_text: "On August 15th since I didn't organize anything with anyone, I decided to work on the site, after all I'm on holiday I can do what I want 😄, Gemini and Claude gave me a big hand, it's difficult to find bugs in almost 1800 lines of code, and yes it's a very static site, I can't imagine what sites are like that have to manage users, emails and payments 😱.",
-      note_16aug_date: "+ 16 August 2026",
-      note_16aug_text: "Looking back, I realize how far I've come since I started: I started from a very simple tabbed site (Home, About me, Gallery, Video, Contacts) and little by little I transformed it into something more mine. I added the YouTube, Films & Series and Videogames sections, with a modal that opens by clicking on it and shows large cover + description. I put a light/dark theme with a sun/moon button at the top right, which remembers the choice even if I close the site. I redesigned the edges and shadows of the cards to give them more depth, and added small animations. The site is finally starting to look really neat, and I'm enjoying keeping it updated.",
-      note_sardinia_date: "+ Dal 17 al 21 agosto 2026",
-      note_sardinia_p1: "A week in Alghero which could be summed up as: crystal clear sea, boat excursions, aperitifs at sunset and a final Odyssey at the airport.",
-      note_sardinia_p2: "Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.",
-      note_sardinia_p3: "Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.",
-      note_sardinia_p4: "The only truly \"adventurous\" (and decidedly less pleasant) moment came at the very end: when it was time to return home, the return flight decided to test our patience after being 12 hours late. A marathon at the airport that put our relaxation to the test, but which failed to undermine the memory of the fantastic days spent on a boat with friends.",
-      note_23aug_date: "+ 23 agosto 2026",
-      note_23aug_text: "Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.",
-      note_24aug_date: "+ August 24, 2026",
-      note_24aug_text: "I return to the office, with a somewhat traumatic awakening, we return to the routine, breakfast, preparation of pasta for lunch, we wash ourselves and perfume ourselves and then off we go with my Kia special which... then you know please don't find traffic and we arrive in the magical office. The day has just begun, let's hope it ends in the best way, I'll keep you updated😉 .",
-      gallery_title: "Gallery",
-      gallery_note: "Clicca o premi Invio su una foto per ingrandirla.",
-      video_title: "Video",
-      yt_title: "YouTube",
-      yt_1_sub: "The song that opens Chuwi's performance for the Tiny Desk is lively, allusive and full of questions. Between intertwining voices, keyboards and percussion, the Puerto Rican band delicately recounts a life lived to the full.",
-      yt_2_sub: "Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.",
-      yt_3_sub: "The video clip is set in different summer and tropical locations, including a beach with Jeep off-road vehicles, a boat/yacht and urban scenarios with quads and motorbikes.",
-      yt_4_sub: "Lui l'ha scritta, io l'ho vissuta 🙁 .",
-      yt_5_sub: "Strangely enough I like the sad songs on Bad 🙁.",
-      yt_6_sub: "Pleasant discovery on a restful August 23rd.",
-      yt_7_sub: "Ryan Castro gasa sorry no discussion.",
-      film_title: "Films & Series",
-      film_scarface: "Brian De Palma in 1983 and starring Al Pacino, Scarface tells the story of the rise to power and fall of Cuban refugee Tony Montana. Arriving in Miami in 1980, Tony becomes the king of drug trafficking, but is destroyed by his own arrogance, paranoia and addiction.",
-      film_goodfellas: "(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.",
-      film_shrek: "Shrek finds his quiet solitude in the swamp ruined when the evil Lord Farquaad exiles all the fairytale creatures there. To get his land back, Shrek agrees to save Princess Fiona from a dragon, discovering at the end of the journey the girl's love and true nature.",
-      film_pluribus: "È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.",
-      film_lotr: "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring, throwing it into the fires of Mount Doom in Mordor to save Middle-earth from the dark lord Sauron.",
-      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the daily and surreal life of young doctor John \"J.D.\" Dorian inside Sacred Heart Hospital. Between daydreams, human dramas and comedy, J.D. learns about work and personal growth together with his colleagues.",
-      games_title: "Video games",
-      game_tlou: "PS4 · Azione-avventura",
-      game_yugioh: "Collectible card games",
-      notes_title: "Notes",
+      month_aug2026: "📁 August 2026",
+      note_14aug_date: "+ August 14, 2026",
+      note_14aug_text: "I was alone at work, and I had already finished all my tasks, so I decided to create and put my personal website online. Since I learned HTML, JAVA and CSS in high school, I decided to give it a try, as I never had time for a personal project.",
+      note_15aug_date: "+ August 15, 2026",
+      note_15aug_text: "On Ferragosto (Italian mid-August holiday), since I hadn't organized anything with anyone, I decided to work on the site — after all I'm on holiday, I can do what I want 😄. Gemini and Claude gave me a big hand, it's tough finding bugs in almost 1800 lines of code, and this is a very static site — I can't imagine what sites that have to manage users, emails and payments must be like 😱.",
+      note_16aug_date: "+ August 16, 2026",
+      note_16aug_text: "Looking back, I realize how far I've come since I started: I began with a very simple tabbed site (Home, About me, Gallery, Video, Contacts) and little by little I turned it into something more mine. I added the YouTube, Films & Series and Video games sections, with a modal that opens on click and shows a large cover + description. I added a light/dark theme with a sun/moon button top right, which remembers the choice even after closing the site. I redesigned the borders and shadows of the cards for more depth, and added small animations. In the end the site is really starting to look like something curated, and I'm enjoying keeping it updated.",
+      note_sardinia_date: "+ From August 17 to 21, 2026",
+      note_sardinia_p1: "A week in Alghero that could be summed up as: crystal clear sea, boat trips, sunset aperitifs and a final Odyssey at the airport.",
+      note_sardinia_p2: "The trip started under the best auspices: the outbound flight went perfectly, smooth and right on time. Once we landed, we dove straight into Sardinia's relaxed pace. We explored the coast from a different perspective on an unforgettable boat trip, stopping under the towering limestone cliffs of the headland to go snorkeling in clear coves alongside the fish.",
+      note_sardinia_p3: "The days were split between adventures in the water, freediving and evening walks through Alghero's old town, right up until watching the golden sunset on the beach with the headland in the background.",
+      note_sardinia_p4: "The only truly \"adventurous\" (and decidedly less pleasant) moment came right at the end: when it was time to head home, the return flight decided to test our patience with a 12-hour delay. An airport marathon that pushed our relaxation to the limit, but that failed to overshadow the memory of the fantastic days spent on a boat with friends.",
+      note_23aug_date: "+ August 23, 2026",
+      note_23aug_text: "Last day of holidays — rest and relaxation are a must, and I'll spend it living a slow, indulgent life the way I like, without leaving my passions behind.",
+      note_24aug_date: "+ August 24, 2026 <span class=\"fresh\"></span>",
+      note_24aug_text: "Back to the office, with a somewhat rough wake-up. Back to the routine: breakfast, making pasta for lunch, a shower, some cologne, and then off I go in my trusty Kia... and, you know, fingers crossed for no traffic so I can make it to the magical office. The day has just begun, hopefully it ends well — I'll keep you posted 😉.",
+      gallery_title: "Gallery<small>Photos</small>",
+      gallery_note: "Click or press Enter on a photo to enlarge it.",
+      video_title: "Video<small>Clips &amp; footage</small>",
+      yt_title: "YouTube<small>Channels &amp; Content</small>",
+      yt_1_sub: "The song that opens Chuwi's Tiny Desk performance is lively, allusive and full of questions. Between intertwining voices, keyboards and percussion, the Puerto Rican band delicately tells a life lived to the fullest.",
+      yt_2_sub: "A dynamic, catchy Afrobeats track. The Official Visualizer pairs the song's rhythmic, enveloping sound with a clean, modern, hypnotic visual style.",
+      yt_3_sub: "The music video is set across various summer and tropical locations, including a beach with an off-road Jeep, a boat/yacht, and urban settings with ATVs and motorbikes.",
+      yt_4_sub: "He wrote it, I lived it 🙁.",
+      yt_5_sub: "Strangely enough I love Bad Bunny's sad songs 🙁.",
+      yt_6_sub: "A pleasant discovery on a restful August 23rd.",
+      yt_7_sub: "Ryan Castro absolutely kills it, no debate.",
+      film_title: "Films &amp; Series<small>My favorites</small>",
+      film_scarface: "Directed by Brian De Palma in 1983 and starring Al Pacino, Scarface tells the rise to power and fall of Cuban refugee Tony Montana. Arriving in Miami in 1980, Tony becomes the king of drug trafficking, but is ultimately destroyed by his own arrogance, paranoia and addiction.",
+      film_goodfellas: "Goodfellas is a 1990 film directed by Martin Scorsese, based on the book by Nicholas Pileggi. It tells the true story of Henry Hill, a kid who grew up in the New York suburbs and rises through the ranks of the Italian-American mafia alongside partners Jimmy Conway and Tommy DeVito, up to the collapse and his entry into witness protection.",
+      film_shrek: "Shrek's quiet solitude in the swamp is ruined when the villainous Lord Farquaad exiles every fairytale creature there. To get his land back, Shrek agrees to rescue Princess Fiona from a dragon, discovering by the end of the journey both love and the princess's true nature.",
+      film_pluribus: "A sci-fi TV series created by Vince Gilligan and starring Rhea Seehorn. The plot follows Carol Sturka, a writer from Albuquerque: an alien virus turns all of humanity into a single, peaceful, happy collective mind, leaving her and a handful of others immune and forced to fight to restore free will.",
+      film_lotr: "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring, casting it into the fires of Mount Doom in Mordor to save Middle-earth from the dark lord Sauron.",
+      film_scrubs: "A famous sitcom created by Bill Lawrence. The series follows the daily, surreal life of young doctor John \"J.D.\" Dorian inside Sacred Heart Hospital. Between daydreams, human drama and comedy, J.D. learns the job and grows personally alongside his colleagues.",
+      games_title: "Video games<small>Gaming &amp; Favorite Titles</small>",
+      game_tlou: "PS4 · Action-adventure",
+      game_yugioh: "Collectible card game",
+      notes_title: "Notes<small>Memo section</small>",
       memo_1_title: "I started this archive",
-      memo_1_text: "For now nothing to declare, then we'll see",
+      memo_1_text: "Nothing to declare for now, we'll see",
       memo_2_title: "Next note",
-      memo_2_text: "You'll have to wait for the next news",
-      contact_title: "Contacts",
-      cv_it: "Scarica CV (IT)",
+      memo_2_text: "You'll have to wait for the next updates",
+      contact_title: "Contacts<small>Where to find me</small>",
+      cv_it: "Download CV (IT)",
       cv_en: "CV (EN version)",
-      modal_close: "CLOSE ✕",
+      modal_close: "CLOSE ✕"
     }
   };
 
@@ -2036,6 +2040,8 @@
       langFlag.alt = 'Italiano';
     }
 
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
     localStorage.setItem('site-lang', lang);
   }
 
@@ -2190,19 +2196,14 @@
   const openMediaModal = (item) => {
     const img = item.querySelector('img');
     const title = item.querySelector('.title');
-    const key = item.getAttribute('data-i18n-key');
-    
+    // La descrizione (.sub) viene già aggiornata dalla traduzione generica
+    // ad ogni cambio lingua, quindi la leggiamo direttamente da lì.
+    const desc = item.querySelector('.sub');
+
     mediaModalImg.src = img ? img.src : '';
     mediaModalImg.alt = img ? img.alt : '';
     mediaModalTitle.textContent = title ? title.textContent.trim() : '';
-    
-    // Recupera la traduzione dinamica per la lingua corrente se disponibile
-    if (key && translations[currentLang] && translations[currentLang][key]) {
-      mediaModalDesc.textContent = translations[currentLang][key];
-    } else {
-      const desc = item.querySelector('.sub');
-      mediaModalDesc.textContent = desc ? desc.textContent.trim() : '';
-    }
+    mediaModalDesc.textContent = desc ? desc.textContent.trim() : '';
 
     mediaModal.classList.add('open');
     document.body.style.overflow = 'hidden';
