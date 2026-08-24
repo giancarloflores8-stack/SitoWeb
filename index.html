@@ -10,7 +10,7 @@
 <link rel="icon" href="foto/favicon.ico">
 <link rel="shortcut icon" href="foto/favicon.ico">
 
-<!-- Favicon per Cellulari (Schermata Home iOS e Android) -->
+<!-- Favicon per Cellulari -->
 <link rel="apple-touch-icon" sizes="180x180" href="foto/apple-touch-icon.png">
 
 <!-- Fonts -->
@@ -37,7 +37,6 @@
     --violet: #7C3AED;
     --linkedin: #0A66C2;
 
-    /* Colori dei pallini Timeline */
     --dot-fotografia: #3B7DD8;
     --dot-video: #2E9E7B;
     --dot-musica: #C6494A;
@@ -64,7 +63,6 @@
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
-
   html{ scroll-behavior:smooth; }
 
   body{
@@ -87,13 +85,6 @@
 
   a{ color:inherit; }
 
-  .label{
-    font-family:'Space Mono', monospace;
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    font-size:0.72rem;
-  }
-
   h1,h2,h3{
     font-family:'Fraunces', serif;
     font-weight:500;
@@ -101,7 +92,7 @@
     line-height:1.1;
   }
 
-  /* ============ THEME & LANG TOGGLES ============ */
+  /* TOGGLES */
   .theme-toggle, .lang-toggle{
     position:fixed;
     top:1.2rem;
@@ -120,29 +111,23 @@
     transition:background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
   .theme-toggle{ right:1.2rem; }
-  .lang-toggle{
-    right:4.5rem;
-  }
+  .lang-toggle{ right:4.5rem; }
 
   .theme-toggle:hover, .lang-toggle:hover{ transform:scale(1.07); box-shadow:var(--shadow-md); }
-  .theme-toggle:hover{ transform:scale(1.07) rotate(-8deg); }
-
   .theme-toggle svg{ width:19px; height:19px; }
   .theme-toggle .icon-moon{ display:none; }
   html[data-theme="dark"] .theme-toggle .icon-sun{ display:none; }
   html[data-theme="dark"] .theme-toggle .icon-moon{ display:block; }
 
-  /* Stile per la bandiera SVG */
   .flag-icon {
     width: 22px;
     height: 22px;
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
   }
 
-  /* ============ LAYOUT SHELL ============ */
+  /* LAYOUT */
   .shell{
     display:flex;
     max-width:1180px;
@@ -150,7 +135,7 @@
     align-items:flex-start;
   }
 
-  /* ============ SIDE NAV ============ */
+  /* DRAWER */
   .drawer{
     width:var(--nav-w);
     flex-shrink:0;
@@ -169,31 +154,16 @@
     width:fit-content;
     margin-bottom:2.2rem;
     cursor:pointer;
-    transition:transform 0.2s ease;
-  }
-  .drawer-top .mark-link:hover{
-    transform:scale(1.08);
-  }
-  .drawer-top .mark-link:active{
-    transform:scale(0.96);
   }
   .drawer-top .mark{
     display:block;
     max-height:100px;
     width:auto;
     animation:spin 12s linear infinite;
-    transition:filter 0.3s ease;
   }
-  html[data-theme="dark"] .drawer-top .mark{
-    filter:invert(1) brightness(1.6);
-  }
-  @keyframes spin{
-    from{ transform:rotate(0deg); }
-    to{ transform:rotate(360deg); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .drawer-top .mark{ animation:none; }
-  }
+  html[data-theme="dark"] .drawer-top .mark{ filter:invert(1) brightness(1.6); }
+
+  @keyframes spin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
 
   .drawer-nav{ list-style:none; }
   .drawer-nav li{ margin-bottom:0.35rem; }
@@ -208,9 +178,9 @@
     font-family:'Space Mono', monospace;
     font-size:0.75rem;
     color:var(--ink-soft);
-    transition:background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     border-left:2px solid transparent;
     cursor:pointer;
+    transition:all 0.2s ease;
   }
 
   .drawer-nav a .swatch{
@@ -218,12 +188,9 @@
     flex-shrink:0;
     border-radius:2px;
     background:var(--tab-color, var(--ink-soft));
-    transition:transform 0.2s ease;
   }
 
   .drawer-nav a:hover{ color:var(--ink); background:var(--paper-raised); transform:translateX(3px); }
-  .drawer-nav a:hover .swatch{ transform:scale(1.3) rotate(45deg); }
-
   .drawer-nav a.active{
     color:var(--ink);
     background:var(--paper-raised);
@@ -239,7 +206,7 @@
     opacity:0.7;
   }
 
-  /* ============ MOBILE NAV ============ */
+  /* MOBILE NAV */
   .mobile-nav{
     display:none;
     position:sticky;
@@ -251,27 +218,21 @@
     white-space:nowrap;
     padding:0.9rem 4rem 0.9rem 1.25rem;
     gap:1.25rem;
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-    transition:background-color 0.3s ease, border-color 0.3s ease;
   }
-  .mobile-nav::-webkit-scrollbar { display:none; }
 
   .mobile-nav a{
     font-family:'Space Mono', monospace;
     font-size:0.72rem;
     text-transform:uppercase;
-    letter-spacing:0.06em;
     text-decoration:none;
     color:var(--ink-soft);
     padding-bottom:0.2rem;
     border-bottom:2px solid transparent;
     cursor:pointer;
-    transition:color 0.2s ease, border-color 0.2s ease;
   }
   .mobile-nav a.active{ color:var(--ink); border-color:var(--tab-color); }
 
-  /* ============ MAIN ============ */
+  /* MAIN & CARDS */
   .main{
     flex:1;
     min-width:0;
@@ -281,18 +242,9 @@
     min-height:100vh;
   }
 
-  /* ============ SEZIONI A SCHEDA ============ */
-  main section[id]{
-    display:none;
-  }
-  main section[id].active-section{
-    display:block;
-    animation:fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes fadeIn{
-    from{ opacity:0; transform:translateY(10px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
+  main section[id]{ display:none; }
+  main section[id].active-section{ display:block; animation:fadeIn 0.35s ease; }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
 
   .card{
     background:var(--paper-raised);
@@ -301,7 +253,6 @@
     margin-bottom:1.5rem;
     overflow:hidden;
     box-shadow:var(--shadow-sm);
-    transition:background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .card-head{
@@ -310,7 +261,6 @@
     gap:0.75rem;
     padding:1.1rem 1.5rem;
     border-bottom:1px solid var(--line);
-    transition:border-color 0.3s ease;
   }
 
   .card-index{
@@ -326,37 +276,18 @@
   .card-title small{
     display:block;
     font-family:'Space Mono', monospace;
-    font-weight:400;
     font-size:0.68rem;
     color:var(--ink-soft);
     text-transform:uppercase;
-    letter-spacing:0.08em;
-    margin-top:0.15rem;
   }
 
   .card-body{ padding:2rem 2.2rem; }
 
-  /* ============ HERO ============ */
-  .hero{
-    padding:3.5rem 2.2rem 3rem;
-    position:relative;
-  }
-  .hero h1{
-    font-size:clamp(2.2rem, 5vw, 3.4rem);
-    max-width:12ch;
-  }
-  .hero p{
-    margin-top:1.1rem;
-    max-width:46ch;
-    color:var(--ink-soft);
-    font-size:1.05rem;
-  }
-  .hero .tags{
-    margin-top:1.6rem;
-    display:flex;
-    flex-wrap:wrap;
-    gap:0.5rem;
-  }
+  /* HERO */
+  .hero{ padding:3.5rem 2.2rem 3rem; }
+  .hero h1{ font-size:clamp(2.2rem, 5vw, 3.4rem); max-width:12ch; }
+  .hero p{ margin-top:1.1rem; max-width:46ch; color:var(--ink-soft); }
+  .hero .tags{ margin-top:1.6rem; display:flex; flex-wrap:wrap; gap:0.5rem; }
   .hero .tags span{
     display:inline-flex;
     align-items:center;
@@ -364,920 +295,98 @@
     font-family:'Space Mono', monospace;
     font-size:0.68rem;
     text-transform:uppercase;
-    letter-spacing:0.05em;
-    padding:0.4rem 0.75rem 0.4rem 0.6rem;
+    padding:0.4rem 0.75rem;
     border:1px solid var(--line);
     border-radius:20px;
     color:var(--ink-soft);
     background:var(--paper);
-    opacity:0;
-    animation:tagIn 0.4s ease forwards;
-    transition:border-color 0.25s ease, background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, color 0.25s ease;
-  }
-  .hero .tags span svg{
-    width:13px;
-    height:13px;
-    flex-shrink:0;
-    stroke:var(--tag-color, var(--ink-soft));
-    transition:stroke 0.25s ease;
-  }
-  .hero .tags span:hover{
-    border-color:var(--tag-color, var(--forest));
-    color:var(--ink);
-    transform:translateY(-2px);
-    box-shadow:var(--shadow-sm);
-  }
-  .hero .tags span:nth-child(1){ animation-delay:0.05s; }
-  .hero .tags span:nth-child(2){ animation-delay:0.1s; }
-  .hero .tags span:nth-child(3){ animation-delay:0.15s; }
-  .hero .tags span:nth-child(4){ animation-delay:0.2s; }
-  .hero .tags span:nth-child(5){ animation-delay:0.25s; }
-  .hero .tags span:nth-child(6){ animation-delay:0.3s; }
-  @keyframes tagIn{
-    from{ opacity:0; transform:translateY(4px); }
-    to{ opacity:1; transform:translateY(0); }
   }
 
-  /* ============ TIMELINE INTEGRATA IN HOME ============ */
-  .home-timeline-box {
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--line);
-  }
+  /* TIMELINE */
+  .home-timeline-box { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  .home-timeline-header { display: flex; justify-space-between; align-items: baseline; margin-bottom: 1.5rem; }
+  .home-timeline-title { font-size: 1.4rem; }
+  .timeline { position: relative; margin-left: 6px; }
+  .timeline::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+  .entry { position: relative; display: flex; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .entry:last-child { border-bottom: none; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; margin-top: 5px; z-index: 1; }
+  .entry-body { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; flex: 1; }
+  .entry-date { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--ink-soft); min-width: 58px; }
+  .entry-text { font-size: 0.88rem; }
+  .entry-tag { font-family: 'Space Mono', monospace; font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--line); margin-left: auto; background: var(--paper); }
+  .load-more { display: block; margin: 20px auto 0; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 8px 18px; font-family: 'Space Mono', monospace; font-size: 0.75rem; cursor: pointer; }
 
-  .home-timeline-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1.5rem;
-  }
+  /* ABOUT */
+  .about-body{ display:flex; gap:2.2rem; }
+  .about-portrait{ width:130px; height:130px; flex-shrink:0; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); }
+  .about-portrait img{ width:100%; height:100%; object-fit:cover; }
+  .about-facts{ margin-top:1.3rem; display:grid; grid-template-columns:repeat(2, 1fr); gap:0.6rem 1.5rem; font-family:'Space Mono', monospace; font-size:0.78rem; }
 
-  .home-timeline-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.4rem;
-    font-weight: 500;
-  }
+  /* SCRIBBLE */
+  .scribble-pad{ margin-top:2rem; border:1px solid var(--line); border-radius:var(--radius); background:var(--paper); }
+  .scribble-pad-head{ padding:0.7rem 1.2rem; border-bottom:1px dashed var(--line); font-family:'Space Mono', monospace; font-size:0.68rem; background:var(--paper-raised); }
+  .scribble-content{ padding:1.6rem 2rem; font-family:'Caveat', cursive; font-size:1.5rem; }
+  .month-header { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; cursor: pointer; }
+  .scribble-content .note-item { margin-bottom: 0.8rem; border-bottom: 1px dashed var(--line); padding-bottom: 0.5rem; }
+  .scribble-content summary { cursor: pointer; font-weight: 700; }
 
-  .home-timeline-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
-  }
-
-  .timeline {
-    position: relative;
-    margin-left: 6px;
-  }
-
-  .timeline::before {
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 6px;
-    bottom: 6px;
-    width: 1px;
-    background: var(--line);
-  }
-
-  .entry {
-    position: relative;
-    display: flex;
-    gap: 20px;
-    padding: 14px 0;
-  }
-
-  .entry:not(:last-child) {
-    border-bottom: 1px solid var(--line);
-  }
-
-  .dot {
-    position: relative;
-    flex-shrink: 0;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    margin-top: 5px;
-    z-index: 1;
-  }
-
-  .entry-body {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px 10px;
-    flex: 1;
-  }
-
-  .entry-date {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    min-width: 58px;
-  }
-
-  .entry-text {
-    font-size: 0.88rem;
-    color: var(--ink);
-  }
-
-  .entry-text .highlight {
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  .entry-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    padding: 2px 8px;
-    border-radius: 20px;
-    border: 1px solid var(--line);
-    color: var(--ink-soft);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-left: auto;
-    background: var(--paper);
-  }
-
-  .load-more {
-    display: block;
-    margin: 20px auto 0;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 8px 18px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--ink-soft);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .load-more:hover {
-    border-color: var(--ink);
-    color: var(--ink);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-  }
-
-  /* ============ CANTIERE ============ */
-  .site-under-construction{
-    margin-top: 2rem;
-    padding: 1.4rem 1.6rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--paper);
-    display: flex;
-    align-items: center;
-    gap: 1.4rem;
-    overflow: hidden;
-    position: relative;
-  }
-  .site-under-construction::before{
-    content:'';
-    position:absolute;
-    top:0; left:0; right:0;
-    height:8px;
-    background:repeating-linear-gradient(135deg, #F2B705 0 14px, #1A1A16 14px 28px);
-    opacity:0.9;
-  }
-  .site-under-construction .suc-illustration{
-    width:120px;
-    height:90px;
-    flex-shrink:0;
-  }
-  .site-under-construction .suc-text{
-    font-family:'Space Mono', monospace;
-    font-size:0.72rem;
-    color:var(--ink-soft);
-    line-height:1.6;
-  }
-  .site-under-construction .suc-text strong{
-    color:var(--ink);
-    display:block;
-    font-size:0.8rem;
-    margin-bottom:0.2rem;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-  }
-
-  .suc-arm-hammer{
-    transform-origin: 62px 46px;
-    animation: hammerSwing 1.1s ease-in-out infinite;
-  }
-  @keyframes hammerSwing{
-    0%, 100%{ transform: rotate(0deg); }
-    40%{ transform: rotate(-32deg); }
-    55%{ transform: rotate(4deg); }
-  }
-  .suc-arm-shovel{
-    transform-origin: 24px 50px;
-    animation: shovelDig 1.4s ease-in-out infinite;
-  }
-  @keyframes shovelDig{
-    0%, 100%{ transform: translate(0,0) rotate(0deg); }
-    30%{ transform: translate(-2px,-3px) rotate(-12deg); }
-    55%{ transform: translate(1px,2px) rotate(6deg); }
-  }
-  .suc-dust{
-    animation: dustPuff 1.4s ease-in-out infinite;
-  }
-  @keyframes dustPuff{
-    0%{ opacity:0; transform:translateY(0) scale(0.6); }
-    50%{ opacity:0.55; transform:translateY(-4px) scale(1); }
-    100%{ opacity:0; transform:translateY(-8px) scale(1.1); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .suc-arm-hammer, .suc-arm-shovel, .suc-dust{ animation:none; }
-  }
-  @media (max-width: 480px){
-    .site-under-construction{ flex-direction:column; text-align:center; }
-  }
-
-  /* ============ ABOUT ============ */
-  .about-body{ display:flex; gap:2.2rem; align-items:flex-start; }
-  .about-portrait{
-    width:130px; height:130px;
-    flex-shrink:0;
-    border-radius:var(--radius);
-    background:var(--paper);
-    border:1px solid var(--line);
-    overflow:hidden;
-    box-shadow:var(--shadow-md);
-  }
-  .about-portrait img{
-    width:100%; height:100%;
-    object-fit:cover;
-    display:block;
-  }
-  .about-text p{ margin-bottom:0.9rem; color:var(--ink-soft); }
-  .about-text p:last-child{ margin-bottom:0; }
-  .about-facts{
-    margin-top:1.3rem;
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:0.6rem 1.5rem;
-    font-family:'Space Mono', monospace;
-    font-size:0.78rem;
-  }
-  .about-facts dt{ color:var(--ink-soft); }
-  .about-facts dd{ color:var(--ink); font-weight:700; }
-
-  /* ============ FOGLIO A QUADRETTI (note sparse) ============ */
-  .scribble-pad{
-    margin-top:2rem;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    box-shadow:var(--shadow-sm);
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:26px 26px;
-    background-color:var(--paper);
-    transition:background-color 0.3s ease, border-color 0.3s ease;
-  }
-  .scribble-pad-head{
-    padding:0.7rem 1.2rem;
-    border-bottom:1px dashed var(--line);
-    font-family:'Space Mono', monospace;
-    font-size:0.68rem;
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    color:var(--ink-soft);
-    background:var(--paper-raised);
-  }
-  .scribble-content{
-    padding:1.6rem 2rem 2rem;
-    font-family:'Caveat', cursive;
-    font-size:1.5rem;
-    line-height:1.65;
-    color:var(--ink);
-  }
-
-  /* ============ STILE CARTELLA MESE ============ */
-  .month-folder {
-    margin-bottom: 1.2rem;
-    background: transparent;
-    padding: 0;
-  }
-  .month-header {
-    font-family: 'Space Mono', monospace;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--ink);
-    cursor: pointer;
-    user-select: none;
-    padding: 0.4rem 0.2rem;
-    transition: opacity 0.2s ease;
-  }
-  .month-header:hover {
-    opacity: 0.8;
-  }
-  .month-body {
-    padding-top: 0.8rem;
-    padding-left: 0.8rem;
-  }
-  
-  .scribble-content .note-item {
-    margin-bottom: 0.8rem;
-    border-bottom: 1px dashed var(--line);
-    padding-bottom: 0.5rem;
-  }
-  .scribble-content .note-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-  .scribble-content summary {
-    cursor: pointer;
-    font-weight: 700;
-    user-select: none;
-    list-style: none;
-    transition: opacity 0.2s ease;
-  }
-  .scribble-content summary::-webkit-details-marker {
-    display: none;
-  }
-  .scribble-content summary:hover {
-    opacity: 0.75;
-  }
-  .scribble-content .note-item p {
-    margin-top: 0.4rem;
-    padding-left: 1rem;
-  }
-  .scribble-content .fresh::after{
-    content:'nuovo';
-    display:inline-block;
-    font-family:'Space Mono', monospace;
-    font-size:0.6rem;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    color:var(--rose);
-    border:1px solid var(--rose);
-    border-radius:10px;
-    padding:0.05rem 0.4rem;
-    margin-left:0.5rem;
-    vertical-align:middle;
-  }
-
-  /* ============ CAROSELLO NOTE SARDEGNA ============ */
-  .note-carousel {
-    position: relative;
-    max-width: 520px;
-    margin: 1.2rem auto;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--line);
-    background: var(--paper-raised);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .carousel-track {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .carousel-item {
-    display: none;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
-
-  .carousel-item.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .carousel-item img,
-  .carousel-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .carousel-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.55);
-    color: #fff;
-    border: none;
-    font-size: 1.2rem;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-
-  .carousel-nav:hover {
-    background: rgba(0, 0, 0, 0.85);
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  .carousel-nav.prev { left: 10px; }
-  .carousel-nav.next { right: 10px; }
-
-  /* ============ GALLERY ============ */
-  .gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:0.9rem;
-  }
-  .photo-card{
-    aspect-ratio:1;
-    border-radius:var(--radius);
-    border:1px solid var(--line);
-    background:var(--paper);
-    position:relative;
-    overflow:hidden;
-    cursor:pointer;
-    box-shadow:var(--shadow-sm);
-    transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.3s ease;
-  }
-  .photo-card:focus-visible{
-    outline:2px solid var(--sky);
-    outline-offset:2px;
-  }
-  .photo-card:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow-md);
-  }
-  .photo-card img{
-    width:100%; height:100%;
-    object-fit:cover;
-    display:block;
-    transition:transform 0.4s ease;
-  }
-  .photo-card:hover img{
-    transform:scale(1.05);
-  }
-  .gallery-note{
-    margin-top:1rem;
-    font-family:'Space Mono', monospace;
-    font-size:0.7rem;
-    color:var(--ink-soft);
-  }
-
-  /* Lightbox */
-  .lightbox{
-    position:fixed; inset:0;
-    background:rgba(8,8,6,0.88);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:100;
-    padding:2rem;
-  }
-  .lightbox.open{ display:flex; animation:overlayIn 0.2s ease; }
-  .lightbox-inner{
-    max-width:720px;
-    width:100%;
-    background:var(--paper-raised);
-    border-radius:var(--radius);
-    overflow:hidden;
-    animation:modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow:var(--shadow-lg);
-  }
-  .lightbox-img{
-    width:100%;
-    max-height:70vh;
-    object-fit:contain;
-    background:var(--paper);
-    display:block;
-  }
-  .lightbox-cap{
-    padding:1.2rem 1.5rem;
-    font-family:'Space Mono', monospace;
-    font-size:0.78rem;
-    color:var(--ink-soft);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-  }
-  .lightbox-close{
-    background:none; border:none;
-    font-family:'Space Mono', monospace;
-    cursor:pointer;
-    color:var(--ink-soft);
-    font-size:0.78rem;
-  }
-
-  .lightbox-nav{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,0.25);
-    background:rgba(20,19,15,0.55);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    z-index:101;
-    transition:background-color 0.2s ease, transform 0.2s ease;
-  }
-  .lightbox-nav:hover{
-    background:rgba(20,19,15,0.85);
-    transform:translateY(-50%) scale(1.08);
-  }
-  .lightbox-nav.prev{ left:1rem; }
-  .lightbox-nav.next{ right:1rem; }
-  .lightbox-nav svg{ width:20px; height:20px; }
-  @media (max-width: 640px){
-    .lightbox-nav{ width:38px; height:38px; }
-    .lightbox-nav.prev{ left:0.4rem; }
-    .lightbox-nav.next{ right:0.4rem; }
-  }
-
-  /* Media modal */
-  .media-modal{
-    position:fixed; inset:0;
-    background:rgba(8,8,6,0.88);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:100;
-    padding:2rem;
-  }
-  .media-modal.open{ display:flex; animation:overlayIn 0.2s ease; }
-  .media-modal-inner{
-    max-width:820px;
-    width:100%;
-    max-height:85vh;
-    overflow:auto;
-    background:var(--paper-raised);
-    border-radius:var(--radius);
-    display:flex;
-    animation:modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow:var(--shadow-lg);
-  }
-  @keyframes overlayIn{
-    from{ opacity:0; }
-    to{ opacity:1; }
-  }
-  @keyframes modalIn{
-    from{ opacity:0; transform:scale(0.96) translateY(6px); }
-    to{ opacity:1; transform:scale(1) translateY(0); }
-  }
-  .media-modal-img{
-    width:280px;
-    flex-shrink:0;
-    object-fit:cover;
-    display:block;
-    background:var(--paper);
-  }
-  .media-modal-body{
-    padding:2rem;
-    display:flex;
-    flex-direction:column;
-    gap:0.9rem;
-    min-width:0;
-  }
-  .media-modal-body h3{ font-size:1.5rem; }
-  .media-modal-body p{
-    color:var(--ink-soft);
-    font-size:0.95rem;
-    line-height:1.75;
-  }
-  .media-modal-close{
-    align-self:flex-start;
-    margin-top:auto;
-    background:none; border:none;
-    cursor:pointer;
-    font-family:'Space Mono', monospace;
-    color:var(--ink-soft);
-    font-size:0.78rem;
-  }
-  @media (max-width: 640px){
-    .media-modal-inner{ flex-direction:column; max-height:90vh; }
-    .media-modal-img{ width:100%; aspect-ratio:2/3; }
-  }
-
-  /* YouTube modal */
-  .yt-modal{
-    position:fixed; inset:0;
-    background:rgba(8,8,6,0.9);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:100;
-    padding:2rem;
-  }
-  .yt-modal.open{ display:flex; animation:overlayIn 0.2s ease; }
-  .yt-modal-inner{
-    max-width:900px;
-    width:100%;
-    background:var(--paper-raised);
-    border-radius:var(--radius);
-    overflow:hidden;
-    animation:modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow:var(--shadow-lg);
-  }
-  .yt-modal-video{
-    position:relative;
-    width:100%;
-    aspect-ratio:16/9;
-    background:#000;
-  }
-  .yt-modal-video iframe{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    border:none;
-  }
-  .yt-modal-foot{
-    padding:1rem 1.4rem;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:1rem;
-    font-family:'Space Mono', monospace;
-    font-size:0.78rem;
-    color:var(--ink-soft);
-  }
-  .yt-modal-foot a{
-    text-decoration:none;
-    color:var(--ink-soft);
-    transition:color 0.2s ease;
-  }
-  .yt-modal-foot a:hover{ color:var(--rose); }
-  @media (max-width: 640px){
-    .yt-modal{ padding:1rem; }
-    .yt-modal-foot{ flex-direction:column; align-items:flex-start; gap:0.6rem; }
-  }
-
-  /* ============ VIDEO SLIDER ============ */
-  .video-slider-container {
-    position: relative;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .video-card {
-    display: none;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: var(--paper);
-    box-shadow: var(--shadow-sm);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-
-  .video-card.active {
-    display: block;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .video-frame {
-    aspect-ratio: 16/9;
-    width: 100%;
-    background: #111;
-    display: block;
-    border: none;
-  }
-
-  .video-caption {
-    padding: 0.8rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .video-caption .t { font-size: 0.85rem; font-weight: 600; }
-  .video-caption .d {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--ink-soft);
-  }
-
-  .video-slider-nav {
-    position: absolute;
-    top: calc(50% - 20px);
-    transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1px solid var(--line);
-    background: var(--paper-raised);
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
-
-  .video-slider-nav:hover {
-    transform: translateY(-50%) scale(1.1);
-    background: var(--paper);
-  }
-
-  .video-slider-nav.prev { left: -21px; }
-  .video-slider-nav.next { right: -21px; }
-  .video-slider-nav svg { width: 18px; height: 18px; }
-
-  @media (max-width: 768px) {
-    .video-slider-nav.prev { left: 8px; }
-    .video-slider-nav.next { right: 8px; }
-  }
-
-  /* ============ MEDIA GRIDS ============ */
-  .media-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    gap:1rem;
-  }
-  .media-item{
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:1rem;
-    background:var(--paper);
-    display:flex;
-    flex-direction:column;
-    gap:0.5rem;
-    box-shadow:var(--shadow-sm);
-    transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.3s ease, background-color 0.3s ease;
-    overflow:hidden;
-  }
-  .media-item:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow-md);
-  }
-  .media-item.clickable{ cursor:pointer; }
-  .media-item.clickable:focus-visible{
-    outline:2px solid var(--sky);
-    outline-offset:2px;
-  }
-  .media-item img{
-    width:100%;
-    border-radius:calc(var(--radius) - 3px);
-    background:var(--line);
-    display:block;
-    transition:transform 0.4s ease;
-  }
-  .media-item:hover img{
-    transform:scale(1.03);
-  }
-
-  .movie-card img{
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
-  }
-
-  .game-card img{
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
-
-  .media-item .title{ font-weight:600; font-size:0.95rem; }
+  /* MEDIA GRIDS */
+  .gallery-grid, .media-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; }
+  .photo-card, .media-item{ border:1px solid var(--line); border-radius:var(--radius); padding:1rem; background:var(--paper); cursor:pointer; }
+  .photo-card img, .media-item img{ width:100%; border-radius:6px; display:block; }
+  .movie-card img{ aspect-ratio: 2/3; object-fit:cover; }
+  .game-card img{ aspect-ratio: 16/9; object-fit:cover; }
+  .media-item .title{ font-weight:600; font-size:0.95rem; margin-top:0.5rem; }
   .media-item .sub{ font-family:'Space Mono', monospace; font-size:0.72rem; color:var(--ink-soft); }
-  .media-item.clickable:not(.yt-card) .sub{ display:none; }
 
-  /* ============ NOTES ============ */
-  .note-entry{
-    display:flex;
-    gap:1.3rem;
-    padding:1.2rem 0;
-    border-bottom:1px solid var(--line);
-    transition:border-color 0.3s ease;
+  /* MODALS */
+  .lightbox, .media-modal, .yt-modal{
+    position:fixed; inset:0; background:rgba(8,8,6,0.88); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; z-index:100; padding:2rem;
   }
-  .note-entry:last-child{ border-bottom:none; padding-bottom:0; }
-  .note-date{
-    font-family:'Space Mono', monospace;
-    font-size:0.72rem;
-    color:var(--ink-soft);
-    width:80px;
-    flex-shrink:0;
-    padding-top:0.15rem;
-  }
-  .note-content h3{ font-size:1.05rem; margin-bottom:0.35rem; font-weight:500; }
-  .note-content p{ color:var(--ink-soft); font-size:0.94rem; }
+  .lightbox.open, .media-modal.open, .yt-modal.open{ display:flex; }
+  .media-modal-inner{ max-width:820px; width:100%; background:var(--paper-raised); border-radius:var(--radius); display:flex; overflow:hidden; }
+  .media-modal-img{ width:280px; object-fit:cover; }
+  .media-modal-body{ padding:2rem; display:flex; flex-direction:column; gap:0.9rem; }
+  .media-modal-close, .lightbox-close{ cursor:pointer; background:none; border:none; font-family:'Space Mono', monospace; }
+  
+  .yt-modal-inner{ max-width:900px; width:100%; background:var(--paper-raised); border-radius:var(--radius); overflow:hidden; }
+  .yt-modal-video{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
+  .yt-modal-video iframe{ width:100%; height:100%; border:none; }
 
-  /* ============ CONTACT ============ */
-  .contact-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
-    gap:0.8rem;
-  }
-  .contact-link{
-    display:flex;
-    align-items:center;
-    gap:0.6rem;
-    padding:0.85rem 1rem;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    text-decoration:none;
-    color:var(--ink);
-    font-size:0.88rem;
-    box-shadow:var(--shadow-sm);
-    transition:border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
-  }
-  .contact-link:hover{
-    border-color:var(--tab-color);
-    transform:translateY(-3px);
-    box-shadow:var(--shadow-md);
-  }
-  .contact-link svg{ width:17px; height:17px; flex-shrink:0; stroke:var(--tab-color); }
+  /* CONTACTS */
+  .contact-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:0.8rem; }
+  .contact-link{ display:flex; align-items:center; gap:0.6rem; padding:0.85rem 1rem; border:1px solid var(--line); border-radius:var(--radius); text-decoration:none; font-size:0.88rem; }
+  .contact-link svg{ width:17px; height:17px; }
 
-  /* ============ FOOTER ============ */
-  footer{
-    margin-top:auto;
-    padding:2rem 0 1.5rem;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:100%;
-  }
-  .footer-mark-link{
-    display:inline-block;
-    cursor:pointer;
-    -webkit-tap-highlight-color:transparent;
-    transition:transform 0.2s ease;
-  }
-  .footer-mark-link img{
-    max-height:52px;
-    width:auto;
-    display:block;
-    opacity:0.85;
-    margin:0 auto;
-    transition:opacity 0.3s ease;
-  }
-  .footer-mark-link:hover{ transform:scale(1.06); }
-  .footer-mark-link:hover img{ opacity:1; }
-  .footer-mark-link:active{ transform:scale(0.9); }
-  .footer-mark-link:active img{ opacity:0.65; }
+  footer{ margin-top:auto; padding:2rem 0; text-align:center; }
+  footer img{ max-height:52px; }
 
-  html[data-theme="dark"] .footer-mark-link img{
-    filter:invert(1) brightness(1.6);
-  }
-
-  /* ============ RESPONSIVE ============ */
   @media (max-width: 860px){
     .shell{ flex-direction:column; }
     .drawer{ display:none; }
     .mobile-nav{ display:flex; }
-    .main{ padding:1.5rem 1.25rem 2rem; width:100%; }
+    .main{ padding:1.5rem 1.25rem; width:100%; }
     .about-body{ flex-direction:column; }
-    .gallery-grid{ grid-template-columns:repeat(2, 1fr); }
-    .card-body{ padding:1.5rem; }
-    .theme-toggle{ top:0.65rem; right:0.9rem; width:38px; height:38px; }
-    .lang-toggle{ top:0.65rem; right:3.8rem; width:38px; height:38px; }
-  }
-
-  @media (max-width: 480px){
-    .gallery-grid{ grid-template-columns:1fr; }
+    .media-modal-inner{ flex-direction:column; }
+    .media-modal-img{ width:100%; height:250px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ============ LANGUAGE TOGGLE ============ -->
-<button class="lang-toggle" id="langToggle" aria-label="Cambia lingua" title="Cambia lingua">
+<!-- LANGUAGE TOGGLE -->
+<button class="lang-toggle" id="langToggle" aria-label="Cambia lingua">
   <img id="langFlag" class="flag-icon" src="https://flagcdn.com/w40/gb.png" alt="English">
 </button>
 
-<!-- ============ THEME TOGGLE ============ -->
-<button class="theme-toggle" id="themeToggle" aria-label="Cambia tema chiaro/scuro" title="Cambia tema">
-  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="4"></circle>
-    <line x1="12" y1="2" x2="12" y2="4"></line>
-    <line x1="12" y1="20" x2="12" y2="22"></line>
-    <line x1="4.2" y1="4.2" x2="5.6" y2="5.6"></line>
-    <line x1="18.4" y1="18.4" x2="19.8" y2="19.8"></line>
-    <line x1="2" y1="12" x2="4" y2="12"></line>
-    <line x1="20" y1="12" x2="22" y2="12"></line>
-    <line x1="4.2" y1="19.8" x2="5.6" y2="18.4"></line>
-    <line x1="18.4" y1="5.6" x2="19.8" y2="4.2"></line>
-  </svg>
-  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-  </svg>
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line></svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
 </button>
 
-<!-- ============ MOBILE NAV ============ -->
+<!-- MOBILE NAV -->
 <nav class="mobile-nav" id="mobileNav">
   <a data-tab="home" style="--tab-color:var(--ink)" data-i18n="nav_home">Home</a>
   <a data-tab="about" style="--tab-color:var(--forest)" data-i18n="nav_about">Chi sono</a>
@@ -1292,64 +401,39 @@
 
 <div class="shell">
 
-  <!-- ============ SIDE DRAWER NAV ============ -->
+  <!-- SIDE DRAWER -->
   <aside class="drawer">
     <div class="drawer-top">
-      <a href="#home" data-tab="home" class="mark-link" aria-label="Torna alla Home">
+      <a href="#home" data-tab="home" class="mark-link">
         <img src="foto/logo.png" alt="Logo" class="mark">
       </a>
-      <ul class="drawer-nav" id="drawerNav">
-        <li><a data-tab="home" style="--tab-color:var(--ink)"><span class="swatch" style="background:var(--ink)"></span><span data-i18n="nav_home">Home</span></a></li>
-        <li><a data-tab="about" style="--tab-color:var(--forest)"><span class="swatch" style="background:var(--forest)"></span><span data-i18n="nav_about">Chi sono</span></a></li>
-        <li><a data-tab="gallery" style="--tab-color:var(--sky)"><span class="swatch" style="background:var(--sky)"></span><span data-i18n="nav_gallery">Galleria</span></a></li>
-        <li><a data-tab="video" style="--tab-color:var(--plum)"><span class="swatch" style="background:var(--plum)"></span><span data-i18n="nav_video">Video</span></a></li>
-        <li><a data-tab="yt" style="--tab-color:var(--amber)"><span class="swatch" style="background:var(--amber)"></span><span data-i18n="nav_yt">YouTube</span></a></li>
-        <li><a data-tab="film" style="--tab-color:var(--indigo)"><span class="swatch" style="background:var(--indigo)"></span><span data-i18n="nav_film_full">Film &amp; Serie</span></a></li>
-        <li><a data-tab="games" style="--tab-color:var(--violet)"><span class="swatch" style="background:var(--violet)"></span><span data-i18n="nav_games_full">Videogiochi</span></a></li>
-        <li><a data-tab="notes" style="--tab-color:var(--ochre)"><span class="swatch" style="background:var(--ochre)"></span><span data-i18n="nav_notes">Note</span></a></li>
-        <li><a data-tab="contact" style="--tab-color:var(--rose)"><span class="swatch" style="background:var(--rose)"></span><span data-i18n="nav_contact">Contatti</span></a></li>
+      <ul class="drawer-nav">
+        <li><a data-tab="home" style="--tab-color:var(--ink)"><span class="swatch"></span><span data-i18n="nav_home">Home</span></a></li>
+        <li><a data-tab="about" style="--tab-color:var(--forest)"><span class="swatch"></span><span data-i18n="nav_about">Chi sono</span></a></li>
+        <li><a data-tab="gallery" style="--tab-color:var(--sky)"><span class="swatch"></span><span data-i18n="nav_gallery">Galleria</span></a></li>
+        <li><a data-tab="video" style="--tab-color:var(--plum)"><span class="swatch"></span><span data-i18n="nav_video">Video</span></a></li>
+        <li><a data-tab="yt" style="--tab-color:var(--amber)"><span class="swatch"></span><span data-i18n="nav_yt">YouTube</span></a></li>
+        <li><a data-tab="film" style="--tab-color:var(--indigo)"><span class="swatch"></span><span data-i18n="nav_film_full">Film &amp; Serie</span></a></li>
+        <li><a data-tab="games" style="--tab-color:var(--violet)"><span class="swatch"></span><span data-i18n="nav_games_full">Videogiochi</span></a></li>
+        <li><a data-tab="notes" style="--tab-color:var(--ochre)"><span class="swatch"></span><span data-i18n="nav_notes">Note</span></a></li>
+        <li><a data-tab="contact" style="--tab-color:var(--rose)"><span class="swatch"></span><span data-i18n="nav_contact">Contatti</span></a></li>
       </ul>
     </div>
     <div class="drawer-foot" data-i18n="drawer_foot">ARCHIVIO PERSONALE<br>EST. 2026</div>
   </aside>
 
-  <!-- ============ MAIN ============ -->
+  <!-- MAIN -->
   <main class="main">
 
-    <!-- ============ HOME / HERO ============ -->
-    <section id="home" class="card hero">
+    <!-- HOME -->
+    <section id="home" class="card hero active-section">
       <h1 data-i18n="hero_title">Il mio archivio personale</h1>
       <p data-i18n="hero_desc">Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.</p>
-      <div class="tags">
-        <span style="--tag-color:var(--sky)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l2-2h8l2 2h3v11H3z"></path><circle cx="12" cy="13.5" r="3.2"></circle></svg>
-          <span data-i18n="tag_photo">Fotografia</span>
-        </span>
-        <span style="--tag-color:var(--plum)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="13" height="13" rx="2"></rect><path d="M15.5 9.5 21 6.5v11l-5.5-3"></path></svg>
-          <span data-i18n="tag_video">Video</span>
-        </span>
-        <span style="--tag-color:var(--rose)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="17" cy="16" r="3"></circle></svg>
-          <span data-i18n="tag_music">Musica</span>
-        </span>
-        <span style="--tag-color:var(--indigo)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 4v16M17 4v16M3 9h4M17 9h4M3 15h4M17 15h4"></path></svg>
-          <span data-i18n="tag_cinema">Cinema</span>
-        </span>
-        <span style="--tag-color:var(--violet)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5"></rect><line x1="7" y1="12.5" x2="10" y2="12.5"></line><line x1="8.5" y1="11" x2="8.5" y2="14"></line><circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"></circle><circle cx="17.3" cy="13" r="1" fill="currentColor" stroke="none"></circle></svg>
-          <span data-i18n="tag_gaming">Gaming</span>
-        </span>
-      </div>
-
-      <!-- TIMELINE INTEGRATA IN HOME -->
+      
       <div class="home-timeline-box">
         <div class="home-timeline-header">
           <h2 class="home-timeline-title" data-i18n="timeline_title">Attività recente</h2>
-          <span class="home-timeline-sub">Log</span>
         </div>
-
         <div class="timeline">
           <div class="entry">
             <div class="dot" style="background: var(--dot-fotografia);"></div>
@@ -1359,7 +443,6 @@
               <span class="entry-tag" data-i18n="tag_office">Ufficio💼</span>
             </div>
           </div>
-
           <div class="entry">
             <div class="dot" style="background: var(--dot-note);"></div>
             <div class="entry-body">
@@ -1368,383 +451,115 @@
               <span class="entry-tag" data-i18n="tag_home">Casa 🏠</span>
             </div>
           </div>
-
-          <div class="entry">
-            <div class="dot" style="background: var(--dot-musica);"></div>
-            <div class="entry-body">
-              <span class="entry-date">16 ago 2026</span>
-              <span class="entry-text" data-i18n="log_16aug">Nuovi brani in YouTube Chuwi Tiny Desk & Bad Bunny</span>
-              <span class="entry-tag">YouTube</span>
-            </div>
-          </div>
-
-          <div class="entry extra-entry" style="display:none;">
-            <div class="dot" style="background: var(--dot-note);"></div>
-            <div class="entry-body">
-              <span class="entry-date">17 ago 2026</span>
-              <span class="entry-text" data-i18n="log_17aug">Sono partito per le vacanze estive Sarde, tutte le info nella sezioni Pensieri</span>
-              <span class="entry-tag" data-i18n="tag_thoughts">Pensieri</span>
-            </div>
-          </div>
-          
-          <div class="entry">
-            <div class="dot" style="background: var(--dot-note);"></div>
-            <div class="entry-body">
-              <span class="entry-date">23 ago 2026</span>
-              <span class="entry-text" data-i18n="log_23aug">Nuovi brani in YouTube + pensieri sparsi della giornata</span>
-              <span class="entry-tag" data-i18n="tag_relax">Casa🏠 & RELAX</span>
-            </div>
-          </div>
-        </div>
-
-        <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>
-      </div>
-
-      <!-- CANTIERE -->
-      <div class="site-under-construction">
-        <svg class="suc-illustration" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
-          <rect x="0" y="72" width="120" height="4" fill="var(--line)"></rect>
-          <g>
-            <circle cx="30" cy="34" r="7" fill="#E7B78A"></circle>
-            <path d="M22 32c0-6 16-6 16 0" fill="var(--ochre)"></path>
-            <rect x="24" y="41" width="12" height="18" rx="3" fill="var(--ochre)"></rect>
-            <rect x="24" y="59" width="5" height="13" rx="2" fill="#2A2A24"></rect>
-            <rect x="31" y="59" width="5" height="13" rx="2" fill="#2A2A24"></rect>
-            <g class="suc-arm-hammer">
-              <rect x="34" y="42" width="16" height="5" rx="2.5" fill="#E7B78A"></rect>
-              <rect x="47" y="34" width="5" height="16" rx="1.5" fill="#8A5A34"></rect>
-              <rect x="43" y="30" width="13" height="7" rx="1.5" fill="#59564C"></rect>
-            </g>
-          </g>
-          <g>
-            <circle cx="82" cy="36" r="7" fill="#C98A5E"></circle>
-            <path d="M74 34c0-6 16-6 16 0" fill="var(--rose)"></path>
-            <rect x="76" y="43" width="12" height="18" rx="3" fill="var(--rose)"></rect>
-            <rect x="76" y="61" width="5" height="13" rx="2" fill="#2A2A24"></rect>
-            <rect x="83" y="61" width="5" height="13" rx="2" fill="#2A2A24"></rect>
-            <g class="suc-arm-shovel">
-              <rect x="64" y="46" width="16" height="5" rx="2.5" fill="#C98A5E"></rect>
-              <rect x="60" y="48" width="5" height="24" rx="1.5" fill="#8A5A34"></rect>
-              <path d="M54 70h14l-3 8h-8z" fill="#8C8C86"></path>
-            </g>
-          </g>
-          <circle class="suc-dust" cx="50" cy="40" r="2.4" fill="var(--ink-soft)"></circle>
-          <circle class="suc-dust" cx="58" cy="66" r="2" fill="var(--ink-soft)" style="animation-delay:0.4s"></circle>
-          <circle class="suc-dust" cx="44" cy="62" r="1.6" fill="var(--ink-soft)" style="animation-delay:0.8s"></circle>
-        </svg>
-        <div class="suc-text">
-          <strong data-i18n="suc_title">Sito in continua costruzione</strong>
-          <span data-i18n="suc_desc">Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.</span>
         </div>
       </div>
     </section>
 
-    <!-- ============ ABOUT ============ -->
+    <!-- ABOUT -->
     <section id="about" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--forest)">BIO</span>
         <h2 class="card-title"><span data-i18n="about_title">Chi sono</span><small data-i18n="sub_bio">Bio</small></h2>
       </div>
       <div class="card-body about-body">
-        <div class="about-portrait">
-          <img src="foto/profilo.jpg" alt="Foto profilo">
-        </div>
+        <div class="about-portrait"><img src="foto/profilo.jpg" alt="Foto"></div>
         <div class="about-text">
           <p data-i18n="about_intro">Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.</p>
           <dl class="about-facts">
             <dt data-i18n="about_base_label">Base</dt><dd>Padova, IT</dd>
             <dt data-i18n="about_age_label">Età</dt><dd data-i18n="about_age_val">Classe 99</dd>
-            <dt data-i18n="about_interests_label">Interessi</dt><dd data-i18n="about_interests_val">Foto · Video · Videogiochi · Sport · Scrittura</dd>
-            <dt data-i18n="about_status_label">Stato</dt><dd data-i18n="about_status_val">In costante aggiornamento</dd>
           </dl>
-        </div>
-      </div>
-
-      <!-- FOGLIO A QUADRETTI: note random -->
-      <div class="scribble-pad">
-        <div class="scribble-pad-head" data-i18n="scribble_head">Pensieri (fai un click sulla data per leggere cosa è successo 😉)</div>
-        <div class="scribble-content">
-          
-          <!-- CONTENITORE MESE: AGOSTO 2026 -->
-          <details class="month-folder" open>
-            <summary class="month-header" data-i18n="month_aug2026">📁 Agosto 2026</summary>
-            
-            <div class="month-body">
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_14aug_date">+ 14 agosto 2026</summary>
-                <p data-i18n="note_14aug_text">Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
-              </details>
-
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_15aug_date">+ 15 agosto 2026</summary>
-                <p data-i18n="note_15aug_text">Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.</p>
-              </details>
-
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_16aug_date">+ 16 agosto 2026</summary>
-                <p data-i18n="note_16aug_text">Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
-              </details>
-
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_sardinia_date">+ Dal 17 al 21 agosto 2026</summary>
-                <p data-i18n="note_sardinia_p1">Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.</p>
-                <p data-i18n="note_sardinia_p2">Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>
-                <p data-i18n="note_sardinia_p3">Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
-                
-                <!-- CAROSELLO FOTO SARDEGNA -->
-                <div class="note-carousel" id="sardiniaCarousel">
-                  <button class="carousel-nav prev" type="button" onclick="moveNoteCarousel(-1)">&#10094;</button>
-                  <div class="carousel-track">
-                    <div class="carousel-item active" onclick="openMediaZoom(this)">
-                      <img src="foto/sar1.jpg" alt="Dek, Fava ed Io">
-                    </div>
-                    <div class="carousel-item" onclick="openMediaZoom(this)">
-                      <img src="foto/sar2.jpg" alt="ichnusa con il mare piu bello d'italia">
-                    </div>
-                    <div class="carousel-item" onclick="openMediaZoom(this)">
-                      <img src="foto/sar3.jpg" alt="Tramonto Alghero">
-                    </div>
-                  </div>
-                  <button class="carousel-nav next" type="button" onclick="moveNoteCarousel(1)">&#10095;</button>
-                </div>
-
-                <p data-i18n="note_sardinia_p4">L'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
-              </details>
-              
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_23aug_date">+ 23 agosto 2026</summary>
-                <p data-i18n="note_23aug_text">Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.</p>
-              </details>
-              
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_24aug_date">+ 24 agosto 2026 <span class="fresh"></span></summary>
-                <p data-i18n="note_24aug_text">Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .</p>
-              </details>
-            </div>
-          </details>
-
         </div>
       </div>
     </section>
 
-    <!-- ============ GALLERY ============ -->
+    <!-- GALLERY -->
     <section id="gallery" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--sky)">FOTO</span>
         <h2 class="card-title"><span data-i18n="gallery_title">Galleria</span><small data-i18n="sub_photo">Foto</small></h2>
       </div>
       <div class="card-body">
-        <div class="gallery-grid" id="galleryGrid">
-          <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 01" data-caption="Santorini walking on" data-fullsrc="foto/GAL1.JPEG">
-            <img src="foto/GAL1.JPEG" alt="Foto 01">
-          </div>
-          <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 02" data-caption="Like Tyler the Creator" data-fullsrc="foto/GAL2.JPEG">
-            <img src="foto/GAL2.JPEG" alt="Foto 02">
-          </div>
-          <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 03" data-caption="Insta 360 X4" data-fullsrc="foto/GAL3.JPEG">
-            <img src="foto/GAL3.JPEG" alt="Foto 03">
-          </div>
+        <div class="gallery-grid">
+          <div class="photo-card" data-caption="Santorini walking on" data-fullsrc="foto/GAL1.JPEG"><img src="foto/GAL1.JPEG" alt="Foto 1"></div>
+          <div class="photo-card" data-caption="Like Tyler the Creator" data-fullsrc="foto/GAL2.JPEG"><img src="foto/GAL2.JPEG" alt="Foto 2"></div>
         </div>
-        <div class="gallery-note" data-i18n="gallery_note">Clicca o premi Invio su una foto per ingrandirla.</div>
       </div>
     </section>
 
-    <!-- ============ VIDEO SLIDER ============ -->
+    <!-- VIDEO -->
     <section id="video" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--plum)">CLIP</span>
         <h2 class="card-title"><span data-i18n="video_title">Video</span><small data-i18n="sub_clip">Clip &amp; riprese</small></h2>
       </div>
       <div class="card-body">
-        <div class="video-slider-container">
-          <button class="video-slider-nav prev" id="videoPrevBtn" aria-label="Video precedente">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          </button>
-          <button class="video-slider-nav next" id="videoNextBtn" aria-label="Video successivo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </button>
-
-          <div class="video-card">
-            <video class="video-frame" controls playsinline preload="metadata" src="video/VID2.MOV"></video>
-            <div class="video-caption">
-              <span class="t">Bad Bunny 🐰😈</span>
-              <span class="d">MOV</span>
-            </div>
-          </div>
-
-          <div class="video-card">
-            <video class="video-frame" controls playsinline preload="metadata" src="video/VID3.MOV"></video>
-            <div class="video-caption">
-              <span class="t">Marley 🐶</span>
-              <span class="d">MOV</span>
-            </div>
-          </div>
-        </div>
+        <video width="100%" controls src="video/VID2.MOV"></video>
       </div>
     </section>
 
-    <!-- ============ YOUTUBE ============ -->
+    <!-- YOUTUBE -->
     <section id="yt" class="card">
       <div class="card-head">
-        <span class="card-index" style="background:#FF0000; padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="#FFFFFF">
-            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-          </svg>
-        </span>
+        <span class="card-index" style="background:#FF0000;">YT</span>
         <h2 class="card-title"><span data-i18n="yt_title">YouTube</span><small data-i18n="sub_yt">Canali &amp; Contenuti</small></h2>
       </div>
       <div class="card-body">
         <div class="media-grid">
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Chuwi: Tiny Desk Concert" data-yt-id="r3ZPhIZ6_bM" data-yt-url="https://www.youtube.com/watch?v=r3ZPhIZ6_bM">
-            <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Miniatura video YouTube 1" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <div class="media-item yt-card" data-yt-id="r3ZPhIZ6_bM">
+            <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Chuwi">
             <div class="title">Chuwi: Tiny Desk Concert🎵</div>
-            <div class="sub" data-i18n="yt_1_sub">Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.</div>
-          </div>
-
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Victony - SLICK" data-yt-id="Nr_Km2sqsCY" data-yt-url="https://www.youtube.com/watch?v=Nr_Km2sqsCY">
-            <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Miniatura video YouTube 2" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-            <div class="title">Victony - SLICK (Official Visualizer)🎵</div>
-            <div class="sub" data-i18n="yt_2_sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
-          </div>
-
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro, Dongo - SANKA" data-yt-id="m-FggUm8G0g" data-yt-url="https://www.youtube.com/watch?v=m-FggUm8G0g">
-            <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Miniatura video YouTube 3" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-            <div class="title">Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵</div>
-            <div class="sub" data-i18n="yt_3_sub">Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.</div>
-          </div>
-
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda BAD BUNNY - KLOuFRENS" data-yt-id="3af9KM3Eq-E" data-yt-url="https://www.youtube.com/watch?v=3af9KM3Eq-E">
-            <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="Miniatura video YouTube 4" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-            <div class="title">BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵</div>
-            <div class="sub" data-i18n="yt_4_sub">Lui l'ha scritta, io l'ho vissuta 🙁 .</div>
-          </div>
-
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Bad Bunny - Si Estuviésemos Juntos" data-yt-id="EB7G3fUUaeA" data-yt-url="https://www.youtube.com/watch?v=EB7G3fUUaeA">
-            <img src="https://img.youtube.com/vi/EB7G3fUUaeA/hqdefault.jpg" alt="Miniatura video YouTube 5" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-            <div class="title">Bad Bunny - Si Estuviésemos Juntos🎵</div>
-            <div class="sub" data-i18n="yt_5_sub">Stranamente mi piacciono le canzoni tristi di Bad 🙁.</div>
-          </div>
-
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Arctic Monkeys - 505" data-yt-id="qU9mHegkTc4" data-yt-url="https://www.youtube.com/watch?v=qU9mHegkTc4">
-            <img src="https://img.youtube.com/vi/qU9mHegkTc4/hqdefault.jpg" alt="Miniatura video YouTube 6" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-            <div class="title">Arctic Monkeys - 505🎵</div>
-            <div class="sub" data-i18n="yt_6_sub">Piacevole scoperta in un 23 agosto di riposo.</div>
-          </div>
-
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro - HOPI SENDÉ (Live Session)" data-yt-id="S-NjVK28_2w" data-yt-url="https://www.youtube.com/watch?v=S-NjVK28_2w">
-            <img src="https://img.youtube.com/vi/S-NjVK28_2w/hqdefault.jpg" alt="Miniatura video YouTube 7" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-            <div class="title">Ryan Castro - HOPI SENDÉ (Live Session) [Medellín, Comuna 13]🎵</div>
-            <div class="sub" data-i18n="yt_7_sub">Ryan Castro gasa mi dispiace non si discute.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ FILM & SERIE ============ -->
+    <!-- FILM -->
     <section id="film" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--indigo); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 12h.01"></path></svg>
-        </span>
+        <span class="card-index" style="--tab-color:var(--indigo)">FILM</span>
         <h2 class="card-title"><span data-i18n="film_title">Film &amp; Serie</span><small data-i18n="sub_film">I miei preferiti</small></h2>
       </div>
       <div class="card-body">
         <div class="media-grid">
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scarface" data-i18n-key="film_scarface">
-            <img src="foto/FILM1.jpg" alt="Locandina Scarface">
+          <div class="media-item movie-card" data-key="film_scarface">
+            <img src="foto/FILM1.jpg" alt="Scarface">
             <div class="title">Scarface</div>
-            <div class="sub" data-i18n="film_scarface">Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.</div>
-          </div>
-
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Goodfellas" data-i18n-key="film_goodfellas">
-            <img src="foto/fiilm2.jpg" alt="Locandina Goodfellas">
-            <div class="title">Goodfellas</div>
-            <div class="sub" data-i18n="film_goodfellas">(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
-          </div>
-
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek" data-i18n-key="film_shrek">
-            <img src="foto/film3.jpg" alt="Locandina Shrek">
-            <div class="title">Shrek</div>
-            <div class="sub" data-i18n="film_shrek">Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.</div>
-          </div>
-
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pluribus" data-i18n-key="film_pluribus">
-            <img src="foto/film4.jpg" alt="Locandina Pluribus">
-            <div class="title">Pluribus</div>
-            <div class="sub" data-i18n="film_pluribus">È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.</div>
-          </div>
-
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Il Signore degli Anelli" data-i18n-key="film_lotr">
-            <img src="foto/film5.jpg" alt="Locandina SigAnelli">
-            <div class="title">Il Signore degli Anelli</div>
-            <div class="sub" data-i18n="film_lotr">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
-          </div>
-
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scrubs" data-i18n-key="film_scrubs">
-            <img src="foto/film6.jpg" alt="Locandina Scrubus">
-            <div class="title">Scrubs</div>
-            <div class="sub" data-i18n="film_scrubs">È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
+            <div class="sub" data-i18n="film_scarface">Scarface racconta la scalata al potere di Tony Montana.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ VIDEOGIOCHI ============ -->
+    <!-- GIOCHI -->
     <section id="games" class="card">
       <div class="card-head">
-        <span class="card-index" style="--tab-color:var(--violet); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="11" r="1" fill="#FFFFFF"></circle><circle cx="17.5" cy="13" r="1" fill="#FFFFFF"></circle><rect x="2" y="6" width="20" height="12" rx="5"></rect></svg>
-        </span>
-        <h2 class="card-title"><span data-i18n="games_title">Videogiochi</span><small data-i18n="sub_games">Gaming &amp; Titoli Preferiti</small></h2>
+        <span class="card-index" style="--tab-color:var(--violet)">GAME</span>
+        <h2 class="card-title"><span data-i18n="games_title">Videogiochi</span><small data-i18n="sub_games">Gaming</small></h2>
       </div>
       <div class="card-body">
         <div class="media-grid">
-          <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli The last of us">
-            <img src="foto/127761.jpg" alt="Videogioco 1">
+          <div class="media-item game-card" data-key="game_tlou">
+            <img src="foto/127761.jpg" alt="TLOU">
             <div class="title">The last of us</div>
             <div class="sub" data-i18n="game_tlou">PS4 · Azione-avventura</div>
-          </div>
-
-          <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pokémon Platino">
-            <img src="foto/51GiGTjeigL._AC_UF894,1000_QL80_.jpg" alt="Videogioco 2">
-            <div class="title">Pokémon Platino</div>
-            <div class="sub">Nintendo DS · RPG</div>
-          </div>
-
-          <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Yu-Gi-Oh">
-            <img src="foto/MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg" alt="Videogioco 3">
-            <div class="title">Yu-Gi-Oh</div>
-            <div class="sub" data-i18n="game_yugioh">Giochi di carte collezionabili</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ NOTES ============ -->
+    <!-- NOTE -->
     <section id="notes" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--ochre)">NOTE</span>
         <h2 class="card-title"><span data-i18n="notes_title">Note</span><small data-i18n="sub_notes">Sezione memo</small></h2>
       </div>
       <div class="card-body">
-        <article class="note-entry">
-          <div class="note-date">14 AGO 2026</div>
-          <div class="note-content">
-            <h3 data-i18n="memo_1_title">Ho iniziato questo archivio</h3>
-            <p data-i18n="memo_1_text">Per adesso nulla da dichiarare poi si vedrà</p>
-          </div>
-        </article>
-        <article class="note-entry">
-          <div class="note-date">— — ——</div>
-          <div class="note-content">
-            <h3 data-i18n="memo_2_title">Prossima nota</h3>
-            <p data-i18n="memo_2_text">Per le prossime news dovete attendere</p>
-          </div>
-        </article>
+        <p data-i18n="memo_1_text">Per adesso nulla da dichiarare poi si vedrà</p>
       </div>
     </section>
 
-    <!-- ============ CONTACT ============ -->
+    <!-- CONTACT -->
     <section id="contact" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--rose)">INFO</span>
@@ -1752,566 +567,137 @@
       </div>
       <div class="card-body">
         <div class="contact-grid">
-          <a class="contact-link" href="mailto:giancarloflores8@gmail.com" style="--tab-color:var(--rose)">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 6l9 7 9-7M3 6h18v12H3z"/></svg>
-            Email
-          </a>
-          <a class="contact-link" href="https://www.instagram.com/papi.sosa___?igsi=ZWNudXloMWhtYXU3&utm_source=qr" target="_blank" rel="noopener" style="--tab-color:var(--sky)">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="17.5" cy="6.5" r="1"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg>
-            Instagram
-          </a>
-          <a class="contact-link" href="https://www.youtube.com/@giancarloflores8448" target="_blank" rel="noopener" style="--tab-color:var(--forest)">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
-            YouTube
-          </a>
-          <a class="contact-link" href="https://www.linkedin.com/in/giancarlo-flores-23a90a268" target="_blank" rel="noopener" style="--tab-color:var(--linkedin)">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A5.98 5.98 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2" fill="var(--linkedin)" stroke="none"/></svg>
-            LinkedIn
-          </a>
-          
-          <!-- Download CV Italiano -->
-          <a class="contact-link" href="CV_Giancarlo_Flores.pdf" download="CV_Giancarlo_Flores.pdf" style="--tab-color:var(--amber)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            <span data-i18n="cv_it">Scarica CV (IT)</span>
-          </a>
-
-          <!-- Download CV Inglese -->
-          <a class="contact-link" href="CV_Giancarlo_Flores_EN.pdf" download="CV_Giancarlo_Flores_EN.pdf" style="--tab-color:var(--emerald)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            <span data-i18n="cv_en">CV (EN version)</span>
-          </a>
+          <a class="contact-link" href="mailto:giancarloflores8@gmail.com">Email</a>
         </div>
       </div>
     </section>
 
-    <!-- ============ FOOTER ============ -->
     <footer>
-      <a href="#home" data-tab="home" class="footer-mark-link" aria-label="Torna alla Home">
-        <img src="foto/titolo.png" alt="Archivio personale">
-      </a>
+      <img src="foto/titolo.png" alt="Titolo">
     </footer>
 
   </main>
 </div>
 
-<!-- ============ LIGHTBOX ============ -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Foto precedente">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-  </button>
-  <div class="lightbox-inner">
-    <img class="lightbox-img" id="lightboxImg" src="" alt="Anteprima">
-    <div class="lightbox-cap">
-      <span id="lightboxCap"></span>
-      <button class="lightbox-close" id="lightboxClose" data-i18n="modal_close">CHIUDI ✕</button>
-    </div>
-  </div>
-  <button class="lightbox-nav next" id="lightboxNext" aria-label="Foto successiva">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-  </button>
-</div>
-
-<!-- ============ MEDIA MODAL ============ -->
+<!-- MEDIA MODAL -->
 <div class="media-modal" id="mediaModal">
   <div class="media-modal-inner">
     <img class="media-modal-img" id="mediaModalImg" src="" alt="">
     <div class="media-modal-body">
       <h3 id="mediaModalTitle"></h3>
       <p id="mediaModalDesc"></p>
-      <button class="media-modal-close" id="mediaModalClose" data-i18n="modal_close">CHIUDI ✕</button>
+      <button class="media-modal-close" id="mediaModalClose">CHIUDI ✕</button>
     </div>
   </div>
 </div>
 
-<!-- ============ YOUTUBE MODAL ============ -->
+<!-- YOUTUBE MODAL -->
 <div class="yt-modal" id="ytModal">
-  <div class="yt-modal-video">
-    <iframe id="ytFrame" src="" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="yt-modal-inner">
+    <div class="yt-modal-video">
+      <iframe id="ytFrame" src="" allow="autoplay" allowfullscreen></iframe>
+    </div>
   </div>
 </div>
 
 <script>
-  // ---- Dizionario Traduzioni ----
+  // Dati Traduzioni
   const translations = {
     it: {
-      nav_home: "Home",
-      nav_about: "Chi sono",
-      nav_gallery: "Galleria",
-      nav_video: "Video",
-      nav_yt: "YouTube",
-      nav_film: "Film",
-      nav_games: "Giochi",
-      nav_notes: "Note",
-      nav_contact: "Contatti",
-      nav_film_full: "Film & Serie",
-      nav_games_full: "Videogiochi",
-      drawer_foot: "ARCHIVIO PERSONALE",
-      hero_title: "Il mio archivio personale",
-      hero_desc: "Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.",
-      tag_photo: "Fotografia",
-      tag_video: "Video",
-      tag_music: "Musica",
-      tag_cinema: "Cinema",
-      tag_gaming: "Gaming",
-      timeline_title: "Attività recente",
-      log_14aug: "Idea e Creazione del sito WEB",
-      tag_office: "Ufficio💼",
-      log_15aug: "Implementazione del sito web sia di contenuti che a livello codice",
-      tag_home: "Casa 🏠",
-      log_16aug: "Nuovi brani in YouTube Chuwi Tiny Desk & Bad Bunny",
-      log_17aug: "Sono partito per le vacanze estive Sarde, tutte le info nella sezioni Pensieri",
-      tag_thoughts: "Pensieri",
-      log_23aug: "Nuovi brani in YouTube + pensieri sparsi della giornata",
-      tag_relax: "Casa🏠 & RELAX",
-      load_more: "Carica altro",
-      suc_title: "Sito in continua costruzione",
-      suc_desc: "Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.",
-      about_title: "Chi sono",
-      sub_bio: "Bio",
-      about_intro: "Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.",
-      about_base_label: "Base",
-      about_age_label: "Età",
-      about_age_val: "Classe 99",
-      about_interests_label: "Interessi",
-      about_interests_val: "Foto · Video · Videogiochi · Sport · Scrittura",
-      about_status_label: "Stato",
-      about_status_val: "In costante aggiornamento",
-      scribble_head: "Pensieri (fai un click sulla data per leggere cosa è successo 😉)",
-      month_aug2026: "📁 Agosto 2026",
-      note_14aug_date: "+ 14 agosto 2026",
-      note_14aug_text: "Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.",
-      note_15aug_date: "+ 15 agosto 2026",
-      note_15aug_text: "Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.",
-      note_16aug_date: "+ 16 agosto 2026",
-      note_16aug_text: "Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.",
-      note_sardinia_date: "+ Dal 17 al 21 agosto 2026",
-      note_sardinia_p1: "Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.",
-      note_sardinia_p2: "Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.",
-      note_sardinia_p3: "Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.",
-      note_sardinia_p4: "L'unico vero momento \"avventuroso\" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.",
-      note_23aug_date: "+ 23 agosto 2026",
-      note_23aug_text: "Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.",
-      note_24aug_date: "+ 24 agosto 2026",
-      note_24aug_text: "Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .",
-      gallery_title: "Galleria",
-      sub_photo: "Foto",
-      gallery_note: "Clicca o premi Invio su una foto per ingrandirla.",
-      video_title: "Video",
-      sub_clip: "Clip & riprese",
-      yt_title: "YouTube",
-      sub_yt: "Canali & Contenuti",
-      yt_1_sub: "Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.",
-      yt_2_sub: "Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.",
-      yt_3_sub: "Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.",
-      yt_4_sub: "Lui l'ha scritta, io l'ho vissuta 🙁 .",
-      yt_5_sub: "Stranamente mi piacciono le canzoni tristi di Bad 🙁.",
-      yt_6_sub: "Piacevole scoperta in un 23 agosto di riposo.",
-      yt_7_sub: "Ryan Castro gasa mi dispiace non si discute.",
-      film_title: "Film & Serie",
-      sub_film: "I miei preferiti",
-      film_scarface: "Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.",
-      film_goodfellas: "(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.",
-      film_shrek: "Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.",
-      film_pluribus: "È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.",
-      film_lotr: "Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.",
-      film_scrubs: "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John \"J.D.\" Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
-      games_title: "Videogiochi",
-      sub_games: "Gaming & Titoli Preferiti",
-      game_tlou: "PS4 · Azione-avventura",
-      game_yugioh: "Giochi di carte collezionabili",
-      notes_title: "Note",
-      sub_notes: "Sezione memo",
-      memo_1_title: "Ho iniziato questo archivio",
-      memo_1_text: "Per adesso nulla da dichiarare poi si vedrà",
-      memo_2_title: "Prossima nota",
-      memo_2_text: "Per le prossime news dovete attendere",
-      contact_title: "Contatti",
-      sub_contact: "Dove trovarmi",
-      cv_it: "Scarica CV (IT)",
-      cv_en: "CV (EN version)",
-      modal_close: "CHIUDI ✕",
+      nav_home: "Home", nav_about: "Chi sono", nav_gallery: "Galleria", nav_video: "Video", nav_yt: "YouTube", nav_film: "Film", nav_games: "Giochi", nav_notes: "Note", nav_contact: "Contatti", nav_film_full: "Film & Serie", nav_games_full: "Videogiochi",
+      hero_title: "Il mio archivio personale", hero_desc: "Uno spazio dove raccolgo foto, video e note.", timeline_title: "Attività recente", log_14aug: "Creazione del sito WEB", tag_office: "Ufficio💼", log_15aug: "Aggiornamento contenuti", tag_home: "Casa 🏠",
+      about_title: "Chi sono", sub_bio: "Bio", about_intro: "Ciao, racconto chi sono e cosa faccio.", about_base_label: "Base", about_age_label: "Età", about_age_val: "Classe 99",
+      gallery_title: "Galleria", sub_photo: "Foto", video_title: "Video", sub_clip: "Clip", yt_title: "YouTube", sub_yt: "Canali", film_title: "Film & Serie", sub_film: "Preferiti",
+      film_scarface: "Scarface racconta la scalata al potere di Tony Montana.", games_title: "Videogiochi", sub_games: "Gaming", game_tlou: "PS4 · Azione-avventura", notes_title: "Note", sub_notes: "Memo", memo_1_text: "Per adesso nulla da dichiarare", contact_title: "Contatti", sub_contact: "Info"
     },
     en: {
-      nav_home: "Home",
-      nav_about: "Who I am",
-      nav_gallery: "Gallery",
-      nav_video: "Video",
-      nav_yt: "YouTube",
-      nav_film: "Movies",
-      nav_games: "Games",
-      nav_notes: "Notes",
-      nav_contact: "Contacts",
-      nav_film_full: "Films & Series",
-      nav_games_full: "Video games",
-      drawer_foot: "PERSONAL ARCHIVE",
-      hero_title: "My personal archive",
-      hero_desc: "A space where I collect photos, videos, thoughts and everything that interests me. No fixed themes: only things worth keeping and sharing.",
-      tag_photo: "Photograph",
-      tag_video: "Video",
-      tag_music: "Music",
-      tag_cinema: "Cinema",
-      tag_gaming: "Gaming",
-      timeline_title: "Recent activity",
-      log_14aug: "Idea and Creation of the WEB site",
-      tag_office: "Office💼",
-      log_15aug: "Implementation of the website at both content and code level",
-      tag_home: "Home 🏠",
-      log_16aug: "New songs on YouTube Chuwi Tiny Desk & Bad Bunny",
-      log_17aug: "I left for the Sardinian summer holidays, all the info in the Thoughts section",
-      tag_thoughts: "Thoughts",
-      log_23aug: "New songs on YouTube + scattered thoughts of the day",
-      tag_relax: "Home🏠 & RELAX",
-      load_more: "Load more",
-      suc_title: "Site under continuous construction",
-      suc_desc: "I'm updating this place in small steps, a bit like these two — watch out for the work in progress.",
-      about_title: "Who I am",
-      sub_bio: "Bio",
-      about_intro: "Hi, let me tell you who I am, what I do and what I'm passionate about.",
-      about_base_label: "Basic",
-      about_age_label: "Age",
-      about_age_val: "Class of 99",
-      about_interests_label: "Interests",
-      about_interests_val: "Photo · Video · Video games · Sports · Writing",
-      about_status_label: "State",
-      about_status_val: "Constantly updated",
-      scribble_head: "Thoughts (click on the date to read what happened 😉)",
-      month_aug2026: "📁 August 2026",
-      note_14aug_date: "+ 14 August 2026",
-      note_14aug_text: "I was alone at work, and I had already finished all my tasks, so I decided to create and put my personal website online, since in high school I learned to use HTML, JAVA and CSS, I decided to give it a try since I never had time for a personal project.",
-      note_15aug_date: "+ 15 August 2026",
-      note_15aug_text: "On August 15th since I didn't organize anything with anyone, I decided to work on the site, after all I'm on holiday I can do what I want 😄, Gemini and Claude gave me a big hand, it's difficult to find bugs in almost 1800 lines of code, and yes it's a very static site, I can't imagine what sites are like that have to manage users, emails and payments 😱.",
-      note_16aug_date: "+ 16 August 2026",
-      note_16aug_text: "Looking back, I realize how far I've come since I started: I started from a very simple tabbed site (Home, About me, Gallery, Video, Contacts) and little by little I transformed it into something more mine. I added the YouTube, Films & Series and Videogames sections, with a modal that opens by clicking on it and shows large cover + description. I put a light/dark theme with a sun/moon button at the top right, which remembers the choice even if I close the site. I redesigned the edges and shadows of the cards to give them more depth, and added small animations. The site is finally starting to look really neat, and I'm enjoying keeping it updated.",
-      note_sardinia_date: "+ From 17 to 21 August 2026",
-      note_sardinia_p1: "A week in Alghero which could be summed up as: crystal clear sea, boat excursions, aperitifs at sunset and a final Odyssey at the airport.",
-      note_sardinia_p2: "The trip started under the best auspices: the outbound flight flew by perfectly, smoothly and on time. Once we landed, we immersed ourselves in the relaxed rhythms of Sardinia. We explored the coast from another perspective thanks to an unforgettable boat ride, stopping under the imposing limestone cliffs of the promontory to snorkel in transparent coves with the fish.",
-      note_sardinia_p3: "The days were divided between adventures in the water, freediving and evening walks through the streets of the historic center of Alghero, until we waited for the golden sunset on the beach with the view of the promontory in the background.",
-      note_sardinia_p4: "The only truly \"adventurous\" (and decidedly less pleasant) moment came at the very end: when it was time to return home, the return flight decided to test our patience after being 12 hours late. A marathon at the airport that put our relaxation to the test, but which failed to undermine the memory of the fantastic days spent on a boat with friends.",
-      note_23aug_date: "+ August 23, 2026",
-      note_23aug_text: "Last day of holidays, rest and relaxation are a must, I'll spend it living a slow and enjoyable life as I like to do without leaving my passions behind.",
-      note_24aug_date: "+ August 24, 2026",
-      note_24aug_text: "I return to the office, with a somewhat traumatic awakening, we return to the routine, breakfast, preparation of pasta for lunch, we wash ourselves and perfume ourselves and then off we go with my Kia special which... then you know please don't find traffic and we arrive in the magical office. The day has just begun, let's hope it ends in the best way, I'll keep you updated😉 .",
-      gallery_title: "Gallery",
-      sub_photo: "Foto",
-      gallery_note: "Click or press Enter on a photo to enlarge it.",
-      video_title: "Video",
-      sub_clip: "Clips & footage",
-      yt_title: "YouTube",
-      sub_yt: "Channels & Contents",
-      yt_1_sub: "The song that opens Chuwi's performance for the Tiny Desk is lively, allusive and full of questions. Between intertwining voices, keyboards and percussion, the Puerto Rican band delicately recounts a life lived to the full.",
-      yt_2_sub: "A dynamic and catchy Afrobeats song. The related Official Visualizer accompanies the rhythmic and enveloping sounds of the song with a clean, modern and hypnotic visual aesthetic.",
-      yt_3_sub: "The video clip is set in different summer and tropical locations, including a beach with Jeep off-road vehicles, a boat/yacht and urban scenarios with quads and motorbikes.",
-      yt_4_sub: "He wrote it, I lived it 🙁 .",
-      yt_5_sub: "Strangely enough I like the sad songs on Bad 🙁.",
-      yt_6_sub: "Pleasant discovery on a restful August 23rd.",
-      yt_7_sub: "Ryan Castro gasa mi dispiace non si discute.",
-      film_title: "Films & Series",
-      sub_film: "My favourites",
-      film_scarface: "Brian De Palma in 1983 and starring Al Pacino, Scarface tells the story of the rise to power and fall of Cuban refugee Tony Montana. Arriving in Miami in 1980, Tony becomes the king of drug trafficking, but is destroyed by his own arrogance, paranoia and addiction.",
-      film_goodfellas: "(GoodFellas) is a 1990 film directed by Martin Scorsese and based on the essay by Nicholas Pileggi. It tells the true story of Henry Hill, a boy who grew up in the suburbs of New York who rises through the ranks of the Italian-American mafia together with his associates Jimmy Conway and Tommy DeVito, until his collapse and entry into the witness protection program.",
-      film_shrek: "Shrek finds his quiet solitude in the swamp ruined when the evil Lord Farquaad exiles all the fairytale creatures there. To get his land back, Shrek agrees to save Princess Fiona from a dragon, discovering at the end of the journey the girl's love and true nature.",
-      film_pluribus: "È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.",
-      film_lotr: "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring, throwing it into the fires of Mount Doom in Mordor to save Middle-earth from the dark lord Sauron.",
-      film_scrubs: "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John \"J.D.\" Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
-      games_title: "Video games",
-      sub_games: "Gaming & Favorite Titles",
-      game_tlou: "PS4 · Action-adventure",
-      game_yugioh: "Collectible card games",
-      notes_title: "Notes",
-      sub_notes: "Memo section",
-      memo_1_title: "Ho iniziato questo archivio",
-      memo_1_text: "For now nothing to declare, then we'll see",
-      memo_2_title: "Next note",
-      memo_2_text: "You'll have to wait for the next news",
-      contact_title: "Contatti",
-      sub_contact: "Where to find me",
-      cv_it: "Download CV (IT)",
-      cv_en: "CV (EN version)",
-      modal_close: "CLOSE ✕",
+      nav_home: "Home", nav_about: "About Me", nav_gallery: "Gallery", nav_video: "Video", nav_yt: "YouTube", nav_film: "Movies", nav_games: "Games", nav_notes: "Notes", nav_contact: "Contacts", nav_film_full: "Films & Series", nav_games_full: "Video Games",
+      hero_title: "My Personal Archive", hero_desc: "A place where I gather photos, videos, and notes.", timeline_title: "Recent Activity", log_14aug: "Website Creation", tag_office: "Office💼", log_15aug: "Content Update", tag_home: "Home 🏠",
+      about_title: "About Me", sub_bio: "Bio", about_intro: "Hi, let me tell you who I am.", about_base_label: "Base", about_age_label: "Age", about_age_val: "Born in '99",
+      gallery_title: "Gallery", sub_photo: "Photos", video_title: "Video", sub_clip: "Clips", yt_title: "YouTube", sub_yt: "Channels", film_title: "Films & Series", sub_film: "Favorites",
+      film_scarface: "Scarface chronicles Tony Montana's rise to power.", games_title: "Video Games", sub_games: "Gaming", game_tlou: "PS4 · Action-Adventure", notes_title: "Notes", sub_notes: "Memo", memo_1_text: "Nothing to report for now", contact_title: "Contacts", sub_contact: "Info"
     }
   };
 
-  // ---- Gestione Lingua ----
-  let currentLang = localStorage.getItem('site-lang') || 'it';
-  const langToggle = document.getElementById('langToggle');
-  const langFlag = document.getElementById('langFlag');
+  let currentLang = 'it';
 
-  function updateLanguage(lang) {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (translations[lang] && translations[lang][key]) {
-        el.innerHTML = translations[lang][key];
-      }
+  // 1. Cambio Schede (Tab Navigation)
+  const navLinks = document.querySelectorAll('[data-tab]');
+  const sections = document.querySelectorAll('main section');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('data-tab');
+      
+      sections.forEach(sec => sec.classList.remove('active-section'));
+      navLinks.forEach(l => l.classList.remove('active'));
+
+      const activeSection = document.getElementById(targetId);
+      if (activeSection) activeSection.classList.add('active-section');
+      
+      document.querySelectorAll(`[data-tab="${targetId}"]`).forEach(l => l.classList.add('active'));
     });
+  });
 
-    // Se il modale delle informazioni/film è attualmente aperto, aggiorna anche la descrizione visibile
-    const activeMediaKey = mediaModal.getAttribute('data-current-key');
-    if (activeMediaKey && translations[lang] && translations[lang][activeMediaKey]) {
-      mediaModalDesc.textContent = translations[lang][activeMediaKey];
-    }
-
-    if (lang === 'it') {
-      langFlag.src = 'https://flagcdn.com/w40/gb.png';
-      langFlag.alt = 'English';
+  // 2. Cambio Tema
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
     } else {
-      langFlag.src = 'https://flagcdn.com/w40/it.png';
-      langFlag.alt = 'Italiano';
+      document.documentElement.setAttribute('data-theme', 'dark');
     }
+  });
 
-    localStorage.setItem('site-lang', lang);
-  }
-
-  updateLanguage(currentLang);
-
+  // 3. Cambio Lingua
+  const langToggle = document.getElementById('langToggle');
   langToggle.addEventListener('click', () => {
     currentLang = currentLang === 'it' ? 'en' : 'it';
-    updateLanguage(currentLang);
-  });
-
-  // ---- Tema chiaro/scuro ----
-  const themeToggle = document.getElementById('themeToggle');
-  const htmlEl = document.documentElement;
-  const savedTheme = localStorage.getItem('site-theme');
-  if (savedTheme === 'dark') {
-    htmlEl.setAttribute('data-theme', 'dark');
-  }
-  themeToggle.addEventListener('click', () => {
-    const isDark = htmlEl.getAttribute('data-theme') === 'dark';
-    if (isDark) {
-      htmlEl.removeAttribute('data-theme');
-      localStorage.setItem('site-theme', 'light');
-    } else {
-      htmlEl.setAttribute('data-theme', 'dark');
-      localStorage.setItem('site-theme', 'dark');
-    }
-  });
-
-  // ---- Gestione Carosello Note Sardegna ----
-  let noteCarouselIndex = 0;
-
-  function moveNoteCarousel(direction) {
-    const items = document.querySelectorAll('#sardiniaCarousel .carousel-item');
-    if (!items.length) return;
-
-    const currentVideo = items[noteCarouselIndex].querySelector('video');
-    if (currentVideo) currentVideo.pause();
-
-    items[noteCarouselIndex].classList.remove('active');
-    noteCarouselIndex = (noteCarouselIndex + direction + items.length) % items.length;
-    items[noteCarouselIndex].classList.add('active');
-  }
-
-  function openMediaZoom(el) {
-    const img = el.querySelector('img');
-    if (!img) return;
-    lightboxImg.src = img.src;
-    lightboxCap.textContent = img.alt || 'Sardegna';
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  // ---- Timeline "Carica altro" ----
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', () => {
-      const extras = document.querySelectorAll('.extra-entry');
-      extras.forEach(el => el.style.display = 'flex');
-      loadMoreBtn.style.display = 'none';
-    });
-  }
-
-  // ---- Slider Video ----
-  const videoCards = Array.from(document.querySelectorAll('#video .video-card'));
-  const videoPrevBtn = document.getElementById('videoPrevBtn');
-  const videoNextBtn = document.getElementById('videoNextBtn');
-  let currentVideoIndex = 0;
-
-  function showVideo(index) {
-    videoCards.forEach(card => {
-      const vid = card.querySelector('video');
-      if (vid) vid.pause();
-      card.classList.remove('active');
-    });
-    currentVideoIndex = (index + videoCards.length) % videoCards.length;
-    videoCards[currentVideoIndex].classList.add('active');
-  }
-
-  if (videoPrevBtn && videoNextBtn) {
-    videoPrevBtn.addEventListener('click', () => showVideo(currentVideoIndex - 1));
-    videoNextBtn.addEventListener('click', () => showVideo(currentVideoIndex + 1));
-  }
-  if (videoCards.length) showVideo(0);
-
-  // ---- Lightbox Galleria ----
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxCap = document.getElementById('lightboxCap');
-  const lightboxClose = document.getElementById('lightboxClose');
-  const lightboxPrev = document.getElementById('lightboxPrev');
-  const lightboxNext = document.getElementById('lightboxNext');
-
-  const photoCards = Array.from(document.querySelectorAll('.photo-card'));
-  let currentPhotoIndex = 0;
-
-  const renderLightbox = (index) => {
-    const card = photoCards[index];
-    if (!card) return;
-    const imgElement = card.querySelector('img');
-    const fullSrc = card.dataset.fullsrc || (imgElement ? imgElement.src : '');
-    const caption = card.dataset.caption || (imgElement ? imgElement.alt : '');
-    lightboxImg.src = fullSrc;
-    lightboxImg.alt = caption;
-    lightboxCap.textContent = caption;
-    currentPhotoIndex = index;
-  };
-
-  const openLightbox = (card) => {
-    const index = photoCards.indexOf(card);
-    renderLightbox(index === -1 ? 0 : index);
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeLightbox = () => {
-    lightbox.classList.remove('open');
-    lightboxImg.src = '';
-    document.body.style.overflow = '';
-  };
-
-  const showNextPhoto = () => { renderLightbox((currentPhotoIndex + 1) % photoCards.length); };
-  const showPrevPhoto = () => { renderLightbox((currentPhotoIndex - 1 + photoCards.length) % photoCards.length); };
-
-  photoCards.forEach(card => {
-    card.addEventListener('click', () => openLightbox(card));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(card);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[currentLang][key]) {
+        el.textContent = translations[currentLang][key];
       }
     });
+    document.getElementById('langFlag').src = currentLang === 'it' ? 'https://flagcdn.com/w40/gb.png' : 'https://flagcdn.com/w40/it.png';
   });
 
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showNextPhoto(); });
-  lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrevPhoto(); });
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') showNextPhoto();
-    if (e.key === 'ArrowLeft') showPrevPhoto();
-  });
-
-  // ---- Media Modal ----
+  // 4. Modale Film e Giochi
   const mediaModal = document.getElementById('mediaModal');
-  const mediaModalImg = document.getElementById('mediaModalImg');
-  const mediaModalTitle = document.getElementById('mediaModalTitle');
-  const mediaModalDesc = document.getElementById('mediaModalDesc');
-  const mediaModalClose = document.getElementById('mediaModalClose');
-
-  const openMediaModal = (item) => {
-    const img = item.querySelector('img');
-    const title = item.querySelector('.title');
-    const key = item.getAttribute('data-i18n-key');
-    
-    mediaModalImg.src = img ? img.src : '';
-    mediaModalImg.alt = img ? img.alt : '';
-    mediaModalTitle.textContent = title ? title.textContent.trim() : '';
-    
-    if (key) {
-      mediaModal.setAttribute('data-current-key', key);
-      if (translations[currentLang] && translations[currentLang][key]) {
-        mediaModalDesc.textContent = translations[currentLang][key];
-      }
-    } else {
-      mediaModal.removeAttribute('data-current-key');
-      const desc = item.querySelector('.sub');
-      mediaModalDesc.textContent = desc ? desc.textContent.trim() : '';
-    }
-
-    mediaModal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeMediaModal = () => {
-    mediaModal.classList.remove('open');
-    mediaModal.removeAttribute('data-current-key');
-    document.body.style.overflow = '';
-  };
-
-  document.querySelectorAll('.media-item.clickable').forEach(item => {
-    item.addEventListener('click', () => openMediaModal(item));
-    item.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openMediaModal(item);
-      }
+  document.querySelectorAll('.movie-card, .game-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const img = card.querySelector('img').src;
+      const title = card.querySelector('.title').textContent;
+      const sub = card.querySelector('.sub').textContent;
+      
+      document.getElementById('mediaModalImg').src = img;
+      document.getElementById('mediaModalTitle').textContent = title;
+      document.getElementById('mediaModalDesc').textContent = sub;
+      mediaModal.classList.add('open');
     });
   });
 
-  mediaModalClose.addEventListener('click', closeMediaModal);
-  mediaModal.addEventListener('click', (e) => { if (e.target === mediaModal) closeMediaModal(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mediaModal.classList.contains('open')) closeMediaModal();
+  document.getElementById('mediaModalClose').addEventListener('click', () => {
+    mediaModal.classList.remove('open');
   });
 
-  // ---- YouTube Modal ----
+  // 5. Modale YouTube
   const ytModal = document.getElementById('ytModal');
   const ytFrame = document.getElementById('ytFrame');
+  document.querySelectorAll('.yt-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.getAttribute('data-yt-id');
+      ytFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+      ytModal.classList.add('open');
+    });
+  });
 
-  const openYtModal = (item) => {
-    const id = item.dataset.ytId;
-    ytFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-    ytModal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeYtModal = () => {
+  ytModal.addEventListener('click', () => {
     ytModal.classList.remove('open');
     ytFrame.src = '';
-    document.body.style.overflow = '';
-  };
-
-  document.querySelectorAll('.yt-card').forEach(item => {
-    item.addEventListener('click', () => openYtModal(item));
-    item.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openYtModal(item);
-      }
-    });
   });
-
-  ytModal.addEventListener('click', (e) => { if (e.target === ytModal) closeYtModal(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && ytModal.classList.contains('open')) closeYtModal();
-  });
-
-  // ---- Navigazione a schede ----
-  const allSections = document.querySelectorAll('main section[id]');
-  const navLinks = document.querySelectorAll('[data-tab]');
-
-  function showSection(id){
-    allSections.forEach(sec => {
-      sec.classList.toggle('active-section', sec.id === id);
-    });
-    navLinks.forEach(a => a.classList.toggle('active', a.dataset.tab === id));
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }
-
-  navLinks.forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const id = a.dataset.tab;
-      showSection(id);
-      history.replaceState(null, '', '#' + id);
-    });
-  });
-
-  const requestedId = window.location.hash ? window.location.hash.substring(1) : 'home';
-  const initialId = document.getElementById(requestedId) ? requestedId : 'home';
-  showSection(initialId);
 </script>
-
 </body>
 </html>
