@@ -6,7 +6,7 @@
 <title>Giancarlo Flores World</title>
 <meta name="description" content="Un archivio personale: foto, video, note, youtube, film, giochi e contatti.">
 
-<!-- Favicon per Browser Desktop -->
+<!-- FaviDesktop -->
 <link rel="icon" href="foto/favicon.ico">
 <link rel="shortcut icon" href="foto/favicon.ico">
 
@@ -101,11 +101,10 @@
     line-height:1.1;
   }
 
-  /* ============ THEME TOGGLE ============ */
-  .theme-toggle{
+  /* ============ THEME & LANG TOGGLES ============ */
+  .theme-toggle, .lang-toggle{
     position:fixed;
     top:1.2rem;
-    right:1.2rem;
     z-index:60;
     width:44px;
     height:44px;
@@ -120,7 +119,17 @@
     box-shadow:var(--shadow-sm);
     transition:background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .theme-toggle:hover{ transform:scale(1.07) rotate(-8deg); box-shadow:var(--shadow-md); }
+  .theme-toggle{ right:1.2rem; }
+  .lang-toggle{
+    right:4.5rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.8rem;
+    font-weight:700;
+  }
+
+  .theme-toggle:hover, .lang-toggle:hover{ transform:scale(1.07); box-shadow:var(--shadow-md); }
+  .theme-toggle:hover{ transform:scale(1.07) rotate(-8deg); }
+
   .theme-toggle svg{ width:19px; height:19px; }
   .theme-toggle .icon-moon{ display:none; }
   html[data-theme="dark"] .theme-toggle .icon-sun{ display:none; }
@@ -504,7 +513,7 @@
     box-shadow: var(--shadow-sm);
   }
 
-  /* ============ CANTIERE (illustrazione animata sotto la timeline) ============ */
+  /* ============ CANTIERE ============ */
   .site-under-construction{
     margin-top: 2rem;
     padding: 1.4rem 1.6rem;
@@ -639,7 +648,6 @@
     color:var(--ink);
   }
   
-  /* Stili per le note espandibili (details / summary) */
   .scribble-content .note-item {
     margin-bottom: 0.8rem;
     border-bottom: 1px dashed var(--line);
@@ -653,11 +661,11 @@
     cursor: pointer;
     font-weight: 700;
     user-select: none;
-    list-style: none; /* Rimuove freccia di default su Firefox */
+    list-style: none;
     transition: opacity 0.2s ease;
   }
   .scribble-content summary::-webkit-details-marker {
-    display: none; /* Rimuove freccia di default su Chrome/Safari */
+    display: none;
   }
   .scribble-content summary:hover {
     opacity: 0.75;
@@ -838,7 +846,6 @@
     font-size:0.78rem;
   }
 
-  /* Frecce navigazione lightbox */
   .lightbox-nav{
     position:absolute;
     top:50%;
@@ -869,7 +876,7 @@
     .lightbox-nav.next{ right:0.4rem; }
   }
 
-  /* Media modal (Film & Serie, Videogiochi) */
+  /* Media modal */
   .media-modal{
     position:fixed; inset:0;
     background:rgba(8,8,6,0.88);
@@ -935,7 +942,7 @@
     .media-modal-img{ width:100%; aspect-ratio:2/3; }
   }
 
-  /* YouTube modal: video incorporato direttamente nella pagina */
+  /* YouTube modal */
   .yt-modal{
     position:fixed; inset:0;
     background:rgba(8,8,6,0.9);
@@ -989,7 +996,7 @@
     .yt-modal-foot{ flex-direction:column; align-items:flex-start; gap:0.6rem; }
   }
 
-  /* ============ VIDEO SLIDER (SINGOLO VIDEO CON NAVIGAZIONE) ============ */
+  /* ============ VIDEO SLIDER ============ */
   .video-slider-container {
     position: relative;
     max-width: 720px;
@@ -1164,27 +1171,14 @@
   }
   .contact-link svg{ width:17px; height:17px; flex-shrink:0; stroke:var(--tab-color); }
 
+  /* ============ FOOTER ============ */
   footer{
     margin-top:auto;
     padding:2rem 0 1.5rem;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family:'Space Mono', monospace;
-    font-size:0.68rem;
-    color:var(--ink-soft);
-  }
-  footer img{
-    max-height:52px;
-    width:auto;
-    opacity:0.85;
-    display:block;
-    margin:0 auto;
-    transition:opacity 0.3s ease;
-  }
-  html[data-theme="dark"] footer img{
-    filter:invert(1) brightness(1.6);
-    opacity:0.85;
+    width:100%;
   }
   .footer-mark-link{
     display:inline-block;
@@ -1192,10 +1186,22 @@
     -webkit-tap-highlight-color:transparent;
     transition:transform 0.2s ease;
   }
+  .footer-mark-link img{
+    max-height:52px;
+    width:auto;
+    display:block;
+    opacity:0.85;
+    margin:0 auto;
+    transition:opacity 0.3s ease;
+  }
   .footer-mark-link:hover{ transform:scale(1.06); }
   .footer-mark-link:hover img{ opacity:1; }
   .footer-mark-link:active{ transform:scale(0.9); }
   .footer-mark-link:active img{ opacity:0.65; }
+
+  html[data-theme="dark"] .footer-mark-link img{
+    filter:invert(1) brightness(1.6);
+  }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 860px){
@@ -1207,6 +1213,7 @@
     .gallery-grid{ grid-template-columns:repeat(2, 1fr); }
     .card-body{ padding:1.5rem; }
     .theme-toggle{ top:0.65rem; right:0.9rem; width:38px; height:38px; }
+    .lang-toggle{ top:0.65rem; right:3.8rem; width:38px; height:38px; font-size:0.75rem; }
   }
 
   @media (max-width: 480px){
@@ -1215,6 +1222,11 @@
 </style>
 </head>
 <body>
+
+<!-- ============ LANGUAGE TOGGLE ============ -->
+<button class="lang-toggle" id="langToggle" aria-label="Cambia lingua" title="Cambia lingua">
+  <span id="langLabel">EN</span>
+</button>
 
 <!-- ============ THEME TOGGLE ============ -->
 <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema chiaro/scuro" title="Cambia tema">
@@ -1236,15 +1248,15 @@
 
 <!-- ============ MOBILE NAV ============ -->
 <nav class="mobile-nav" id="mobileNav">
-  <a data-tab="home" style="--tab-color:var(--ink)">Home</a>
-  <a data-tab="about" style="--tab-color:var(--forest)">Chi sono</a>
-  <a data-tab="gallery" style="--tab-color:var(--sky)">Galleria</a>
-  <a data-tab="video" style="--tab-color:var(--plum)">Video</a>
-  <a data-tab="yt" style="--tab-color:var(--amber)">YouTube</a>
-  <a data-tab="film" style="--tab-color:var(--indigo)">Film</a>
-  <a data-tab="games" style="--tab-color:var(--violet)">Giochi</a>
-  <a data-tab="notes" style="--tab-color:var(--ochre)">Note</a>
-  <a data-tab="contact" style="--tab-color:var(--rose)">Contatti</a>
+  <a data-tab="home" style="--tab-color:var(--ink)" data-i18n="nav_home">Home</a>
+  <a data-tab="about" style="--tab-color:var(--forest)" data-i18n="nav_about">Chi sono</a>
+  <a data-tab="gallery" style="--tab-color:var(--sky)" data-i18n="nav_gallery">Galleria</a>
+  <a data-tab="video" style="--tab-color:var(--plum)" data-i18n="nav_video">Video</a>
+  <a data-tab="yt" style="--tab-color:var(--amber)" data-i18n="nav_yt">YouTube</a>
+  <a data-tab="film" style="--tab-color:var(--indigo)" data-i18n="nav_film">Film</a>
+  <a data-tab="games" style="--tab-color:var(--violet)" data-i18n="nav_games">Giochi</a>
+  <a data-tab="notes" style="--tab-color:var(--ochre)" data-i18n="nav_notes">Note</a>
+  <a data-tab="contact" style="--tab-color:var(--rose)" data-i18n="nav_contact">Contatti</a>
 </nav>
 
 <div class="shell">
@@ -1256,18 +1268,18 @@
         <img src="foto/logo.png" alt="Logo" class="mark">
       </a>
       <ul class="drawer-nav" id="drawerNav">
-        <li><a data-tab="home" style="--tab-color:var(--ink)"><span class="swatch" style="background:var(--ink)"></span>Home</a></li>
-        <li><a data-tab="about" style="--tab-color:var(--forest)"><span class="swatch" style="background:var(--forest)"></span>Chi sono</a></li>
-        <li><a data-tab="gallery" style="--tab-color:var(--sky)"><span class="swatch" style="background:var(--sky)"></span>Galleria</a></li>
-        <li><a data-tab="video" style="--tab-color:var(--plum)"><span class="swatch" style="background:var(--plum)"></span>Video</a></li>
-        <li><a data-tab="yt" style="--tab-color:var(--amber)"><span class="swatch" style="background:var(--amber)"></span>YouTube</a></li>
-        <li><a data-tab="film" style="--tab-color:var(--indigo)"><span class="swatch" style="background:var(--indigo)"></span>Film &amp; Serie</a></li>
-        <li><a data-tab="games" style="--tab-color:var(--violet)"><span class="swatch" style="background:var(--violet)"></span>Videogiochi</a></li>
-        <li><a data-tab="notes" style="--tab-color:var(--ochre)"><span class="swatch" style="background:var(--ochre)"></span>Note</a></li>
-        <li><a data-tab="contact" style="--tab-color:var(--rose)"><span class="swatch" style="background:var(--rose)"></span>Contatti</a></li>
+        <li><a data-tab="home" style="--tab-color:var(--ink)"><span class="swatch" style="background:var(--ink)"></span><span data-i18n="nav_home">Home</span></a></li>
+        <li><a data-tab="about" style="--tab-color:var(--forest)"><span class="swatch" style="background:var(--forest)"></span><span data-i18n="nav_about">Chi sono</span></a></li>
+        <li><a data-tab="gallery" style="--tab-color:var(--sky)"><span class="swatch" style="background:var(--sky)"></span><span data-i18n="nav_gallery">Galleria</span></a></li>
+        <li><a data-tab="video" style="--tab-color:var(--plum)"><span class="swatch" style="background:var(--plum)"></span><span data-i18n="nav_video">Video</span></a></li>
+        <li><a data-tab="yt" style="--tab-color:var(--amber)"><span class="swatch" style="background:var(--amber)"></span><span data-i18n="nav_yt">YouTube</span></a></li>
+        <li><a data-tab="film" style="--tab-color:var(--indigo)"><span class="swatch" style="background:var(--indigo)"></span><span data-i18n="nav_film_full">Film &amp; Serie</span></a></li>
+        <li><a data-tab="games" style="--tab-color:var(--violet)"><span class="swatch" style="background:var(--violet)"></span><span data-i18n="nav_games_full">Videogiochi</span></a></li>
+        <li><a data-tab="notes" style="--tab-color:var(--ochre)"><span class="swatch" style="background:var(--ochre)"></span><span data-i18n="nav_notes">Note</span></a></li>
+        <li><a data-tab="contact" style="--tab-color:var(--rose)"><span class="swatch" style="background:var(--rose)"></span><span data-i18n="nav_contact">Contatti</span></a></li>
       </ul>
     </div>
-    <div class="drawer-foot">ARCHIVIO PERSONALE<br>EST. 2026</div>
+    <div class="drawer-foot" data-i18n="drawer_foot">ARCHIVIO PERSONALE<br>EST. 2026</div>
   </aside>
 
   <!-- ============ MAIN ============ -->
@@ -1275,65 +1287,45 @@
 
     <!-- ============ HOME / HERO ============ -->
     <section id="home" class="card hero">
-      <h1>Il mio archivio personale</h1>
-      <p>Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.</p>
+      <h1 data-i18n="hero_title">Il mio archivio personale</h1>
+      <p data-i18n="hero_desc">Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.</p>
       <div class="tags">
         <span style="--tag-color:var(--sky)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 8h3l2-2h8l2 2h3v11H3z"></path>
-            <circle cx="12" cy="13.5" r="3.2"></circle>
-          </svg>
-          Fotografia
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l2-2h8l2 2h3v11H3z"></path><circle cx="12" cy="13.5" r="3.2"></circle></svg>
+          <span data-i18n="tag_photo">Fotografia</span>
         </span>
         <span style="--tag-color:var(--plum)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2.5" y="5.5" width="13" height="13" rx="2"></rect>
-            <path d="M15.5 9.5 21 6.5v11l-5.5-3"></path>
-          </svg>
-          Video
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="13" height="13" rx="2"></rect><path d="M15.5 9.5 21 6.5v11l-5.5-3"></path></svg>
+          <span data-i18n="tag_video">Video</span>
         </span>
         <span style="--tag-color:var(--rose)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l11-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="17" cy="16" r="3"></circle>
-          </svg>
-          Musica
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="17" cy="16" r="3"></circle></svg>
+          <span data-i18n="tag_music">Musica</span>
         </span>
         <span style="--tag-color:var(--indigo)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-            <path d="M7 4v16M17 4v16M3 9h4M17 9h4M3 15h4M17 15h4"></path>
-          </svg>
-          Cinema
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 4v16M17 4v16M3 9h4M17 9h4M3 15h4M17 15h4"></path></svg>
+          <span data-i18n="tag_cinema">Cinema</span>
         </span>
         <span style="--tag-color:var(--violet)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="20" height="11" rx="5"></rect>
-            <line x1="7" y1="12.5" x2="10" y2="12.5"></line>
-            <line x1="8.5" y1="11" x2="8.5" y2="14"></line>
-            <circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"></circle>
-            <circle cx="17.3" cy="13" r="1" fill="currentColor" stroke="none"></circle>
-          </svg>
-          Gaming
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5"></rect><line x1="7" y1="12.5" x2="10" y2="12.5"></line><line x1="8.5" y1="11" x2="8.5" y2="14"></line><circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"></circle><circle cx="17.3" cy="13" r="1" fill="currentColor" stroke="none"></circle></svg>
+          <span data-i18n="tag_gaming">Gaming</span>
         </span>
       </div>
 
-      <!-- ============ TIMELINE INTEGRATA IN HOME ============ -->
+      <!-- TIMELINE INTEGRATA IN HOME -->
       <div class="home-timeline-box">
         <div class="home-timeline-header">
-          <h2 class="home-timeline-title">Attività recente</h2>
+          <h2 class="home-timeline-title" data-i18n="timeline_title">Attività recente</h2>
           <span class="home-timeline-sub">Log</span>
         </div>
 
         <div class="timeline">
-
           <div class="entry">
             <div class="dot" style="background: var(--dot-fotografia);"></div>
             <div class="entry-body">
               <span class="entry-date">14 ago 2026</span>
-              <span class="entry-text">Idea e Creazione del sito WEB<span class="highlight"></span></span>
-              <span class="entry-tag">Ufficio💼 </span>
+              <span class="entry-text" data-i18n="log_14aug">Idea e Creazione del sito WEB</span>
+              <span class="entry-tag" data-i18n="tag_office">Ufficio💼</span>
             </div>
           </div>
 
@@ -1341,8 +1333,8 @@
             <div class="dot" style="background: var(--dot-note);"></div>
             <div class="entry-body">
               <span class="entry-date">15 ago 2026</span>
-              <span class="entry-text">Implementazione del sito web sia di contenuti che a livello codice <span class="highlight"></span></span>
-              <span class="entry-tag">Casa 🏠</span>
+              <span class="entry-text" data-i18n="log_15aug">Implementazione del sito web sia di contenuti che a livello codice</span>
+              <span class="entry-tag" data-i18n="tag_home">Casa 🏠</span>
             </div>
           </div>
 
@@ -1350,7 +1342,7 @@
             <div class="dot" style="background: var(--dot-musica);"></div>
             <div class="entry-body">
               <span class="entry-date">16 ago 2026</span>
-              <span class="entry-text">Nuovi brani in <span class="highlight">YouTube</span> Chuwi Tiny Desk &amp; Bad Bunny</span>
+              <span class="entry-text" data-i18n="log_16aug">Nuovi brani in YouTube Chuwi Tiny Desk & Bad Bunny</span>
               <span class="entry-tag">YouTube</span>
             </div>
           </div>
@@ -1359,8 +1351,8 @@
             <div class="dot" style="background: var(--dot-note);"></div>
             <div class="entry-body">
               <span class="entry-date">17 ago 2026</span>
-              <span class="entry-text">Sono partito per le vacanze estive Sarde, tutte le info nella sezioni Pensieri </span>
-              <span class="entry-tag">Pensieri</span>
+              <span class="entry-text" data-i18n="log_17aug">Sono partito per le vacanze estive Sarde, tutte le info nella sezioni Pensieri</span>
+              <span class="entry-tag" data-i18n="tag_thoughts">Pensieri</span>
             </div>
           </div>
           
@@ -1368,21 +1360,19 @@
             <div class="dot" style="background: var(--dot-note);"></div>
             <div class="entry-body">
               <span class="entry-date">23 ago 2026</span>
-              <span class="entry-text">Nuovi brani in <span class="highlight">YouTube</span> + pensieri sparsi della giornata</span>
-              <span class="entry-tag">Casa🏠 & RELAX</span>
+              <span class="entry-text" data-i18n="log_23aug">Nuovi brani in YouTube + pensieri sparsi della giornata</span>
+              <span class="entry-tag" data-i18n="tag_relax">Casa🏠 & RELAX</span>
             </div>
           </div>
-          
         </div>
 
-        <button class="load-more" id="loadMoreBtn">Carica altro</button>
+        <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>
       </div>
 
-      <!-- ============ CANTIERE ============ -->
+      <!-- CANTIERE -->
       <div class="site-under-construction">
         <svg class="suc-illustration" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
           <rect x="0" y="72" width="120" height="4" fill="var(--line)"></rect>
-
           <g>
             <circle cx="30" cy="34" r="7" fill="#E7B78A"></circle>
             <path d="M22 32c0-6 16-6 16 0" fill="var(--ochre)"></path>
@@ -1395,7 +1385,6 @@
               <rect x="43" y="30" width="13" height="7" rx="1.5" fill="#59564C"></rect>
             </g>
           </g>
-
           <g>
             <circle cx="82" cy="36" r="7" fill="#C98A5E"></circle>
             <path d="M74 34c0-6 16-6 16 0" fill="var(--rose)"></path>
@@ -1408,67 +1397,64 @@
               <path d="M54 70h14l-3 8h-8z" fill="#8C8C86"></path>
             </g>
           </g>
-
           <circle class="suc-dust" cx="50" cy="40" r="2.4" fill="var(--ink-soft)"></circle>
           <circle class="suc-dust" cx="58" cy="66" r="2" fill="var(--ink-soft)" style="animation-delay:0.4s"></circle>
           <circle class="suc-dust" cx="44" cy="62" r="1.6" fill="var(--ink-soft)" style="animation-delay:0.8s"></circle>
         </svg>
         <div class="suc-text">
-          <strong>Sito in continua costruzione</strong>
-          Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.
+          <strong data-i18n="suc_title">Sito in continua costruzione</strong>
+          <span data-i18n="suc_desc">Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.</span>
         </div>
       </div>
-
     </section>
 
     <!-- ============ ABOUT ============ -->
     <section id="about" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--forest)">BIO</span>
-        <h2 class="card-title">Chi sono<small>Bio</small></h2>
+        <h2 class="card-title" data-i18n="about_title">Chi sono<small>Bio</small></h2>
       </div>
       <div class="card-body about-body">
         <div class="about-portrait">
           <img src="foto/profilo.jpg" alt="Foto profilo">
         </div>
         <div class="about-text">
-          <p>Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.</p>
+          <p data-i18n="about_intro">Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.</p>
           <dl class="about-facts">
-            <dt>Base</dt><dd>Padova, IT</dd>
-            <dt>Età</dt><dd>Classe 99</dd>
-            <dt>Interessi</dt><dd>Foto · Video · Videogiochi · Sport · Scrittura</dd>
-            <dt>Stato</dt><dd>In constante aggiornamento</dd>
+            <dt data-i18n="about_base_label">Base</dt><dd>Padova, IT</dd>
+            <dt data-i18n="about_age_label">Età</dt><dd data-i18n="about_age_val">Classe 99</dd>
+            <dt data-i18n="about_interests_label">Interessi</dt><dd data-i18n="about_interests_val">Foto · Video · Videogiochi · Sport · Scrittura</dd>
+            <dt data-i18n="about_status_label">Stato</dt><dd data-i18n="about_status_val">In costante aggiornamento</dd>
           </dl>
         </div>
       </div>
 
-      <!-- ============ FOGLIO A QUADRETTI: note random ============ -->
+      <!-- FOGLIO A QUADRETTI: note random -->
       <div class="scribble-pad">
-        <div class="scribble-pad-head">Pensieri (fai un click sulla data per leggere cosa è successo 😉)</div>
+        <div class="scribble-pad-head" data-i18n="scribble_head">Pensieri (fai un click sulla data per leggere cosa è successo 😉)</div>
         <div class="scribble-content">
-          
           <details class="note-item">
-            <summary class="note-date">+ Il 14 agosto 2026</summary>
-            <p>Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
+            <summary class="note-date" data-i18n="note_14aug_date">+ Il 14 agosto 2026</summary>
+            <p data-i18n="note_14aug_text">Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
           </details>
 
           <details class="note-item">
-            <summary class="note-date">+ Il 15 agosto 2026</summary>
-            <p>Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.</p>
+            <summary class="note-date" data-i18n="note_15aug_date">+ Il 15 agosto 2026</summary>
+            <p data-i18n="note_15aug_text">Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.</p>
           </details>
 
           <details class="note-item">
-            <summary class="note-date">+ Il 16 agosto 2026</summary>
-            <p>Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni: i tag della home compaiono a cascata, le foto si sollevano al passaggio del mouse, i modali si aprono con un effetto morbido invece che di scatto. Nella galleria ho messo le frecce avanti/indietro per scorrere le foto senza chiudere ogni volta, e la stessa cosa per i video. I video di YouTube si aprono incorporati nella pagina, senza rimbalzare fuori dal sito. Ho aggiunto un "Foglio degli appunti" con sfondo a quadretti stile quaderno e font corsivo per queste note sparse. Il logo ora gira su se stesso in loop ed è anche un bottone che riporta alla home; ho dovuto sistemare più volte il fatto che in modalità scura restasse nero invece di diventare bianco. Ho aggiunto il mio profilo LinkedIn tra i contatti, e disegnato a mano (in SVG, niente gif prese in giro) due omini da cantiere con martello e badile animati sotto la timeline. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
+            <summary class="note-date" data-i18n="note_16aug_date">+ Il 16 agosto 2026</summary>
+            <p data-i18n="note_16aug_text">Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
           </details>
 
           <details class="note-item">
-            <summary class="note-date">+ Dal 17 al 21 agosto 2026</summary>
-            <p>Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.</p>
-            <p>Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci. Tra un tuffo e l'altro, non è mancata la classica pausa rigenerante a bordo a suon di Ichnusa gelata sul mare e tanto relax al sole.</p>
-            <p>Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
+            <summary class="note-date" data-i18n="note_sardinia_date">+ Dal 17 al 21 agosto 2026</summary>
+            <p data-i18n="note_sardinia_p1">Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.</p>
+            <p data-i18n="note_sardinia_p2">Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>
+            <p data-i18n="note_sardinia_p3">Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
             
-            <!-- CAROSELLO FOTO & VIDEO SARDEGNA CON INGRANDIMENTO AL CLICK -->
+            <!-- CAROSELLO FOTO SARDEGNA -->
             <div class="note-carousel" id="sardiniaCarousel">
               <button class="carousel-nav prev" type="button" onclick="moveNoteCarousel(-1)">&#10094;</button>
               <div class="carousel-track">
@@ -1485,18 +1471,13 @@
               <button class="carousel-nav next" type="button" onclick="moveNoteCarousel(1)">&#10095;</button>
             </div>
 
-            <p>L'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
+            <p data-i18n="note_sardinia_p4">L'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
           </details>
           
           <details class="note-item">
-            <summary class="note-date">+ 23 agosto 2026</summary>
-            <p>Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.</p>
-            </details>
-          
-          <details class="note-item">
-            <summary class="note-date">+ 24 agosto 2026 <span class="fresh"></span></summary>
-            <p>Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arriva nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉.</p>
-            </details>
+            <summary class="note-date" data-i18n="note_23aug_date">+ 23 agosto 2026 <span class="fresh"></span></summary>
+            <p data-i18n="note_23aug_text">Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -1505,25 +1486,21 @@
     <section id="gallery" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--sky)">FOTO</span>
-        <h2 class="card-title">Galleria<small>Foto</small></h2>
+        <h2 class="card-title" data-i18n="gallery_title">Galleria<small>Foto</small></h2>
       </div>
       <div class="card-body">
         <div class="gallery-grid" id="galleryGrid">
-
           <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 01" data-caption="Santorini walking on" data-fullsrc="foto/GAL1.JPEG">
             <img src="foto/GAL1.JPEG" alt="Foto 01">
           </div>
-
           <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 02" data-caption="Like Tyler the Creator" data-fullsrc="foto/GAL2.JPEG">
             <img src="foto/GAL2.JPEG" alt="Foto 02">
           </div>
-
           <div class="photo-card" tabindex="0" role="button" aria-label="Ingrandisci Foto 03" data-caption="Insta 360 X4" data-fullsrc="foto/GAL3.JPEG">
             <img src="foto/GAL3.JPEG" alt="Foto 03">
           </div>
-
         </div>
-        <div class="gallery-note">Clicca o premi Invio su una foto per ingrandirla.</div>
+        <div class="gallery-note" data-i18n="gallery_note">Clicca o premi Invio su una foto per ingrandirla.</div>
       </div>
     </section>
 
@@ -1531,11 +1508,10 @@
     <section id="video" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--plum)">CLIP</span>
-        <h2 class="card-title">Video<small>Clip &amp; riprese</small></h2>
+        <h2 class="card-title" data-i18n="video_title">Video<small>Clip &amp; riprese</small></h2>
       </div>
       <div class="card-body">
         <div class="video-slider-container">
-
           <button class="video-slider-nav prev" id="videoPrevBtn" aria-label="Video precedente">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
@@ -1558,121 +1534,112 @@
               <span class="d">MOV</span>
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
-   <!-- ============ YOUTUBE ============ -->
-<section id="yt" class="card">
-  <div class="card-head">
-    <span class="card-index" style="background:#FF0000; padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="#FFFFFF">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-      </svg>
-    </span>
-    <h2 class="card-title">YouTube<small>Canali &amp; Contenuti</small></h2>
-  </div>
-  <div class="card-body">
-    <div class="media-grid">
-
-      <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Chuwi: Tiny Desk Concert" data-yt-id="r3ZPhIZ6_bM" data-yt-url="https://www.youtube.com/watch?v=r3ZPhIZ6_bM">
-        <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Miniatura video YouTube 1" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-        <div class="title">Chuwi: Tiny Desk Concert🎵</div>
-        <div class="sub">Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.</div>
+    <!-- ============ YOUTUBE ============ -->
+    <section id="yt" class="card">
+      <div class="card-head">
+        <span class="card-index" style="background:#FF0000; padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#FFFFFF">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </span>
+        <h2 class="card-title" data-i18n="yt_title">YouTube<small>Canali &amp; Contenuti</small></h2>
       </div>
+      <div class="card-body">
+        <div class="media-grid">
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Chuwi: Tiny Desk Concert" data-yt-id="r3ZPhIZ6_bM" data-yt-url="https://www.youtube.com/watch?v=r3ZPhIZ6_bM">
+            <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Miniatura video YouTube 1" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+            <div class="title">Chuwi: Tiny Desk Concert🎵</div>
+            <div class="sub" data-i18n="yt_1_sub">Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.</div>
+          </div>
 
-      <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Victony - SLICK" data-yt-id="Nr_Km2sqsCY" data-yt-url="https://www.youtube.com/watch?v=Nr_Km2sqsCY">
-        <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Miniatura video YouTube 2" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-        <div class="title">Victony - SLICK (Official Visualizer)🎵</div>
-        <div class="sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Victony - SLICK" data-yt-id="Nr_Km2sqsCY" data-yt-url="https://www.youtube.com/watch?v=Nr_Km2sqsCY">
+            <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Miniatura video YouTube 2" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+            <div class="title">Victony - SLICK (Official Visualizer)🎵</div>
+            <div class="sub" data-i18n="yt_2_sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
+          </div>
+
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro, Dongo - SANKA" data-yt-id="m-FggUm8G0g" data-yt-url="https://www.youtube.com/watch?v=m-FggUm8G0g">
+            <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Miniatura video YouTube 3" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+            <div class="title">Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵</div>
+            <div class="sub" data-i18n="yt_3_sub">Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.</div>
+          </div>
+
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda BAD BUNNY - KLOuFRENS" data-yt-id="3af9KM3Eq-E" data-yt-url="https://www.youtube.com/watch?v=3af9KM3Eq-E">
+            <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="Miniatura video YouTube 4" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+            <div class="title">BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵</div>
+            <div class="sub" data-i18n="yt_4_sub">Lui l'ha scritta, io l'ho vissuta 🙁 .</div>
+          </div>
+
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Bad Bunny - Si Estuviésemos Juntos" data-yt-id="EB7G3fUUaeA" data-yt-url="https://www.youtube.com/watch?v=EB7G3fUUaeA">
+            <img src="https://img.youtube.com/vi/EB7G3fUUaeA/hqdefault.jpg" alt="Miniatura video YouTube 5" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+            <div class="title">Bad Bunny - Si Estuviésemos Juntos🎵</div>
+            <div class="sub" data-i18n="yt_5_sub">Stranamente mi piacciono le canzoni tristi di Bad 🙁.</div>
+          </div>
+
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Arctic Monkeys - 505" data-yt-id="qU9mHegkTc4" data-yt-url="https://www.youtube.com/watch?v=qU9mHegkTc4">
+            <img src="https://img.youtube.com/vi/qU9mHegkTc4/hqdefault.jpg" alt="Miniatura video YouTube 6" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+            <div class="title">Arctic Monkeys - 505🎵</div>
+            <div class="sub" data-i18n="yt_6_sub">Piacevole scoperta in un 23 agosto di riposo.</div>
+          </div>
+
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro - HOPI SENDÉ (Live Session)" data-yt-id="S-NjVK28_2w" data-yt-url="https://www.youtube.com/watch?v=S-NjVK28_2w">
+            <img src="https://img.youtube.com/vi/S-NjVK28_2w/hqdefault.jpg" alt="Miniatura video YouTube 7" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+            <div class="title">Ryan Castro - HOPI SENDÉ (Live Session) [Medellín, Comuna 13]🎵</div>
+            <div class="sub" data-i18n="yt_7_sub">Ryan Castro gasa mi dispiace non si discute.</div>
+          </div>
+        </div>
       </div>
-
-      <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro, Dongo - SANKA" data-yt-id="m-FggUm8G0g" data-yt-url="https://www.youtube.com/watch?v=m-FggUm8G0g">
-        <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Miniatura video YouTube 3" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-        <div class="title">Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵</div>
-        <div class="sub">Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.</div>
-      </div>
-
-      <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda BAD BUNNY - KLOuFRENS" data-yt-id="3af9KM3Eq-E" data-yt-url="https://www.youtube.com/watch?v=3af9KM3Eq-E">
-        <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="Miniatura video YouTube 4" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-        <div class="title">BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵</div>
-        <div class="sub">Lui l'ha scritta, io l'ho vissuta 🙁 .</div>
-      </div>
-
-      <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Bad Bunny - Si Estuviésemos Juntos" data-yt-id="EB7G3fUUaeA" data-yt-url="https://www.youtube.com/watch?v=EB7G3fUUaeA">
-        <img src="https://img.youtube.com/vi/EB7G3fUUaeA/hqdefault.jpg" alt="Miniatura video YouTube 5" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-        <div class="title">Bad Bunny - Si Estuviésemos Juntos🎵</div>
-        <div class="sub">Stranamnete mi piacciono le canzoni tristi di Bad 🙁.</div>
-      </div>
-
-      <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Arctic Monkeys - 505" data-yt-id="qU9mHegkTc4" data-yt-url="https://www.youtube.com/watch?v=qU9mHegkTc4">
-        <img src="https://img.youtube.com/vi/qU9mHegkTc4/hqdefault.jpg" alt="Miniatura video YouTube 6" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-        <div class="title">Arctic Monkeys - 505🎵</div>
-        <div class="sub">Piacevole scoperta in un 23 agosto di riposo.</div>
-      </div>
-
-      <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro - HOPI SENDÉ (Live Session)" data-yt-id="S-NjVK28_2w" data-yt-url="https://www.youtube.com/watch?v=S-NjVK28_2w">
-        <img src="https://img.youtube.com/vi/S-NjVK28_2w/hqdefault.jpg" alt="Miniatura video YouTube 7" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
-        <div class="title">Ryan Castro - HOPI SENDÉ (Live Session) [Medellín, Comuna 13]🎵</div>
-        <div class="sub">Ryan Castro gasa mi dispiace non si discute.</div>
-      </div>
-
-    </div>
-  </div>
-</section>
+    </section>
 
     <!-- ============ FILM & SERIE ============ -->
     <section id="film" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--indigo); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M12 12h.01"></path>
-          </svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 12h.01"></path></svg>
         </span>
-        <h2 class="card-title">Film &amp; Serie<small>I miei preferiti</small></h2>
+        <h2 class="card-title" data-i18n="film_title">Film &amp; Serie<small>I miei preferiti</small></h2>
       </div>
       <div class="card-body">
         <div class="media-grid">
-
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scarface">
             <img src="foto/FILM1.jpg" alt="Locandina Scarface">
             <div class="title">Scarface</div>
-            <div class="sub">Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.</div>
+            <div class="sub" data-i18n="film_scarface">Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.</div>
           </div>
 
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Goodfellas">
             <img src="foto/fiilm2.jpg" alt="Locandina Goodfellas">
             <div class="title">Goodfellas</div>
-            <div class="sub">(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
+            <div class="sub" data-i18n="film_goodfellas">(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.</div>
           </div>
 
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Shrek">
             <img src="foto/film3.jpg" alt="Locandina Shrek">
             <div class="title">Shrek</div>
-            <div class="sub">Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.</div>
+            <div class="sub" data-i18n="film_shrek">Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.</div>
           </div>
 
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pluribus">
             <img src="foto/film4.jpg" alt="Locandina Pluribus">
             <div class="title">Pluribus</div>
-            <div class="sub">È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.</div>
+            <div class="sub" data-i18n="film_pluribus">È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.</div>
           </div>
 
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Il Signore degli Anelli">
             <img src="foto/film5.jpg" alt="Locandina SigAnelli">
             <div class="title">Il Signore degli Anelli</div>
-            <div class="sub">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
+            <div class="sub" data-i18n="film_lotr">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
           </div>
 
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scrubs">
             <img src="foto/film6.jpg" alt="Locandina Scrubus">
             <div class="title">Scrubs</div>
-            <div class="sub">È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
+            <div class="sub" data-i18n="film_scrubs">È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
           </div>
-
         </div>
       </div>
     </section>
@@ -1681,23 +1648,16 @@
     <section id="games" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--violet); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="6" y1="12" x2="10" y2="12"></line>
-            <line x1="8" y1="10" x2="8" y2="14"></line>
-            <circle cx="15" cy="11" r="1" fill="#FFFFFF"></circle>
-            <circle cx="17.5" cy="13" r="1" fill="#FFFFFF"></circle>
-            <rect x="2" y="6" width="20" height="12" rx="5"></rect>
-          </svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="11" r="1" fill="#FFFFFF"></circle><circle cx="17.5" cy="13" r="1" fill="#FFFFFF"></circle><rect x="2" y="6" width="20" height="12" rx="5"></rect></svg>
         </span>
-        <h2 class="card-title">Videogiochi<small>Gaming &amp; Titoli Preferiti</small></h2>
+        <h2 class="card-title" data-i18n="games_title">Videogiochi<small>Gaming &amp; Titoli Preferiti</small></h2>
       </div>
       <div class="card-body">
         <div class="media-grid">
-
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli The last of us">
             <img src="foto/127761.jpg" alt="Videogioco 1">
             <div class="title">The last of us</div>
-            <div class="sub">PS4 · Azione-avventura</div>
+            <div class="sub" data-i18n="game_tlou">PS4 · Azione-avventura</div>
           </div>
 
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pokémon Platino">
@@ -1709,9 +1669,8 @@
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Yu-Gi-Oh">
             <img src="foto/MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg" alt="Videogioco 3">
             <div class="title">Yu-Gi-Oh</div>
-            <div class="sub">Giochi di carte collezionabili</div>
+            <div class="sub" data-i18n="game_yugioh">Giochi di carte collezionabili</div>
           </div>
-
         </div>
       </div>
     </section>
@@ -1720,31 +1679,31 @@
     <section id="notes" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--ochre)">NOTE</span>
-        <h2 class="card-title">Note<small>Sezione memo </small></h2>
+        <h2 class="card-title" data-i18n="notes_title">Note<small>Sezione memo</small></h2>
       </div>
       <div class="card-body">
         <article class="note-entry">
           <div class="note-date">14 AGO 2026</div>
           <div class="note-content">
-            <h3>Ho iniziato questo archivio</h3>
-            <p>Per adesso nulla da dichiarare poi si vedrà</p>
+            <h3 data-i18n="memo_1_title">Ho iniziato questo archivio</h3>
+            <p data-i18n="memo_1_text">Per adesso nulla da dichiarare poi si vedrà</p>
           </div>
         </article>
         <article class="note-entry">
           <div class="note-date">— — ——</div>
           <div class="note-content">
-            <h3>Prossima nota</h3>
-            <p>Per le prossime news dovete attendere</p>
+            <h3 data-i18n="memo_2_title">Prossima nota</h3>
+            <p data-i18n="memo_2_text">Per le prossime news dovete attendere</p>
           </div>
         </article>
       </div>
     </section>
 
-   <!-- ============ CONTACT ============ -->
+    <!-- ============ CONTACT ============ -->
     <section id="contact" class="card">
       <div class="card-head">
         <span class="card-index" style="--tab-color:var(--rose)">INFO</span>
-        <h2 class="card-title">Contatti<small>Dove trovarmi</small></h2>
+        <h2 class="card-title" data-i18n="contact_title">Contatti<small>Dove trovarmi</small></h2>
       </div>
       <div class="card-body">
         <div class="contact-grid">
@@ -1768,17 +1727,27 @@
           <!-- Download CV Italiano -->
           <a class="contact-link" href="CV_Giancarlo_Flores.pdf" download="CV_Giancarlo_Flores.pdf" style="--tab-color:var(--amber)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            Scarica CV (IT)
+            <span data-i18n="cv_it">Scarica CV (IT)</span>
           </a>
 
           <!-- Download CV Inglese -->
           <a class="contact-link" href="CV_Giancarlo_Flores_EN.pdf" download="CV_Giancarlo_Flores_EN.pdf" style="--tab-color:var(--emerald)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            CV (EN version)
+            <span data-i18n="cv_en">CV (EN version)</span>
           </a>
         </div>
       </div>
     </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+      <a href="#home" data-tab="home" class="footer-mark-link" aria-label="Torna alla Home">
+        <img src="foto/titolo.png" alt="Archivio personale">
+      </a>
+    </footer>
+
+  </main>
+</div>
 
 <!-- ============ LIGHTBOX ============ -->
 <div class="lightbox" id="lightbox">
@@ -1797,7 +1766,7 @@
   </button>
 </div>
 
-<!-- ============ MEDIA MODAL (Film & Serie, Videogiochi) ============ -->
+<!-- ============ MEDIA MODAL ============ -->
 <div class="media-modal" id="mediaModal">
   <div class="media-modal-inner">
     <img class="media-modal-img" id="mediaModalImg" src="" alt="">
@@ -1817,6 +1786,205 @@
 </div>
 
 <script>
+  // ---- Dizionario Traduzioni ----
+  const translations = {
+    it: {
+      nav_home: "Home",
+      nav_about: "Chi sono",
+      nav_gallery: "Galleria",
+      nav_video: "Video",
+      nav_yt: "YouTube",
+      nav_film: "Film",
+      nav_film_full: "Film & Serie",
+      nav_games: "Giochi",
+      nav_games_full: "Videogiochi",
+      nav_notes: "Note",
+      nav_contact: "Contatti",
+      drawer_foot: "ARCHIVIO PERSONALE<br>EST. 2026",
+      hero_title: "Il mio archivio personale",
+      hero_desc: "Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.",
+      tag_photo: "Fotografia",
+      tag_video: "Video",
+      tag_music: "Musica",
+      tag_cinema: "Cinema",
+      tag_gaming: "Gaming",
+      timeline_title: "Attività recente",
+      log_14aug: "Idea e Creazione del sito WEB",
+      log_15aug: "Implementazione del sito web sia di contenuti che a livello codice",
+      log_16aug: "Nuovi brani in YouTube Chuwi Tiny Desk & Bad Bunny",
+      log_17aug: "Sono partito per le vacanze estive Sarde, tutte le info nella sezioni Pensieri",
+      log_23aug: "Nuovi brani in YouTube + pensieri sparsi della giornata",
+      tag_office: "Ufficio💼",
+      tag_home: "Casa 🏠",
+      tag_thoughts: "Pensieri",
+      tag_relax: "Casa🏠 & RELAX",
+      load_more: "Carica altro",
+      suc_title: "Sito in continua costruzione",
+      suc_desc: "Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.",
+      about_title: "Chi sono",
+      about_intro: "Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.",
+      about_base_label: "Base",
+      about_age_label: "Età",
+      about_age_val: "Classe 99",
+      about_interests_label: "Interessi",
+      about_interests_val: "Foto · Video · Videogiochi · Sport · Scrittura",
+      about_status_label: "Stato",
+      about_status_val: "In costante aggiornamento",
+      scribble_head: "Pensieri (fai un click sulla data per leggere cosa è successo 😉)",
+      note_14aug_date: "+ Il 14 agosto 2026",
+      note_14aug_text: "Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.",
+      note_15aug_date: "+ Il 15 agosto 2026",
+      note_15aug_text: "Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.",
+      note_16aug_date: "+ Il 16 agosto 2026",
+      note_16aug_text: "Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.",
+      note_sardinia_date: "+ Dal 17 al 21 agosto 2026",
+      note_sardinia_p1: "Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.",
+      note_sardinia_p2: "Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.",
+      note_sardinia_p3: "Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.",
+      note_sardinia_p4: "L'unico vero momento 'avventuroso' (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.",
+      note_23aug_date: "+ 23 agosto 2026 ",
+      note_23aug_text: "Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.",
+      gallery_title: "Galleria",
+      gallery_note: "Clicca o premi Invio su una foto per ingrandirla.",
+      video_title: "Video",
+      yt_title: "YouTube",
+      yt_1_sub: "Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.",
+      yt_2_sub: "Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.",
+      yt_3_sub: "Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.",
+      yt_4_sub: "Lui l'ha scritta, io l'ho vissuta 🙁 .",
+      yt_5_sub: "Stranamente mi piacciono le canzoni tristi di Bad 🙁.",
+      yt_6_sub: "Piacevole scoperta in un 23 agosto di riposo.",
+      yt_7_sub: "Ryan Castro gasa mi dispiace non si discute.",
+      film_title: "Film & Serie",
+      film_scarface: "Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.",
+      film_goodfellas: "(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.",
+      film_shrek: "Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.",
+      film_pluribus: "È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.",
+      film_lotr: "Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.",
+      film_scrubs: "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John 'J.D.' Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
+      games_title: "Videogiochi",
+      game_tlou: "PS4 · Azione-avventura",
+      game_yugioh: "Giochi di carte collezionabili",
+      notes_title: "Note",
+      memo_1_title: "Ho iniziato questo archivio",
+      memo_1_text: "Per adesso nulla da dichiarare poi si vedrà",
+      memo_2_title: "Prossima nota",
+      memo_2_text: "Per le prossime news dovete attendere",
+      contact_title: "Contatti",
+      cv_it: "Scarica CV (IT)",
+      cv_en: "CV (EN version)"
+    },
+    en: {
+      nav_home: "Home",
+      nav_about: "About me",
+      nav_gallery: "Gallery",
+      nav_video: "Videos",
+      nav_yt: "YouTube",
+      nav_film: "Movies",
+      nav_film_full: "Movies & Series",
+      nav_games: "Games",
+      nav_games_full: "Video Games",
+      nav_notes: "Notes",
+      nav_contact: "Contacts",
+      drawer_foot: "PERSONAL ARCHIVE<br>EST. 2026",
+      hero_title: "My Personal Archive",
+      hero_desc: "A space where I collect photos, videos, thoughts, and everything that interests me. No fixed theme: just things worth keeping and sharing.",
+      tag_photo: "Photography",
+      tag_video: "Video",
+      tag_music: "Music",
+      tag_cinema: "Cinema",
+      tag_gaming: "Gaming",
+      timeline_title: "Recent Activity",
+      log_14aug: "Idea and Creation of the WEBSITE",
+      log_15aug: "Website implementation both in content and code",
+      log_16aug: "New tracks on YouTube: Chuwi Tiny Desk & Bad Bunny",
+      log_17aug: "Left for summer holidays in Sardinia, all info in the Thoughts section",
+      log_23aug: "New tracks on YouTube + random thoughts of the day",
+      tag_office: "Office💼",
+      tag_home: "Home 🏠",
+      tag_thoughts: "Thoughts",
+      tag_relax: "Home🏠 & RELAX",
+      load_more: "Load more",
+      suc_title: "Site under continuous construction",
+      suc_desc: "I update this place step by step, a bit like these two — watch out for work in progress.",
+      about_title: "About me",
+      about_intro: "Hi, I tell who I am, what I do, and what I'm passionate about.",
+      about_base_label: "Base",
+      about_age_label: "Age",
+      about_age_val: "Class of '99",
+      about_interests_label: "Interests",
+      about_interests_val: "Photo · Video · Games · Sports · Writing",
+      about_status_label: "Status",
+      about_status_val: "Constantly updating",
+      scribble_head: "Thoughts (click on a date to read what happened 😉)",
+      note_14aug_date: "+ August 14, 2026",
+      note_14aug_text: "I was alone at work and had already finished all my tasks, so I decided to create and put online my personal website. Since I learned HTML, JAVA, and CSS in high school, I thought I'd give it a shot.",
+      note_15aug_date: "+ August 15, 2026",
+      note_15aug_text: "Since I didn't organize anything for Ferragosto, I decided to work on the site 😄 Gemini and Claude gave me a big hand, finding bugs in almost 1800 lines of code is tough!",
+      note_16aug_date: "+ August 16, 2026",
+      note_16aug_text: "Looking back, I realize how far I've come. I started from a simple tabbed site and turned it into something truly mine with light/dark theme, modals, and smoother animations.",
+      note_sardinia_date: "+ August 17 to 21, 2026",
+      note_sardinia_p1: "A week in Alghero summarized by: crystal-clear sea, boat trips, sunset aperitifs, and a final airport Odyssey.",
+      note_sardinia_p2: "The trip started great: smooth and punctual flight. We explored the coast from another perspective thanks to an unforgettable boat tour, snorkeling under limestone cliffs.",
+      note_sardinia_p3: "Days were spent between water adventures, freediving, and evening walks through Alghero's old town, watching golden sunsets from the beach.",
+      note_sardinia_p4: "The return flight tested our patience with a 12-hour delay! A real marathon at the airport, but it couldn't ruin the memories of amazing days with friends.",
+      note_23aug_date: "+ August 23, 2026 ",
+      note_23aug_text: "Last day of vacation, rest and relaxation are a must. Spending it living a slow and enjoyable life while pursuing my passions.",
+      gallery_title: "Gallery",
+      gallery_note: "Click or press Enter on a photo to enlarge it.",
+      video_title: "Videos",
+      yt_title: "YouTube",
+      yt_1_sub: "The opening song of Chuwi's Tiny Desk performance is lively and full of feeling. With intertwining voices, keyboards, and percussion, the Puerto Rican band shares a life lived to the fullest.",
+      yt_2_sub: "A dynamic and catchy Afrobeats track. The Official Visualizer accompanies the rhythmic sounds with clean, modern visuals.",
+      yt_3_sub: "The music video is set in summer and tropical locations, including beach scenes with Jeep off-roaders and yachts.",
+      yt_4_sub: "He wrote it, I lived it 🙁 .",
+      yt_5_sub: "Surprisingly, I really like Bad Bunny's sad songs 🙁.",
+      yt_6_sub: "A pleasant discovery on a restful August 23rd.",
+      yt_7_sub: "Ryan Castro hypes things up, no debate about it.",
+      film_title: "Movies & Series",
+      film_scarface: "Directed by Brian De Palma in 1983 and starring Al Pacino, Scarface tells the rise and fall of Cuban refugee Tony Montana in Miami's drug trade empire.",
+      film_goodfellas: "A 1990 film directed by Martin Scorsese. It tells the true story of Henry Hill rising through the ranks of the Italian-American mafia in New York.",
+      film_shrek: "Shrek's peaceful solitude in his swamp is disrupted when Lord Farquaad exiles fairytale creatures there. He sets out to rescue Princess Fiona to get his swamp back.",
+      film_pluribus: "A sci-fi series created by Vince Gilligan. An alien virus transforms humanity into a peaceful collective mind, leaving a few immune survivors to fight for free will.",
+      film_lotr: "The Lord of the Rings is an epic fantasy novel by J.R.R. Tolkien following Frodo Baggins on a mission to destroy the One Ring in Mount Doom.",
+      film_scrubs: "A famous sitcom following the surreal daily life of young doctor John 'J.D.' Dorian inside Sacred Heart hospital.",
+      games_title: "Video Games",
+      game_tlou: "PS4 · Action-Adventure",
+      game_yugioh: "Trading Card Games",
+      notes_title: "Notes",
+      memo_1_title: "I started this archive",
+      memo_1_text: "Nothing to declare for now, we'll see later",
+      memo_2_title: "Next note",
+      memo_2_text: "Stay tuned for future updates",
+      contact_title: "Contacts",
+      cv_it: "Download CV (IT)",
+      cv_en: "Download CV (EN)"
+    }
+  };
+
+  // ---- Gestione Lingua ----
+  let currentLang = localStorage.getItem('site-lang') || 'it';
+  const langToggle = document.getElementById('langToggle');
+  const langLabel = document.getElementById('langLabel');
+
+  function updateLanguage(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang] && translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+    langLabel.textContent = lang === 'it' ? 'EN' : 'IT';
+    localStorage.setItem('site-lang', lang);
+  }
+
+  updateLanguage(currentLang);
+
+  langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'it' ? 'en' : 'it';
+    updateLanguage(currentLang);
+  });
+
   // ---- Tema chiaro/scuro ----
   const themeToggle = document.getElementById('themeToggle');
   const htmlEl = document.documentElement;
@@ -1850,7 +2018,6 @@
     items[noteCarouselIndex].classList.add('active');
   }
 
-  // Ingrandimento al click per le foto del carosello
   function openMediaZoom(el) {
     const img = el.querySelector('img');
     if (!img) return;
