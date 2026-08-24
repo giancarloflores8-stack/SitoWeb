@@ -1,11 +1,12 @@
 import re
 import sys
 import time
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString, Tag
 from deep_translator import GoogleTranslator
 
 MAX_RETRY = 4
 PAUSA_TRA_CHIAMATE = 1.2  # secondi, per non farsi bloccare da Google
+
 
 def traduci_testo(testo):
     """Traduce con retry ed exponential backoff. Ritorna None se fallisce
@@ -28,16 +29,90 @@ def traduci_testo(testo):
     return None  # fallito per davvero dopo tutti i tentativi
 
 
-def estrai_dizionario_esistente(soup_o_testo, lingua):
+def estrai_html_interno(tag):
+    """Ritorna l'HTML *dentro* al tag così com'è (testo + eventuali tag
+    annidati tipo <small> o <span>), invece di prendere solo il primo nodo
+    di testo. Questo è il pezzo che prima veniva perso."""
+    return ''.join(str(c) for c in tag.contents).strip()
+
+
+def formatta_attributi(attrs):
+    """BeautifulSoup interpreta alcuni attributi (es. class) come liste,
+    non stringhe. Senza questa funzione si otterrebbe class="['fresh']"
+    invece di class="fresh"."""
+    pezzi = []
+    for chiave, valore in attrs.items():
+        if isinstance(valore, list):
+            valore = ' '.join(valore)
+        pezzi.append(f' {chiave}="{valore}"')
+    return ''.join(pezzi)
+
+
+def traduci_contenuto(tag):
+    """Traduce il testo dentro un tag preservando STRUTTURALMENTE eventuali
+    tag figli (es. <small>Bio</small>, <span class="fresh"></span>):
+    - i nodi di puro testo vengono tradotti
+    - i tag annidati vengono ricreati identici (stesso nome, stessi attributi),
+      traducendo solo il testo al loro interno (se presente; se sono vuoti,
+      tipo <span class="fresh"></span>, restano vuoti)
+
+    Gestisce un livello di annidamento, che è quanto usato in questo sito
+    (nessun tag è annidato dentro un altro tag annidato).
+
+    Ritorna (html_tradotto, c'è_stato_un_fallimento).
+    """
+    pezzi = []
+    fallimento = False
+
+    for figlio in tag.contents:
+        if isinstance(figlio, NavigableString):
+            testo = str(figlio)
+            testo_pulito = testo.strip()
+            if not testo_pulito:
+                pezzi.append(testo)
+                continue
+            # Preservo eventuali spazi prima/dopo (es. lo spazio tra il testo
+            # e un tag successivo come <span>), persi con lo strip completo.
+            spazio_prima = testo[:len(testo) - len(testo.lstrip())]
+            spazio_dopo = testo[len(testo.rstrip()):]
+            tradotto = traduci_testo(testo_pulito)
+            if tradotto is None:
+                fallimento = True
+                pezzi.append(spazio_prima + testo_pulito + spazio_dopo)  # meglio italiano visibile che errore
+            else:
+                pezzi.append(spazio_prima + tradotto + spazio_dopo)
+
+        elif isinstance(figlio, Tag):
+            testo_interno = figlio.get_text().strip()
+            if testo_interno:
+                tradotto = traduci_testo(testo_interno)
+                if tradotto is None:
+                    fallimento = True
+                    tradotto = testo_interno
+            else:
+                tradotto = ''  # tag vuoto tipo <span class="fresh"></span>: resta vuoto
+
+            attrs = formatta_attributi(figlio.attrs)
+            pezzi.append(f'<{figlio.name}{attrs}>{tradotto}</{figlio.name}>')
+
+        else:
+            # commenti HTML o altri nodi rari: li lasciamo passare così come sono
+            pezzi.append(str(figlio))
+
+    return ''.join(pezzi), fallimento
+
+
+def estrai_dizionario_esistente(testo_html, lingua):
     """Legge quello che è già scritto in index.html per 'it' o 'en',
     cosi da non ritradurre da zero ogni volta e non perdere correzioni manuali."""
     pattern = rf'{lingua}:\s*\{{([\s\S]*?)\n\s*\}}'
-    match = re.search(pattern, soup_o_testo)
+    match = re.search(pattern, testo_html)
     diz = {}
     if not match:
         return diz
     corpo = match.group(1)
-    # righe tipo:  chiave: "valore",
+    # righe tipo:  chiave: "valore",   (il valore può contenere HTML con
+    # virgolette già escapate, es. class=\"fresh\")
     for riga in re.finditer(r'(\w+):\s*"((?:[^"\\]|\\.)*)"\s*,?', corpo):
         chiave, valore = riga.group(1), riga.group(2)
         diz[chiave] = valore.replace('\\"', '"').replace('\\\\', '\\')
@@ -65,39 +140,40 @@ def aggiorna_traduzioni_sito():
         if chiave in dizionario_it:
             continue  # chiave già processata in questo giro
 
-        testo_it_raw = el.find(text=True, recursive=False)
-        if not testo_it_raw:
-            testo_it_raw = el.get_text()
-        testo_it = testo_it_raw.strip() if testo_it_raw else ""
-        if not testo_it:
+        # Prende TUTTO il contenuto interno (testo + tag annidati come
+        # <small> o <span>), non solo il primo nodo di testo.
+        html_it_originale = estrai_html_interno(el)
+        if not html_it_originale:
             continue
 
-        testo_it_clean = testo_it.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ').replace('\r', '')
+        testo_it_clean = html_it_originale.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ').replace('\r', '')
         dizionario_it[chiave] = testo_it_clean
 
-        # Se il testo italiano non è cambiato rispetto all'ultima esecuzione
-        # e avevamo già una traduzione inglese valida e diversa dall'italiano,
-        # la riusiamo: zero chiamate inutili a Google, zero rischio di rompere
-        # una traduzione già corretta.
+        # Se il testo italiano (HTML incluso) non è cambiato rispetto
+        # all'ultima esecuzione e avevamo già una traduzione inglese valida,
+        # la riusiamo: zero chiamate inutili a Google, zero rischio di
+        # rompere una traduzione già corretta.
         it_invariato = dizionario_it_vecchio.get(chiave) == testo_it_clean
         en_vecchio = dizionario_en_vecchio.get(chiave)
         if it_invariato and en_vecchio:
             dizionario_en[chiave] = en_vecchio
             continue
 
-        testo_en = traduci_testo(testo_it)
-        if testo_en is None:
+        html_en, fallimento = traduci_contenuto(el)
+
+        if fallimento:
             fallimenti.append(chiave)
-            # Non scriviamo l'italiano al posto dell'inglese: teniamo la
-            # vecchia traduzione se esiste, altrimenti segnaliamo il buco.
+
+        if not html_en or not html_en.strip():
             if en_vecchio:
                 print(f"↩️  '{chiave}': traduzione fallita, mantengo quella precedente.")
                 dizionario_en[chiave] = en_vecchio
             else:
                 print(f"❌ '{chiave}': nessuna traduzione disponibile, va sistemata a mano.")
-        else:
-            testo_en_clean = testo_en.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ').replace('\r', '')
-            dizionario_en[chiave] = testo_en_clean
+            continue
+
+        testo_en_clean = html_en.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ').replace('\r', '')
+        dizionario_en[chiave] = testo_en_clean
 
     righe_it = [f'      {chiave}: "{valore}",' for chiave, valore in dizionario_it.items()]
     nuovo_blocco_it = "it: {\n" + "\n".join(righe_it) + "\n    }"
