@@ -1249,7 +1249,7 @@
 
 <!-- ============ LANGUAGE TOGGLE ============ -->
 <button class="lang-toggle" id="langToggle" aria-label="Cambia lingua" title="Cambia lingua">
-  <span id="langLabel">EN</span>
+  <span id="langLabel" style="font-size: 1.2rem; line-height: 1;">🇬🇧</span>
 </button>
 
 <!-- ============ THEME TOGGLE ============ -->
@@ -2018,7 +2018,7 @@
         el.innerHTML = translations[lang][key];
       }
     });
-    langLabel.textContent = lang === 'it' ? 'EN' : 'IT';
+    langLabel.textContent = lang === 'it' ? '🇬🇧' : '🇮🇹';
     localStorage.setItem('site-lang', lang);
   }
 
