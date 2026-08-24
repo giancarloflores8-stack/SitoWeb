@@ -2,31 +2,79 @@ import re
 import sys
 import time
 from bs4 import BeautifulSoup, NavigableString, Tag
-from deep_translator import GoogleTranslator
+from deep_translator import GoogleTranslator, MyMemoryTranslator
 
 MAX_RETRY = 4
-PAUSA_TRA_CHIAMATE = 1.2  # secondi, per non farsi bloccare da Google
+PAUSA_TRA_CHIAMATE = 1.2  # secondi, per non farsi bloccare
+MYMEMORY_MAX_CHARS = 480  # margine di sicurezza sotto il limite di ~500 di MyMemory
+
+
+def _traduci_con_mymemory(testo):
+    """MyMemory ha un limite di ~500 caratteri per richiesta: se il testo è
+    più lungo (es. i paragrafi lunghi del diario) lo spezziamo per frasi e
+    ricomponiamo il risultato."""
+    if len(testo) <= MYMEMORY_MAX_CHARS:
+        return MyMemoryTranslator(source='it', target='en').translate(testo)
+
+    frasi = re.split(r'(?<=[.!?])\s+', testo)
+    pezzi_tradotti = []
+    blocco = ''
+    for frase in frasi:
+        if blocco and len(blocco) + len(frase) + 1 > MYMEMORY_MAX_CHARS:
+            pezzi_tradotti.append(MyMemoryTranslator(source='it', target='en').translate(blocco))
+            time.sleep(PAUSA_TRA_CHIAMATE)
+            blocco = frase
+        else:
+            blocco = (blocco + ' ' + frase).strip()
+    if blocco:
+        pezzi_tradotti.append(MyMemoryTranslator(source='it', target='en').translate(blocco))
+
+    return ' '.join(p for p in pezzi_tradotti if p)
 
 
 def traduci_testo(testo):
-    """Traduce con retry ed exponential backoff. Ritorna None se fallisce
-    davvero (mai il testo italiano spacciato per inglese)."""
+    """Traduce con due traduttori in cascata:
+    1) Google Translate (di solito la qualità migliore, ma sui server di
+       GitHub Actions viene spesso bloccato perché lo scraping non ufficiale
+       viene riconosciuto come traffico automatico)
+    2) MyMemory come ripiego automatico: è una vera API pensata per essere
+       chiamata in modo automatico, quindi molto più affidabile da una CI.
+
+    Ritorna None solo se ENTRAMBI falliscono (mai il testo italiano
+    spacciato per inglese)."""
     if not testo or not testo.strip():
         return testo
 
-    for tentativo in range(1, MAX_RETRY + 1):
+    testo = testo.strip()
+
+    # 1) Google Translate, tentativo rapido (se è bloccato lo è per l'intera
+    # sessione, insistere a lungo qui è solo tempo perso)
+    for tentativo in range(1, 3):
         try:
-            risultato = GoogleTranslator(source='it', target='en').translate(testo.strip())
+            risultato = GoogleTranslator(source='it', target='en').translate(testo)
             time.sleep(PAUSA_TRA_CHIAMATE)
             if risultato and risultato.strip():
                 return risultato
             raise ValueError("Risposta vuota da Google Translate")
         except Exception as e:
+            print(f"⚠️ Google, tentativo {tentativo}/2 fallito ({e}).")
+            time.sleep(2 ** tentativo)
+
+    # 2) MyMemory come traduttore di riserva
+    print("↪️  Google non risponde, provo con MyMemory come traduttore di riserva...")
+    for tentativo in range(1, MAX_RETRY + 1):
+        try:
+            risultato = _traduci_con_mymemory(testo)
+            time.sleep(PAUSA_TRA_CHIAMATE)
+            if risultato and risultato.strip():
+                return risultato
+            raise ValueError("Risposta vuota da MyMemory")
+        except Exception as e:
             attesa = 2 ** tentativo
-            print(f"⚠️ Tentativo {tentativo}/{MAX_RETRY} fallito ({e}). Riprovo tra {attesa}s...")
+            print(f"⚠️ MyMemory, tentativo {tentativo}/{MAX_RETRY} fallito ({e}). Riprovo tra {attesa}s...")
             time.sleep(attesa)
 
-    return None  # fallito per davvero dopo tutti i tentativi
+    return None  # falliti entrambi i traduttori dopo tutti i tentativi
 
 
 def estrai_html_interno(tag):
