@@ -1,0 +1,35 @@
+name: Auto Traduttore Sito Intero
+
+on:
+  push:
+    paths:
+      - 'index.html'
+
+permissions:
+  contents: write
+
+jobs:
+  translate-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v3
+
+      - name: Configura Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Installa dipendenze
+        run: pip install beautifulsoup4 deep-translator
+
+      - name: Traduci intero sito
+        run: python script_traduzione.py
+
+      - name: Salva e pubblica le traduzioni
+        run: |
+          git config --global user.name "GitHub Translator Bot"
+          git config --global user.email "bot@github.com"
+          git add index.html
+          git commit -m "Auto-traduzione automatica [skip ci]" || exit 0
+          git push
