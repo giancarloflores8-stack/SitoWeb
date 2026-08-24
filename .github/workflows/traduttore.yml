@@ -21,9 +21,11 @@ jobs:
           python-version: '3.x'
 
       - name: Installa dipendenze
-        run: pip install beautifulsoup4 deep-translator
+        run: pip install beautifulsoup4 deepl
 
       - name: Traduci intero sito
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: python script_traduzione.py
 
       - name: Salva e pubblica le traduzioni
