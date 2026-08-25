@@ -1254,6 +1254,20 @@
   @media (max-width: 480px){
     .gallery-grid{ grid-template-columns:1fr; }
   }
+
+/* REGOLA NUOVA PER LA TIMELINE A TENDINA */
+  .timeline-folder summary {
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    margin-bottom: 0;
+  }
+  .timeline-folder summary::-webkit-details-marker {
+    display: none;
+  }
+  .timeline-folder summary:hover .home-timeline-title {
+    opacity: 0.8;
+  }
 </style>
 </head>
 <body>
