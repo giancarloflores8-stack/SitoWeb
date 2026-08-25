@@ -1,98 +1,62 @@
+import os
 import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
-from bs4 import BeautifulSoup, NavigableString, Tag
-from deep_translator import GoogleTranslator, MyMemoryTranslator
+from bs4 import BeautifulSoup
+import deepl
 
-MAX_RETRY = 4
-PAUSA_TRA_CHIAMATE = 1.2  # secondi, per non farsi bloccare
-MYMEMORY_MAX_CHARS = 480  # margine di sicurezza sotto il limite di ~500 di MyMemory
-TIMEOUT_CHIAMATA = 10  # secondi massimi per ogni singola richiesta di traduzione
+MAX_RETRY = 3
+TIMEOUT_CHIAMATA = 15  # secondi massimi per ogni singola richiesta a DeepL
 
+DEEPL_API_KEY = os.environ.get('DEEPL_API_KEY')
+if not DEEPL_API_KEY:
+    print("❌ Variabile d'ambiente DEEPL_API_KEY non trovata.")
+    print("   Aggiungila tra i Secrets del repository (Settings > Secrets and variables > Actions)")
+    print("   e passala al workflow con: env: DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}")
+    sys.exit(1)
+
+traduttore = deepl.Translator(DEEPL_API_KEY)
 _esecutore = ThreadPoolExecutor(max_workers=1)
 
 
 def con_timeout(funzione, *args, **kwargs):
-    """Esegue una funzione con un timeout forzato. Se il server non
-    risponde (Google a volte blocca le richieste in modo 'silenzioso',
-    senza restituire errore), senza questo la richiesta di rete resta
-    appesa per sempre e lo script si blocca. Dopo TIMEOUT_CHIAMATA secondi
-    solleva TimeoutError e si passa oltre."""
+    """Esegue una funzione con un timeout forzato, così se DeepL non
+    risponde per qualche motivo lo script non resta appeso per sempre."""
     futuro = _esecutore.submit(funzione, *args, **kwargs)
     try:
         return futuro.result(timeout=TIMEOUT_CHIAMATA)
     except FutureTimeoutError:
-        raise TimeoutError(f"Nessuna risposta entro {TIMEOUT_CHIAMATA}s")
+        raise TimeoutError(f"Nessuna risposta da DeepL entro {TIMEOUT_CHIAMATA}s")
 
 
+def traduci_html(html_it):
+    """Traduce un frammento HTML con DeepL. Grazie a tag_handling='html',
+    DeepL gestisce da solo eventuali tag annidati (es. <small>Bio</small>,
+    <span class="fresh"></span>): traduce solo il testo e lascia i tag
+    intatti, quindi non serve più smontare il contenuto pezzo per pezzo
+    a mano come si doveva fare con Google/MyMemory."""
+    if not html_it or not html_it.strip():
+        return html_it
 
-def _traduci_con_mymemory(testo):
-    """MyMemory ha un limite di ~500 caratteri per richiesta: se il testo è
-    più lungo (es. i paragrafi lunghi del diario) lo spezziamo per frasi e
-    ricomponiamo il risultato."""
-    if len(testo) <= MYMEMORY_MAX_CHARS:
-        return con_timeout(MyMemoryTranslator(source='it-IT', target='en-GB').translate, testo)
-
-    frasi = re.split(r'(?<=[.!?])\s+', testo)
-    pezzi_tradotti = []
-    blocco = ''
-    for frase in frasi:
-        if blocco and len(blocco) + len(frase) + 1 > MYMEMORY_MAX_CHARS:
-            pezzi_tradotti.append(con_timeout(MyMemoryTranslator(source='it-IT', target='en-GB').translate, blocco))
-            time.sleep(PAUSA_TRA_CHIAMATE)
-            blocco = frase
-        else:
-            blocco = (blocco + ' ' + frase).strip()
-    if blocco:
-        pezzi_tradotti.append(con_timeout(MyMemoryTranslator(source='it-IT', target='en-GB').translate, blocco))
-
-    return ' '.join(p for p in pezzi_tradotti if p)
-
-
-def traduci_testo(testo):
-    """Traduce con due traduttori in cascata:
-    1) Google Translate (di solito la qualità migliore, ma sui server di
-       GitHub Actions viene spesso bloccato perché lo scraping non ufficiale
-       viene riconosciuto come traffico automatico)
-    2) MyMemory come ripiego automatico: è una vera API pensata per essere
-       chiamata in modo automatico, quindi molto più affidabile da una CI.
-
-    Ritorna None solo se ENTRAMBI falliscono (mai il testo italiano
-    spacciato per inglese)."""
-    if not testo or not testo.strip():
-        return testo
-
-    testo = testo.strip()
-
-    # 1) Google Translate, tentativo rapido (se è bloccato lo è per l'intera
-    # sessione, insistere a lungo qui è solo tempo perso)
-    for tentativo in range(1, 3):
-        try:
-            risultato = con_timeout(GoogleTranslator(source='it', target='en').translate, testo)
-            time.sleep(PAUSA_TRA_CHIAMATE)
-            if risultato and risultato.strip():
-                return risultato
-            raise ValueError("Risposta vuota da Google Translate")
-        except Exception as e:
-            print(f"⚠️ Google, tentativo {tentativo}/2 fallito ({e}).")
-            time.sleep(2 ** tentativo)
-
-    # 2) MyMemory come traduttore di riserva
-    print("↪️  Google non risponde, provo con MyMemory come traduttore di riserva...")
     for tentativo in range(1, MAX_RETRY + 1):
         try:
-            risultato = _traduci_con_mymemory(testo)
-            time.sleep(PAUSA_TRA_CHIAMATE)
-            if risultato and risultato.strip():
-                return risultato
-            raise ValueError("Risposta vuota da MyMemory")
+            risultato = con_timeout(
+                traduttore.translate_text,
+                html_it,
+                source_lang='IT',
+                target_lang='EN-GB',
+                tag_handling='html',
+            )
+            if risultato and risultato.text and risultato.text.strip():
+                return risultato.text
+            raise ValueError("Risposta vuota da DeepL")
         except Exception as e:
             attesa = 2 ** tentativo
-            print(f"⚠️ MyMemory, tentativo {tentativo}/{MAX_RETRY} fallito ({e}). Riprovo tra {attesa}s...")
+            print(f"⚠️ DeepL, tentativo {tentativo}/{MAX_RETRY} fallito ({e}). Riprovo tra {attesa}s...")
             time.sleep(attesa)
 
-    return None  # falliti entrambi i traduttori dopo tutti i tentativi
+    return None  # fallito per davvero dopo tutti i tentativi
 
 
 def estrai_html_interno(tag):
@@ -102,73 +66,9 @@ def estrai_html_interno(tag):
     return ''.join(str(c) for c in tag.contents).strip()
 
 
-def formatta_attributi(attrs):
-    """BeautifulSoup interpreta alcuni attributi (es. class) come liste,
-    non stringhe. Senza questa funzione si otterrebbe class="['fresh']"
-    invece di class="fresh"."""
-    pezzi = []
-    for chiave, valore in attrs.items():
-        if isinstance(valore, list):
-            valore = ' '.join(valore)
-        pezzi.append(f' {chiave}="{valore}"')
-    return ''.join(pezzi)
-
-
-def traduci_contenuto(tag):
-    """Traduce il testo dentro un tag preservando STRUTTURALMENTE eventuali
-    tag figli (es. <small>Bio</small>, <span class="fresh"></span>):
-    - i nodi di puro testo vengono tradotti
-    - i tag annidati vengono ricreati identici (stesso nome, stessi attributi),
-      traducendo solo il testo al loro interno (se presente; se sono vuoti,
-      tipo <span class="fresh"></span>, restano vuoti)
-
-    Gestisce un livello di annidamento, che è quanto usato in questo sito.
-
-    Ritorna (html_tradotto, c'è_stato_un_fallimento).
-    """
-    pezzi = []
-    fallimento = False
-
-    for figlio in tag.contents:
-        if isinstance(figlio, NavigableString):
-            testo = str(figlio)
-            testo_pulito = testo.strip()
-            if not testo_pulito:
-                pezzi.append(testo)
-                continue
-            # Preservo eventuali spazi prima/dopo (es. lo spazio tra il testo
-            # e un tag successivo come <span>), persi con lo strip completo.
-            spazio_prima = testo[:len(testo) - len(testo.lstrip())]
-            spazio_dopo = testo[len(testo.rstrip()):]
-            tradotto = traduci_testo(testo_pulito)
-            if tradotto is None:
-                fallimento = True
-                pezzi.append(spazio_prima + testo_pulito + spazio_dopo)
-            else:
-                pezzi.append(spazio_prima + tradotto + spazio_dopo)
-
-        elif isinstance(figlio, Tag):
-            testo_interno = figlio.get_text().strip()
-            if testo_interno:
-                tradotto = traduci_testo(testo_interno)
-                if tradotto is None:
-                    fallimento = True
-                    tradotto = testo_interno
-            else:
-                tradotto = ''  # tag vuoto tipo <span class="fresh"></span>: resta vuoto
-
-            attrs = formatta_attributi(figlio.attrs)
-            pezzi.append(f'<{figlio.name}{attrs}>{tradotto}</{figlio.name}>')
-
-        else:
-            pezzi.append(str(figlio))
-
-    return ''.join(pezzi), fallimento
-
-
 def estrai_dizionario_esistente(testo_html, lingua):
     """Legge quello che è già scritto in index.html per 'it' o 'en',
-    così da non ritradurre da zero ogni volta e non perdere correzioni manuali."""
+    così da non ritradurre da zero ogni volta."""
     pattern = rf'{lingua}:\s*\{{([\s\S]*?)\n\s*\}}'
     match = re.search(pattern, testo_html)
     diz = {}
@@ -196,7 +96,7 @@ def aggiorna_traduzioni_sito():
     dizionario_en = {}
     fallimenti = []
 
-    for el in elementi_i18n:
+    for i, el in enumerate(elementi_i18n, start=1):
         chiave = el['data-i18n']
         if chiave in dizionario_it:
             continue
@@ -214,12 +114,11 @@ def aggiorna_traduzioni_sito():
             dizionario_en[chiave] = en_vecchio
             continue
 
-        html_en, fallimento = traduci_contenuto(el)
-
-        if fallimento:
-            fallimenti.append(chiave)
+        print(f"[{i}/{len(elementi_i18n)}] Traduco '{chiave}'...")
+        html_en = traduci_html(html_it_originale)
 
         if not html_en or not html_en.strip():
+            fallimenti.append(chiave)
             if en_vecchio:
                 print(f"↩️  '{chiave}': traduzione fallita, mantengo quella precedente.")
                 dizionario_en[chiave] = en_vecchio
@@ -229,6 +128,7 @@ def aggiorna_traduzioni_sito():
 
         testo_en_clean = html_en.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ').replace('\r', '')
         dizionario_en[chiave] = testo_en_clean
+        print(f"✅ '{chiave}' tradotta.")
 
     righe_it = [f'      {chiave}: "{valore}",' for chiave, valore in dizionario_it.items()]
     nuovo_blocco_it = "it: {\n" + "\n".join(righe_it) + "\n    }"
