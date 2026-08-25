@@ -11,6 +11,9 @@ permissions:
 jobs:
   translate-site:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUNBUFFERED: "1"
     steps:
       - name: Scarica il repository
         uses: actions/checkout@v3
