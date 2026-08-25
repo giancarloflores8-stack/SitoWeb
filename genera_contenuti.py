@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 from datetime import datetime
@@ -209,13 +210,16 @@ def genera_html_pensieri(voci):
         mese_nome = MESI_NOME_IT[mese]
 
         righe_note = []
+        contatore_slug = {}
         for e in elementi_mese:
             if e['tipo'] == 'manuale':
                 righe_note.append(e['dato']['html'])
                 continue
 
             v = e['dato']
-            slug = slugify(f"{v['data_obj'].day}{mese_nome}{anno}")
+            slug_base = slugify(f"{v['data_obj'].day}{mese_nome}{anno}")
+            contatore_slug[slug_base] = contatore_slug.get(slug_base, 0) + 1
+            slug = slug_base if contatore_slug[slug_base] == 1 else f"{slug_base}_{contatore_slug[slug_base]}"
             chiave_date = f"note_{slug}_date"
             chiave_testo = f"note_{slug}_text"
             e_fresca = ultima_data_auto is not None and v['data_obj'] == ultima_data_auto
@@ -255,11 +259,14 @@ def genera_html_timeline(voci, mostra_sempre=1):
 
     n_totali = len(voci_timeline)
     righe = []
+    contatore_slug = {}
 
     for i, v in enumerate(voci_timeline):
         colore = COLORI_DOT[i % len(COLORI_DOT)]
         data_breve = f"{v['data_obj'].day} {MESI_ABBR_IT[v['data_obj'].month]} {v['data_obj'].year}"
-        slug = slugify(f"{v['data_obj'].day}{v['data_obj'].month}{v['data_obj'].year}tl")
+        slug_base = slugify(f"{v['data_obj'].day}{v['data_obj'].month}{v['data_obj'].year}tl")
+        contatore_slug[slug_base] = contatore_slug.get(slug_base, 0) + 1
+        slug = slug_base if contatore_slug[slug_base] == 1 else f"{slug_base}_{contatore_slug[slug_base]}"
         chiave_testo = f"log_{slug}"
         testo_timeline = escapa_html(v['timeline'])
         tag = escapa_html(v['tag'])
@@ -303,27 +310,168 @@ def sostituisci_tra_marcatori(html, nome_marcatore, nuovo_contenuto):
     return re.sub(pattern, lambda m: f"{m.group(1)}\n{nuovo_contenuto}\n    {m.group(3)}", html, count=1)
 
 
+def parse_media_txt(percorso='media.txt'):
+    """Legge media.txt: un blocco per ogni film, videogioco o video YouTube,
+    distinti dal campo TIPO. Se il file non esiste ancora, ritorna una
+    lista vuota (nessun errore)."""
+    if not os.path.exists(percorso):
+        return []
+
+    with open(percorso, 'r', encoding='utf-8') as f:
+        contenuto = f.read()
+
+    blocchi = [b.strip() for b in contenuto.split('---') if b.strip()]
+    voci = []
+
+    for numero_blocco, blocco in enumerate(blocchi, start=1):
+        campi = {}
+        chiave_corrente = None
+        for riga in blocco.splitlines():
+            m = re.match(r'^(TIPO|TITOLO|COPERTINA|DESCRIZIONE|ID)\s*:\s*(.*)$', riga.strip(), re.IGNORECASE)
+            if m:
+                chiave_corrente = m.group(1).upper()
+                campi[chiave_corrente] = m.group(2).strip()
+            elif chiave_corrente and riga.strip():
+                campi[chiave_corrente] += ' ' + riga.strip()
+
+        tipo = campi.get('TIPO', '').strip().lower()
+        if tipo not in ('film', 'gioco', 'youtube'):
+            print(f"⚠️  Blocco {numero_blocco} di media.txt ignorato: TIPO mancante o non valido ('{campi.get('TIPO', '')}'). Usa film, gioco o youtube.")
+            continue
+        if not campi.get('TITOLO'):
+            print(f"⚠️  Blocco {numero_blocco} di media.txt ignorato: manca TITOLO.")
+            continue
+        if tipo == 'youtube' and not campi.get('ID'):
+            print(f"⚠️  Blocco {numero_blocco} di media.txt ignorato: i video YouTube richiedono il campo ID.")
+            continue
+        if tipo in ('film', 'gioco') and not campi.get('COPERTINA'):
+            print(f"⚠️  Blocco {numero_blocco} di media.txt ignorato: manca COPERTINA.")
+            continue
+
+        voci.append({
+            'tipo': tipo,
+            'titolo': campi['TITOLO'],
+            'copertina': campi.get('COPERTINA'),
+            'id_yt': campi.get('ID'),
+            'descrizione': campi.get('DESCRIZIONE', ''),
+        })
+
+    return voci
+
+
+def genera_html_film(voci_media):
+    film = [v for v in voci_media if v['tipo'] == 'film']
+    if not film:
+        return '          <!-- nessun film trovato in media.txt -->'
+
+    contatore_slug = {}
+    righe = []
+    for v in film:
+        slug_base = slugify(v['titolo'])
+        contatore_slug[slug_base] = contatore_slug.get(slug_base, 0) + 1
+        slug = slug_base if contatore_slug[slug_base] == 1 else f"{slug_base}_{contatore_slug[slug_base]}"
+        chiave = f"film_{slug}"
+        titolo = escapa_html(v['titolo'])
+        descr = escapa_html(v['descrizione'])
+        copertina = escapa_html(v['copertina'])
+
+        righe.append(
+            f'          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli {titolo}">\n'
+            f'            <img src="foto/{copertina}" alt="Locandina {titolo}">\n'
+            f'            <div class="title">{titolo}</div>\n'
+            f'            <div class="sub" data-i18n="{chiave}">{descr}</div>\n'
+            f'          </div>'
+        )
+    return '\n\n'.join(righe)
+
+
+def genera_html_giochi(voci_media):
+    giochi = [v for v in voci_media if v['tipo'] == 'gioco']
+    if not giochi:
+        return '          <!-- nessun videogioco trovato in media.txt -->'
+
+    contatore_slug = {}
+    righe = []
+    for v in giochi:
+        slug_base = slugify(v['titolo'])
+        contatore_slug[slug_base] = contatore_slug.get(slug_base, 0) + 1
+        slug = slug_base if contatore_slug[slug_base] == 1 else f"{slug_base}_{contatore_slug[slug_base]}"
+        chiave = f"game_{slug}"
+        titolo = escapa_html(v['titolo'])
+        descr = escapa_html(v['descrizione'])
+        copertina = escapa_html(v['copertina'])
+
+        righe.append(
+            f'          <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli {titolo}">\n'
+            f'            <img src="foto/{copertina}" alt="{titolo}">\n'
+            f'            <div class="title">{titolo}</div>\n'
+            f'            <div class="sub" data-i18n="{chiave}">{descr}</div>\n'
+            f'          </div>'
+        )
+    return '\n\n'.join(righe)
+
+
+def genera_html_youtube(voci_media):
+    video = [v for v in voci_media if v['tipo'] == 'youtube']
+    if not video:
+        return '          <!-- nessun video YouTube trovato in media.txt -->'
+
+    contatore_slug = {}
+    righe = []
+    for v in video:
+        slug_base = slugify(v['titolo'])
+        contatore_slug[slug_base] = contatore_slug.get(slug_base, 0) + 1
+        slug = slug_base if contatore_slug[slug_base] == 1 else f"{slug_base}_{contatore_slug[slug_base]}"
+        chiave = f"yt_{slug}_sub"
+        titolo = escapa_html(v['titolo'])
+        descr = escapa_html(v['descrizione'])
+        vid_id = v['id_yt'].strip()
+
+        righe.append(
+            f'          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda {titolo}" data-yt-id="{vid_id}" data-yt-url="https://www.youtube.com/watch?v={vid_id}">\n'
+            f'            <img src="https://img.youtube.com/vi/{vid_id}/hqdefault.jpg" alt="Miniatura video {titolo}" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">\n'
+            f'            <div class="title">{titolo}</div>\n'
+            f'            <div class="sub" data-i18n="{chiave}">{descr}</div>\n'
+            f'          </div>'
+        )
+    return '\n\n'.join(righe)
+
+
 def main():
     voci = parse_pensieri_txt()
-    if not voci:
-        print("Nessuna voce valida trovata in pensieri.txt: niente da generare.")
+    voci_media = parse_media_txt()
+
+    if not voci and not voci_media:
+        print("Nessuna voce valida trovata in pensieri.txt o media.txt: niente da generare.")
         return
 
     with open('index.html', 'r', encoding='utf-8') as f:
         html = f.read()
 
-    html_pensieri = genera_html_pensieri(voci)
-    html_timeline = genera_html_timeline(voci)
+    if voci:
+        html_pensieri = genera_html_pensieri(voci)
+        html_timeline = genera_html_timeline(voci)
+        html = sostituisci_tra_marcatori(html, 'AUTO-PENSIERI', html_pensieri)
+        html = sostituisci_tra_marcatori(html, 'AUTO-TIMELINE', html_timeline)
 
-    html = sostituisci_tra_marcatori(html, 'AUTO-PENSIERI', html_pensieri)
-    html = sostituisci_tra_marcatori(html, 'AUTO-TIMELINE', html_timeline)
+    html_film = genera_html_film(voci_media)
+    html_giochi = genera_html_giochi(voci_media)
+    html_youtube = genera_html_youtube(voci_media)
+
+    html = sostituisci_tra_marcatori(html, 'AUTO-FILM', html_film)
+    html = sostituisci_tra_marcatori(html, 'AUTO-GAMES', html_giochi)
+    html = sostituisci_tra_marcatori(html, 'AUTO-YT', html_youtube)
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(html)
 
     n_pensieri = sum(1 for v in voci if v.get('pensiero'))
     n_timeline = sum(1 for v in voci if v.get('timeline'))
-    print(f"✅ Generate {n_pensieri} note in 'Pensieri' e {n_timeline} voci in 'Attività recente'.")
+    n_film = sum(1 for v in voci_media if v['tipo'] == 'film')
+    n_giochi = sum(1 for v in voci_media if v['tipo'] == 'gioco')
+    n_youtube = sum(1 for v in voci_media if v['tipo'] == 'youtube')
+    print(f"✅ Generate {n_pensieri} note in 'Pensieri', {n_timeline} voci in 'Attività recente', "
+          f"{n_film} film, {n_giochi} videogiochi, {n_youtube} video YouTube.")
 
 
 if __name__ == '__main__':
