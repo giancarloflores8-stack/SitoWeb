@@ -191,7 +191,7 @@ def genera_html_pensieri(voci):
     return '\n\n'.join(blocchi_mese)
 
 
-def genera_html_timeline(voci, mostra_sempre=4):
+def genera_html_timeline(voci, mostra_sempre=1):
     """Genera tutte le righe della timeline 'Attività recente'.
     Solo le voci che hanno un TIMELINE. Le più recenti (ultime
     'mostra_sempre') restano sempre visibili, quelle più vecchie vengono
