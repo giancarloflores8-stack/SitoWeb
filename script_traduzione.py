@@ -14,20 +14,20 @@ def _traduci_con_mymemory(testo):
     più lungo (es. i paragrafi lunghi del diario) lo spezziamo per frasi e
     ricomponiamo il risultato."""
     if len(testo) <= MYMEMORY_MAX_CHARS:
-        return MyMemoryTranslator(source='it', target='en').translate(testo)
+        return MyMemoryTranslator(source='it-IT', target='en-GB').translate(testo)
 
     frasi = re.split(r'(?<=[.!?])\s+', testo)
     pezzi_tradotti = []
     blocco = ''
     for frase in frasi:
         if blocco and len(blocco) + len(frase) + 1 > MYMEMORY_MAX_CHARS:
-            pezzi_tradotti.append(MyMemoryTranslator(source='it', target='en').translate(blocco))
+            pezzi_tradotti.append(MyMemoryTranslator(source='it-IT', target='en-GB').translate(blocco))
             time.sleep(PAUSA_TRA_CHIAMATE)
             blocco = frase
         else:
             blocco = (blocco + ' ' + frase).strip()
     if blocco:
-        pezzi_tradotti.append(MyMemoryTranslator(source='it', target='en').translate(blocco))
+        pezzi_tradotti.append(MyMemoryTranslator(source='it-IT', target='en-GB').translate(blocco))
 
     return ' '.join(p for p in pezzi_tradotti if p)
 
