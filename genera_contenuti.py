@@ -27,10 +27,10 @@ NOTE_MANUALI = [
         'data_obj': datetime(2026, 8, 17),
         'html': (
             '              <details class="note-item">\n'
-            '                <summary class="note-date">+ Dal 17 al 21 agosto 2026</summary>\n'
-            '                <p>Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un\'Odissea finale in aeroporto.</p>\n'
-            '                <p>Il viaggio è iniziato sotto i migliori auspici: l\'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un\'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>\n'
-            '                <p>Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>\n'
+            '                <summary class="note-date" data-i18n="note_sardinia_date">+ Dal 17 al 21 agosto 2026</summary>\n'
+            '                <p data-i18n="note_sardinia_p1">Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un\'Odissea finale in aeroporto.</p>\n'
+            '                <p data-i18n="note_sardinia_p2">Il viaggio è iniziato sotto i migliori auspici: l\'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un\'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>\n'
+            '                <p data-i18n="note_sardinia_p3">Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>\n'
             '\n'
             '                <div class="note-carousel" id="sardiniaCarousel">\n'
             '                  <button class="carousel-nav prev" type="button" onclick="moveCarousel(this, -1)">&#10094;</button>\n'
@@ -48,7 +48,7 @@ NOTE_MANUALI = [
             '                  <button class="carousel-nav next" type="button" onclick="moveCarousel(this, 1)">&#10095;</button>\n'
             '                </div>\n'
             '\n'
-            '                <p>L\'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>\n'
+            '                <p data-i18n="note_sardinia_p4">L\'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>\n'
             '              </details>'
         ),
     },
