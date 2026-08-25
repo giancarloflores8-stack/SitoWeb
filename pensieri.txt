@@ -4,7 +4,7 @@ TIMELINE: Idea e Creazione del sito WEB
 TAG: Ufficio💼
 ---
 DATA: 15 agosto 2026
-PENSIERO: Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.
+PENSIERO: Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , d'altronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è difficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.
 TIMELINE: Implementazione del sito web sia di contenuti che a livello codice
 TAG: Casa 🏠
 ---
@@ -23,7 +23,7 @@ TIMELINE: Nuovi brani in YouTube + pensieri sparsi della giornata
 TAG: Casa🏠 & RELAX
 ---
 DATA: 24 agosto 2026
-PENSIERO: Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .
+PENSIERO: Rientro in ufficio, con un risveglio un po' traumatico , si ritorna alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con la mia Kia special che… poi sai si prega di non trovare traffico e si arriva nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .
 TIMELINE: Ho creato uno script python che traduce l'intera pagina da italiano ad inglese e vice versa, ma non è del tutto funzionante.
 TAG: Implementation 🧠
 ---
@@ -34,4 +34,9 @@ TAG: Fixing ✅
 DATA: 26 agosto 2026
 TIMELINE: vediamo se le ultime implementazioni funzionano.  
 TAG: Fixing ✅
+---
+DATA: 25 agosto 2026
+PENSIERO: Oggi ho fatto varie implementazioni e automatismi, nella comodità di casa sto provando se tutto funziona come dovrebbe, nei prossimi giorni comunque farò altri test. Probabilmente inizierò a pensare anche a qualcosa a livello di ux ai design, ovviamente facendomi aiutare da claude AI, visto che non ho competenze del genere, ma vediamo con calma.  
+TIMELINE: Finito un progetto importante
+TAG: Ufficio💼
 ---
