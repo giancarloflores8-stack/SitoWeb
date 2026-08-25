@@ -31,3 +31,7 @@ DATA: 25 agosto 2026
 TIMELINE: Finalmente siamo riusciti a fixare lo scripy python per la traduzione, per me è una grossa vittoria 🤩 .
 TAG: Fixing ✅
 ---
+DATA: 26 agosto 2026
+TIMELINE: prova del txt .
+TAG: Fixing ✅
+---
