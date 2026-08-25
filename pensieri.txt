@@ -42,6 +42,4 @@ TAG: CASA
 ---
 DATA: 27 agosto 2026
 PENSIERO: vediamo se funziona con una data a caso.  
-TIMELINE: boh
-TAG: CASAblanca
 ---
