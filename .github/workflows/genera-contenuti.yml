@@ -11,6 +11,7 @@ permissions:
 jobs:
   genera-e-traduci:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Scarica il repository
         uses: actions/checkout@v3
