@@ -351,52 +351,6 @@
     color:var(--ink-soft);
     font-size:1.05rem;
   }
-  .hero .tags{
-    margin-top:1.6rem;
-    display:flex;
-    flex-wrap:wrap;
-    gap:0.5rem;
-  }
-  .hero .tags span{
-    display:inline-flex;
-    align-items:center;
-    gap:0.4rem;
-    font-family:'Space Mono', monospace;
-    font-size:0.68rem;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    padding:0.4rem 0.75rem 0.4rem 0.6rem;
-    border:1px solid var(--line);
-    border-radius:20px;
-    color:var(--ink-soft);
-    background:var(--paper);
-    opacity:0;
-    animation:tagIn 0.4s ease forwards;
-    transition:border-color 0.25s ease, background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, color 0.25s ease;
-  }
-  .hero .tags span svg{
-    width:13px;
-    height:13px;
-    flex-shrink:0;
-    stroke:var(--tag-color, var(--ink-soft));
-    transition:stroke 0.25s ease;
-  }
-  .hero .tags span:hover{
-    border-color:var(--tag-color, var(--forest));
-    color:var(--ink);
-    transform:translateY(-2px);
-    box-shadow:var(--shadow-sm);
-  }
-  .hero .tags span:nth-child(1){ animation-delay:0.05s; }
-  .hero .tags span:nth-child(2){ animation-delay:0.1s; }
-  .hero .tags span:nth-child(3){ animation-delay:0.15s; }
-  .hero .tags span:nth-child(4){ animation-delay:0.2s; }
-  .hero .tags span:nth-child(5){ animation-delay:0.25s; }
-  .hero .tags span:nth-child(6){ animation-delay:0.3s; }
-  @keyframes tagIn{
-    from{ opacity:0; transform:translateY(4px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
 
   /* ============ TIMELINE INTEGRATA IN HOME ============ */
   .home-timeline-box {
@@ -409,7 +363,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 0;
+    margin-bottom: 1.5rem;
   }
 
   .home-timeline-title {
@@ -705,7 +659,7 @@
     margin-top: 0.4rem;
     padding-left: 1rem;
   }
-  .scribble-content .fresh::after{
+  .fresh::after{
     content:'nuovo';
     display:inline-block;
     font-family:'Space Mono', monospace;
@@ -719,11 +673,59 @@
     margin-left:0.5rem;
     vertical-align:middle;
   }
-  html[data-lang="en"] .scribble-content .fresh::after{
+  /* Il badge "nuovo" deve tradursi in "new" quando il sito è in inglese */
+  html[data-lang="en"] .fresh::after{
     content:'new';
   }
 
-  /* ============ CAROSELLO NOTE SARDEGNA ============ */
+  /* Pallino pulsante per la voce più recente di Attività recente */
+  .entry.newest .dot{
+    position: relative;
+  }
+  .entry.newest .dot::after{
+    content:'';
+    position:absolute;
+    inset:-5px;
+    border-radius:50%;
+    background: inherit;
+    opacity:0.55;
+    animation: pulseDot 1.8s ease-out infinite;
+  }
+  @keyframes pulseDot{
+    0%{ transform:scale(0.5); opacity:0.65; }
+    100%{ transform:scale(2.4); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .entry.newest .dot::after{ animation:none; display:none; }
+  }
+
+  /* ============ CAROSELLO / FOTO SINGOLA NELLE NOTE ============ */
+  .note-photo-single {
+    max-width: 520px;
+    margin: 1.2rem auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .note-photo-single:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .note-photo-single img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .note-photo-single:hover img {
+    transform: scale(1.03);
+  }
+
   .note-carousel {
     position: relative;
     max-width: 520px;
@@ -1253,20 +1255,6 @@
   @media (max-width: 480px){
     .gallery-grid{ grid-template-columns:1fr; }
   }
-
-  /* REGOLA PER LA TIMELINE A TENDINA */
-  .timeline-folder summary {
-    cursor: pointer;
-    list-style: none;
-    user-select: none;
-    margin-bottom: 0;
-  }
-  .timeline-folder summary::-webkit-details-marker {
-    display: none;
-  }
-  .timeline-folder summary:hover .home-timeline-title {
-    opacity: 0.8;
-  }
 </style>
 </head>
 <body>
@@ -1337,105 +1325,93 @@
     <section id="home" class="card hero">
       <h1 data-i18n="hero_title">Il mio archivio personale</h1>
       <p data-i18n="hero_desc">Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.</p>
-      <div class="tags">
-        <span style="--tag-color:var(--sky)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l2-2h8l2 2h3v11H3z"></path><circle cx="12" cy="13.5" r="3.2"></circle></svg>
-          <span data-i18n="tag_photo">Fotografia</span>
-        </span>
-        <span style="--tag-color:var(--plum)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="13" height="13" rx="2"></rect><path d="M15.5 9.5 21 6.5v11l-5.5-3"></path></svg>
-          <span data-i18n="tag_video">Video</span>
-        </span>
-        <span style="--tag-color:var(--rose)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="17" cy="16" r="3"></circle></svg>
-          <span data-i18n="tag_music">Musica</span>
-        </span>
-        <span style="--tag-color:var(--indigo)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 4v16M17 4v16M3 9h4M17 9h4M3 15h4M17 15h4"></path></svg>
-          <span data-i18n="tag_cinema">Cinema</span>
-        </span>
-        <span style="--tag-color:var(--violet)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5"></rect><line x1="7" y1="12.5" x2="10" y2="12.5"></line><line x1="8.5" y1="11" x2="8.5" y2="14"></line><circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"></circle><circle cx="17.3" cy="13" r="1" fill="currentColor" stroke="none"></circle></svg>
-          <span data-i18n="tag_gaming">Gaming</span>
-        </span>
+
+      <!-- TIMELINE INTEGRATA IN HOME -->
+<div class="home-timeline-box">
+  <div class="home-timeline-header">
+    <h2 class="home-timeline-title" data-i18n="timeline_title">Attività recente</h2>
+    <span class="home-timeline-sub">Log</span>
+  </div>
+
+  <div class="timeline">
+    <!-- Generato automaticamente da pensieri.txt: non modificare a mano qui dentro -->
+    <!-- AUTO-TIMELINE:START -->
+    <div class="entry extra-entry" style="display:none;">
+      <div class="dot" style="background: var(--dot-fotografia);"></div>
+      <div class="entry-body">
+        <span class="entry-date">14 ago 2026</span>
+        <span class="entry-text" data-i18n="log_1482026tl">Idea e Creazione del sito WEB</span>
+        <span class="entry-tag">Ufficio💼</span>
       </div>
+    </div>
 
-      <!-- TIMELINE INTEGRATA IN HOME (CHIUSA DI DEFAULT) -->
-      <div class="home-timeline-box">
-        <details class="timeline-folder">
-          <summary class="home-timeline-header">
-            <h2 class="home-timeline-title" data-i18n="timeline_title">Attività recente</h2>
-            <span class="home-timeline-sub">Log ▾</span>
-          </summary>
-
-          <div class="timeline" style="margin-top: 1.2rem;">
-            <div class="entry">
-              <div class="dot" style="background: var(--dot-fotografia);"></div>
-              <div class="entry-body">
-                <span class="entry-date">14 ago 2026</span>
-                <span class="entry-text" data-i18n="log_14aug">Idea e Creazione del sito WEB</span>
-                <span class="entry-tag" data-i18n="tag_office">Ufficio💼</span>
-              </div>
-            </div>
-
-            <div class="entry">
-              <div class="dot" style="background: var(--dot-note);"></div>
-              <div class="entry-body">
-                <span class="entry-date">15 ago 2026</span>
-                <span class="entry-text" data-i18n="log_15aug">Implementazione del sito web sia di contenuti che a livello codice</span>
-                <span class="entry-tag" data-i18n="tag_home">Casa 🏠</span>
-              </div>
-            </div>
-
-            <div class="entry">
-              <div class="dot" style="background: var(--dot-musica);"></div>
-              <div class="entry-body">
-                <span class="entry-date">16 ago 2026</span>
-                <span class="entry-text" data-i18n="log_16aug">Nuovi brani in YouTube Chuwi Tiny Desk &amp; Bad Bunny</span>
-                <span class="entry-tag">YouTube</span>
-              </div>
-            </div>
-
-            <div class="entry extra-entry" style="display:none;">
-              <div class="dot" style="background: var(--dot-note);"></div>
-              <div class="entry-body">
-                <span class="entry-date">17 ago 2026</span>
-                <span class="entry-text" data-i18n="log_17aug">Sono partito per le vacanze estive Sarde, tutte le info nella sezioni Pensieri</span>
-                <span class="entry-tag" data-i18n="tag_thoughts">Pensieri</span>
-              </div>
-            </div>
-            
-            <div class="entry">
-              <div class="dot" style="background: var(--dot-note);"></div>
-              <div class="entry-body">
-                <span class="entry-date">23 ago 2026</span>
-                <span class="entry-text" data-i18n="log_23aug">Nuovi brani in YouTube + pensieri sparsi della giornata</span>
-                <span class="entry-tag" data-i18n="tag_relax">Casa🏠 &amp; RELAX</span>
-              </div>
-            </div>
-
-            <div class="entry">
-              <div class="dot" style="background: var(--dot-note);"></div>
-              <div class="entry-body">
-                <span class="entry-date">24 ago 2026</span>
-                <span class="entry-text" data-i18n="log_24aug">Ho creato uno script python che traduce l'intera pagina da italiano ad inglese e vice versa, ma non è del tutto funzionante.</span>
-                <span class="entry-tag" data-i18n="tag_other">Implementation 🧠</span>
-              </div>
-            </div>
-
-            <div class="entry">
-              <div class="dot" style="background: var(--dot-note);"></div>
-              <div class="entry-body">
-                <span class="entry-date">25 ago 2026</span>
-                <span class="entry-text" data-i18n="log_25aug">Finalmente siamo riusciti a fixare lo script python per la traduzione, per me è una grossa vittoria 🤩 .</span>
-                <span class="entry-tag" data-i18n="tag_otherre">Fixing ✅</span>
-              </div>
-            </div>
-          </div>
-
-          <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>
-        </details>
+    <div class="entry extra-entry" style="display:none;">
+      <div class="dot" style="background: var(--dot-video);"></div>
+      <div class="entry-body">
+        <span class="entry-date">15 ago 2026</span>
+        <span class="entry-text" data-i18n="log_1582026tl">Implementazione del sito web sia di contenuti che a livello codice</span>
+        <span class="entry-tag">Casa 🏠</span>
       </div>
+    </div>
+
+    <div class="entry extra-entry" style="display:none;">
+      <div class="dot" style="background: var(--dot-musica);"></div>
+      <div class="entry-body">
+        <span class="entry-date">16 ago 2026</span>
+        <span class="entry-text" data-i18n="log_1682026tl">Nuovi brani in YouTube Chuwi Tiny Desk &amp; Bad Bunny</span>
+        <span class="entry-tag">YouTube</span>
+      </div>
+    </div>
+
+    <div class="entry extra-entry" style="display:none;">
+      <div class="dot" style="background: var(--dot-cinema);"></div>
+      <div class="entry-body">
+        <span class="entry-date">17 ago 2026</span>
+        <span class="entry-text" data-i18n="log_1782026tl">Sono partito per le vacanze estive Sarde, tutte le info nella sezioni Pensieri</span>
+        <span class="entry-tag">Pensieri</span>
+      </div>
+    </div>
+
+    <div class="entry extra-entry" style="display:none;">
+      <div class="dot" style="background: var(--dot-gaming);"></div>
+      <div class="entry-body">
+        <span class="entry-date">23 ago 2026</span>
+        <span class="entry-text" data-i18n="log_2382026tl">Nuovi brani in YouTube + pensieri sparsi della giornata</span>
+        <span class="entry-tag">Casa🏠 &amp; RELAX</span>
+      </div>
+    </div>
+
+    <div class="entry extra-entry" style="display:none;">
+      <div class="dot" style="background: var(--dot-note);"></div>
+      <div class="entry-body">
+        <span class="entry-date">24 ago 2026</span>
+        <span class="entry-text" data-i18n="log_2482026tl">Ho creato uno script python che traduce l'intera pagina da italiano ad inglese e vice versa, ma non è del tutto funzionante.</span>
+        <span class="entry-tag">Implementation 🧠</span>
+      </div>
+    </div>
+
+    <div class="entry extra-entry" style="display:none;">
+      <div class="dot" style="background: var(--dot-fotografia);"></div>
+      <div class="entry-body">
+        <span class="entry-date">25 ago 2026</span>
+        <span class="entry-text" data-i18n="log_2582026tl">Finalmente siamo riusciti a fixare lo scripy python per la traduzione, per me è una grossa vittoria 🤩 .</span>
+        <span class="entry-tag">Fixing ✅</span>
+      </div>
+    </div>
+
+    <div class="entry newest">
+      <div class="dot" style="background: var(--dot-video);"></div>
+      <div class="entry-body">
+        <span class="entry-date">26 ago 2026</span>
+        <span class="entry-text" data-i18n="log_2682026tl">vediamo se le ultime implementazioni funzionano.</span> <span class="fresh"></span>
+        <span class="entry-tag">Fixing ✅</span>
+      </div>
+    </div>
+
+    <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>
+    <!-- AUTO-TIMELINE:END -->
+  </div>
+</div>
 
       <!-- CANTIERE -->
       <div class="site-under-construction">
@@ -1492,7 +1468,7 @@
             <dt data-i18n="about_base_label">Base</dt><dd>Padova, IT</dd>
             <dt data-i18n="about_age_label">Età</dt><dd data-i18n="about_age_val">Classe 99</dd>
             <dt data-i18n="about_interests_label">Interessi</dt><dd data-i18n="about_interests_val">Foto · Video · Videogiochi · Sport · Scrittura</dd>
-            <dt data-i18n="about_status_label">Stato</dt><dd data-i18n="about_status_val">In constante aggiornamento</dd>
+            <dt data-i18n="about_status_label">Stato</dt><dd data-i18n="about_status_val">In costante aggiornamento</dd>
           </dl>
         </div>
       </div>
@@ -1501,25 +1477,25 @@
       <div class="scribble-pad">
         <div class="scribble-pad-head" data-i18n="scribble_head">Pensieri (fai un click sulla data per leggere cosa è successo 😉)</div>
         <div class="scribble-content">
-          
-          <!-- CONTENITORE MESE: AGOSTO 2026 (CHIUSA DI DEFAULT) -->
+
+          <!-- ============ GENERATO AUTOMATICAMENTE da pensieri.txt + note_manuali.py: NON modificare a mano qui dentro ============ -->
+          <!-- AUTO-PENSIERI:START -->
           <details class="month-folder">
-            <summary class="month-header" data-i18n="month_aug2026">📁 Agosto 2026</summary>
-            
+            <summary class="month-header">📁 Agosto 2026</summary>
             <div class="month-body">
               <details class="note-item">
-                <summary class="note-date" data-i18n="note_14aug_date">+ 14 agosto 2026</summary>
-                <p data-i18n="note_14aug_text">Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
+                <summary class="note-date" data-i18n="note_14agosto2026_date">+ 14 agosto 2026</summary>
+                <p data-i18n="note_14agosto2026_text">Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.</p>
               </details>
 
               <details class="note-item">
-                <summary class="note-date" data-i18n="note_15aug_date">+ 15 agosto 2026</summary>
-                <p data-i18n="note_15aug_text">Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , daltronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è diffficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.</p>
+                <summary class="note-date" data-i18n="note_15agosto2026_date">+ 15 agosto 2026</summary>
+                <p data-i18n="note_15agosto2026_text">Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , d'altronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è difficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.</p>
               </details>
 
               <details class="note-item">
-                <summary class="note-date" data-i18n="note_16aug_date">+ 16 agosto 2026</summary>
-                <p data-i18n="note_16aug_text">Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film &amp; Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
+                <summary class="note-date" data-i18n="note_16agosto2026_date">+ 16 agosto 2026</summary>
+                <p data-i18n="note_16agosto2026_text">Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film &amp; Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.</p>
               </details>
 
               <details class="note-item">
@@ -1527,10 +1503,9 @@
                 <p data-i18n="note_sardinia_p1">Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.</p>
                 <p data-i18n="note_sardinia_p2">Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>
                 <p data-i18n="note_sardinia_p3">Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>
-                
-                <!-- CAROSELLO FOTO SARDEGNA -->
+
                 <div class="note-carousel" id="sardiniaCarousel">
-                  <button class="carousel-nav prev" type="button" onclick="moveNoteCarousel(-1)">&#10094;</button>
+                  <button class="carousel-nav prev" type="button" onclick="moveCarousel(this, -1)">&#10094;</button>
                   <div class="carousel-track">
                     <div class="carousel-item active" onclick="openMediaZoom(this)">
                       <img src="foto/sar1.jpg" alt="Dek, Fava ed Io">
@@ -1542,28 +1517,24 @@
                       <img src="foto/sar3.jpg" alt="Tramonto Alghero">
                     </div>
                   </div>
-                  <button class="carousel-nav next" type="button" onclick="moveNoteCarousel(1)">&#10095;</button>
+                  <button class="carousel-nav next" type="button" onclick="moveCarousel(this, 1)">&#10095;</button>
                 </div>
 
-                <p data-i18n="note_sardinia_p4">L'unico vero momento 'avventuroso' (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
-              </details>
-              
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_23aug_date">+ 23 agosto 2026</summary>
-                <p data-i18n="note_23aug_text">Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.</p>
-              </details>
-              
-              <details class="note-item">
-                <summary class="note-date" data-i18n="note_24aug_date">+ 24 agosto 2026</summary>
-                <p data-i18n="note_24aug_text">Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .</p>
+                <p data-i18n="note_sardinia_p4">L'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>
               </details>
 
               <details class="note-item">
-                <summary class="note-date" data-i18n="note_25aug_date">+ 25 agosto 2026 <span class="fresh"></span></summary>
-                <p data-i18n="note_25aug_text">Oggi la giornata è iniziata con una grande vittoria, sono riuscito a far funzionare lo script python che ieri mi ha tanto rotto la testa, oggi con la collaborazione di un collega, sono riuscito a risolvere l'arcano, vediamo come giungerà a termine la giornata.</p>
+                <summary class="note-date" data-i18n="note_23agosto2026_date">+ 23 agosto 2026</summary>
+                <p data-i18n="note_23agosto2026_text">Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.</p>
+              </details>
+
+              <details class="note-item">
+                <summary class="note-date" data-i18n="note_24agosto2026_date">+ 24 agosto 2026 <span class="fresh"></span></summary>
+                <p data-i18n="note_24agosto2026_text">Rientro in ufficio, con un risveglio un po' traumatico , si ritorna alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con la mia Kia special che… poi sai si prega di non trovare traffico e si arriva nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .</p>
               </details>
             </div>
           </details>
+    <!-- AUTO-PENSIERI:END -->
 
         </div>
       </div>
@@ -1637,47 +1608,50 @@
       </div>
       <div class="card-body">
         <div class="media-grid">
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Chuwi: Tiny Desk Concert" data-yt-id="r3ZPhIZ6_bM" data-yt-url="https://www.youtube.com/watch?v=r3ZPhIZ6_bM">
-            <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Miniatura video YouTube 1" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <!-- ============ GENERATO AUTOMATICAMENTE da media.txt: NON modificare a mano qui dentro ============ -->
+          <!-- AUTO-YT:START -->
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Chuwi: Tiny Desk Concert🎵" data-yt-id="r3ZPhIZ6_bM" data-yt-url="https://www.youtube.com/watch?v=r3ZPhIZ6_bM">
+            <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Miniatura video Chuwi: Tiny Desk Concert🎵" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Chuwi: Tiny Desk Concert🎵</div>
-            <div class="sub" data-i18n="yt_1_sub">Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.</div>
+            <div class="sub" data-i18n="yt_chuwi_tiny_desk_concert_sub">Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.</div>
           </div>
 
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Victony - SLICK" data-yt-id="Nr_Km2sqsCY" data-yt-url="https://www.youtube.com/watch?v=Nr_Km2sqsCY">
-            <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Miniatura video YouTube 2" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Victony - SLICK (Official Visualizer)🎵" data-yt-id="Nr_Km2sqsCY" data-yt-url="https://www.youtube.com/watch?v=Nr_Km2sqsCY">
+            <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Miniatura video Victony - SLICK (Official Visualizer)🎵" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Victony - SLICK (Official Visualizer)🎵</div>
-            <div class="sub" data-i18n="yt_2_sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
+            <div class="sub" data-i18n="yt_victony__slick_official_visualizer_sub">Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.</div>
           </div>
 
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro, Dongo - SANKA" data-yt-id="m-FggUm8G0g" data-yt-url="https://www.youtube.com/watch?v=m-FggUm8G0g">
-            <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Miniatura video YouTube 3" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵" data-yt-id="m-FggUm8G0g" data-yt-url="https://www.youtube.com/watch?v=m-FggUm8G0g">
+            <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Miniatura video Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵</div>
-            <div class="sub" data-i18n="yt_3_sub">Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.</div>
+            <div class="sub" data-i18n="yt_ryan_castro_dongo__sanka_video_oficial___sub">Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.</div>
           </div>
 
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda BAD BUNNY - KLOuFRENS" data-yt-id="3af9KM3Eq-E" data-yt-url="https://www.youtube.com/watch?v=3af9KM3Eq-E">
-            <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="Miniatura video YouTube 4" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵" data-yt-id="3af9KM3Eq-E" data-yt-url="https://www.youtube.com/watch?v=3af9KM3Eq-E">
+            <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="Miniatura video BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵</div>
-            <div class="sub" data-i18n="yt_4_sub">Lui l'ha scritta, io l'ho vissuta 🙁 .</div>
+            <div class="sub" data-i18n="yt_bad_bunny__kloufrens_visualizer__deb_tir_sub">Lui l'ha scritta, io l'ho vissuta 🙁 .</div>
           </div>
 
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Bad Bunny - Si Estuviésemos Juntos" data-yt-id="EB7G3fUUaeA" data-yt-url="https://www.youtube.com/watch?v=EB7G3fUUaeA">
-            <img src="https://img.youtube.com/vi/EB7G3fUUaeA/hqdefault.jpg" alt="Miniatura video YouTube 5" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Bad Bunny - Si Estuviésemos Juntos🎵" data-yt-id="EB7G3fUUaeA" data-yt-url="https://www.youtube.com/watch?v=EB7G3fUUaeA">
+            <img src="https://img.youtube.com/vi/EB7G3fUUaeA/hqdefault.jpg" alt="Miniatura video Bad Bunny - Si Estuviésemos Juntos🎵" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Bad Bunny - Si Estuviésemos Juntos🎵</div>
-            <div class="sub" data-i18n="yt_5_sub">Stranamente mi piacciono le canzoni tristi di Bad 🙁.</div>
+            <div class="sub" data-i18n="yt_bad_bunny__si_estuviesemos_juntos_sub">Stranamente mi piacciono le canzoni tristi di Bad 🙁.</div>
           </div>
 
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Arctic Monkeys - 505" data-yt-id="qU9mHegkTc4" data-yt-url="https://www.youtube.com/watch?v=qU9mHegkTc4">
-            <img src="https://img.youtube.com/vi/qU9mHegkTc4/hqdefault.jpg" alt="Miniatura video YouTube 6" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Arctic Monkeys - 505🎵" data-yt-id="qU9mHegkTc4" data-yt-url="https://www.youtube.com/watch?v=qU9mHegkTc4">
+            <img src="https://img.youtube.com/vi/qU9mHegkTc4/hqdefault.jpg" alt="Miniatura video Arctic Monkeys - 505🎵" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Arctic Monkeys - 505🎵</div>
-            <div class="sub" data-i18n="yt_6_sub">Piacevole scoperta in un 23 agosto di riposo.</div>
+            <div class="sub" data-i18n="yt_arctic_monkeys__505_sub">Piacevole scoperta in un 23 agosto di riposo.</div>
           </div>
 
-          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro - HOPI SENDÉ (Live Session)" data-yt-id="S-NjVK28_2w" data-yt-url="https://www.youtube.com/watch?v=S-NjVK28_2w">
-            <img src="https://img.youtube.com/vi/S-NjVK28_2w/hqdefault.jpg" alt="Miniatura video YouTube 7" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
+          <div class="media-item yt-card clickable" tabindex="0" role="button" aria-label="Guarda Ryan Castro - HOPI SENDÉ (Live Session) [Medellín, Comuna 13]🎵" data-yt-id="S-NjVK28_2w" data-yt-url="https://www.youtube.com/watch?v=S-NjVK28_2w">
+            <img src="https://img.youtube.com/vi/S-NjVK28_2w/hqdefault.jpg" alt="Miniatura video Ryan Castro - HOPI SENDÉ (Live Session) [Medellín, Comuna 13]🎵" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:calc(var(--radius) - 3px);">
             <div class="title">Ryan Castro - HOPI SENDÉ (Live Session) [Medellín, Comuna 13]🎵</div>
-            <div class="sub" data-i18n="yt_7_sub">Ryan Castro gasa mi dispiace non si discute.</div>
+            <div class="sub" data-i18n="yt_ryan_castro__hopi_sende_live_session_med_sub">Ryan Castro gasa mi dispiace non si discute.</div>
           </div>
+    <!-- AUTO-YT:END -->
         </div>
       </div>
     </section>
@@ -1692,6 +1666,8 @@
       </div>
       <div class="card-body">
         <div class="media-grid">
+          <!-- ============ GENERATO AUTOMATICAMENTE da media.txt: NON modificare a mano qui dentro ============ -->
+          <!-- AUTO-FILM:START -->
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scarface">
             <img src="foto/FILM1.jpg" alt="Locandina Scarface">
             <div class="title">Scarface</div>
@@ -1717,23 +1693,17 @@
           </div>
 
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Il Signore degli Anelli">
-            <img src="foto/film5.jpg" alt="Locandina SigAnelli">
+            <img src="foto/film5.jpg" alt="Locandina Il Signore degli Anelli">
             <div class="title">Il Signore degli Anelli</div>
-            <div class="sub" data-i18n="film_lotr">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
+            <div class="sub" data-i18n="film_il_signore_degli_anelli">Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.</div>
           </div>
 
           <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Scrubs">
-            <img src="foto/film6.jpg" alt="Locandina Scrubus">
+            <img src="foto/film6.jpg" alt="Locandina Scrubs">
             <div class="title">Scrubs</div>
-            <div class="sub" data-i18n="film_scrubs">È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John 'J.D.' Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
+            <div class="sub" data-i18n="film_scrubs">È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.</div>
           </div>
-
-          <div class="media-item movie-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Nuovo Film">
-            <img src="foto/film7.jpg" alt="Locandina Nuovo Film">
-            <div class="title">Trainspotting</div>
-            <div class="sub" data-i18n="film_new">Trainspotting racconta la vita di Mark Renton, un giovane di Edimburgo che sceglie di vivere ai margini della società facendosi di eroina insieme al suo gruppo di amici disadattati. Tra tentativi di disintossicazione, momenti tragici e piccoli crimini, la storia culmina in un grosso colpo di droga che Mark sfrutta per fuggire e cambiare vita.</div>
-          </div>
-          
+    <!-- AUTO-FILM:END -->
         </div>
       </div>
     </section>
@@ -1748,23 +1718,26 @@
       </div>
       <div class="card-body">
         <div class="media-grid">
+          <!-- ============ GENERATO AUTOMATICAMENTE da media.txt: NON modificare a mano qui dentro ============ -->
+          <!-- AUTO-GAMES:START -->
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli The last of us">
-            <img src="foto/127761.jpg" alt="Videogioco 1">
+            <img src="foto/127761.jpg" alt="The last of us">
             <div class="title">The last of us</div>
-            <div class="sub" data-i18n="game_tlou">PS4 · Azione-avventura</div>
+            <div class="sub" data-i18n="game_the_last_of_us">PS4 · Azione-avventura</div>
           </div>
 
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Pokémon Platino">
-            <img src="foto/51GiGTjeigL._AC_UF894,1000_QL80_.jpg" alt="Videogioco 2">
+            <img src="foto/51GiGTjeigL._AC_UF894,1000_QL80_.jpg" alt="Pokémon Platino">
             <div class="title">Pokémon Platino</div>
-            <div class="sub">Nintendo DS · RPG</div>
+            <div class="sub" data-i18n="game_pokemon_platino">Nintendo DS · RPG</div>
           </div>
 
           <div class="media-item game-card clickable" tabindex="0" role="button" aria-label="Apri dettagli Yu-Gi-Oh">
-            <img src="foto/MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg" alt="Videogioco 3">
+            <img src="foto/MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg" alt="Yu-Gi-Oh">
             <div class="title">Yu-Gi-Oh</div>
             <div class="sub" data-i18n="game_yugioh">Giochi di carte collezionabili</div>
           </div>
+    <!-- AUTO-GAMES:END -->
         </div>
       </div>
     </section>
@@ -1897,11 +1870,6 @@
     "drawer_foot": "ARCHIVIO PERSONALE<br/>EST. 2026",
     "hero_title": "Il mio archivio personale",
     "hero_desc": "Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.",
-    "tag_photo": "Fotografia",
-    "tag_video": "Video",
-    "tag_music": "Musica",
-    "tag_cinema": "Cinema",
-    "tag_gaming": "Gaming",
     "timeline_title": "Attività recente",
     "log_14aug": "Idea e Creazione del sito WEB",
     "tag_office": "Ufficio💼",
@@ -1914,7 +1882,7 @@
     "tag_relax": "Casa🏠 &amp; RELAX",
     "log_24aug": "Ho creato uno script python che traduce l'intera pagina da italiano ad inglese e vice versa, ma non è del tutto funzionante.",
     "tag_other": "Implementation 🧠",
-    "log_25aug": "Finalmente siamo riusciti a fixare lo script python per la traduzione, per me è una grossa vittoria 🤩 .",
+    "log_25aug": "Finalmente siamo riusciti a fixare lo scripy python per la traduzione, per me è una grossa vittoria 🤩 .",
     "tag_otherre": "Fixing ✅",
     "load_more": "Carica altro",
     "suc_title": "Sito in continua costruzione",
@@ -1927,7 +1895,7 @@
     "about_interests_label": "Interessi",
     "about_interests_val": "Foto · Video · Videogiochi · Sport · Scrittura",
     "about_status_label": "Stato",
-    "about_status_val": "In constante aggiornamento",
+    "about_status_val": "In costante aggiornamento",
     "scribble_head": "Pensieri (fai un click sulla data per leggere cosa è successo 😉)",
     "month_aug2026": "📁 Agosto 2026",
     "note_14aug_date": "+ 14 agosto 2026",
@@ -1940,13 +1908,11 @@
     "note_sardinia_p1": "Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un'Odissea finale in aeroporto.",
     "note_sardinia_p2": "Il viaggio è iniziato sotto i migliori auspici: l'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.",
     "note_sardinia_p3": "Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.",
-    "note_sardinia_p4": "L'unico vero momento 'avventuroso' (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.",
+    "note_sardinia_p4": "L'unico vero momento \"avventuroso\" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.",
     "note_23aug_date": "+ 23 agosto 2026",
     "note_23aug_text": "Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.",
-    "note_24aug_date": "+ 24 agosto 2026",
+    "note_24aug_date": "+ 24 agosto 2026 <span class=\"fresh\"></span>",
     "note_24aug_text": "Rientro in ufficio, con un risveglio un po' traumatico , si ritrona alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con lia mia Kia special che... poi sai si prega di non trovare traffico e si arrives nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .",
-    "note_25aug_date": "+ 25 agosto 2026 <span class=\"fresh\"></span>",
-    "note_25aug_text": "Oggi la giornata è iniziata con una grande vittoria, sono riuscito a far funzionare lo script python che ieri mi ha tanto rotto la testa, oggi con la collaborazione di un collega, sono riuscito a risolvere l'arcano, vediamo come giungerà a termine la giornata.",
     "gallery_title": "Galleria<small>Foto</small>",
     "gallery_note": "Clicca o premi Invio su una foto per ingrandirla.",
     "video_title": "Video<small>Clip &amp; riprese</small>",
@@ -1964,8 +1930,7 @@
     "film_shrek": "Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.",
     "film_pluribus": "È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.",
     "film_lotr": "Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.",
-    "film_scrubs": "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John 'J.D.' Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
-    "film_new": "Trainspotting racconta la vita di Mark Renton, un giovane di Edimburgo che sceglie di vivere ai margini della società facendosi di eroina insieme al suo gruppo di amici disadattati. Tra tentativi di disintossicazione, momenti tragici e piccoli crimini, la storia culmina in un grosso colpo di droga che Mark sfrutta per fuggire e cambiare vita.",
+    "film_scrubs": "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John \"J.D.\" Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
     "games_title": "Videogiochi<small>Gaming &amp; Titoli Preferiti</small>",
     "game_tlou": "PS4 · Azione-avventura",
     "game_yugioh": "Giochi di carte collezionabili",
@@ -1993,12 +1958,7 @@
     "nav_games_full": "Video Games",
     "drawer_foot": "PERSONAL<br/>ARCHIVE NO. 2026",
     "hero_title": "My Personal Archive",
-    "hero_desc": "A space where I collect photos, videos, thoughts, and anything else that interests me. No set theme—just things worth saving and sharing.",
-    "tag_photo": "Photography",
-    "tag_video": "Video",
-    "tag_music": "Music",
-    "tag_cinema": "Movies",
-    "tag_gaming": "Gaming",
+    "hero_desc": "A space where I collect photos, videos, thoughts, and anything else that interests me. No specific theme—just things worth saving and sharing.",
     "timeline_title": "Recent Activity",
     "log_14aug": "Website Concept and Design",
     "tag_office": "Office💼",
@@ -2007,13 +1967,13 @@
     "log_16aug": "New Songs on YouTube: Chuwi Tiny Desk &amp; Bad Bunny",
     "log_17aug": "I&#x27;ve left for my summer vacation in Sardinia; you can find all the details in the &quot;Thoughts&quot; section.",
     "tag_thoughts": "Thoughts",
-    "log_23aug": "New Songs on YouTube + Random Thoughts from the Day",
+    "log_23aug": "New Songs on YouTube + Random Thoughts from Today",
     "tag_relax": "Home🏠 &amp; RELAX",
     "log_24aug": "I created a Python script that translates the entire page from Italian to English and vice versa, but it doesn&#x27;t work quite right.",
     "tag_other": "Implementation 🧠",
-    "log_25aug": "We finally managed to fix the Python script for translation—for me, this is a huge victory 🤩.",
+    "log_25aug": "We finally managed to fix the Python script for the translation—for me, that&#x27;s a huge victory 🤩.",
     "tag_otherre": "Fixing ✅",
-    "load_more": "Load more",
+    "load_more": "Load More",
     "suc_title": "This site is under construction",
     "suc_desc": "I&#x27;m updating this place little by little, kind of like these two—watch out for construction.",
     "about_title": "About Me",
@@ -2028,50 +1988,47 @@
     "scribble_head": "Thoughts (click on the date to read what happened 😉)",
     "month_aug2026": "📁 August 2026",
     "note_14aug_date": "+ August 14, 2026",
-    "note_14aug_text": "I was alone at work, and I had already finished all my tasks, so I decided to create and launch my personal website. Since I learned how to use HTML, Java, and CSS in high school, I decided to give it a try, especially since I&#x27;ve never had time for a personal project.",
+    "note_14aug_text": "I was alone at work, and I had already finished all my tasks, so I decided to create and launch my personal website. Since I learned how to use HTML, Java, and CSS in high school, I decided to give it a try, since I’d never had time for a personal project before.",
     "note_15aug_date": "+ August 15, 2026",
     "note_15aug_text": "On August 15, since I hadn’t made any plans with anyone, I decided to work on the website—after all, I’m on vacation, so I can do whatever I want 😄, Gemini and Claude gave me a big hand—it’s hard to find bugs in nearly 1,800 lines of code, and that’s even though it’s a very static site. I can’t even imagine what it’s like for sites that have to handle users, emails, and payments 😱.",
     "note_16aug_date": "+ August 16, 2026",
-    "note_16aug_text": "Looking back, I realize how far I&#x27;ve come since I started: I began with a very simple website made up of tabs (Home, About Me, Gallery, Videos, Contact) and gradually transformed it into something more my own. I added the YouTube, Movies &amp; TV Shows, and Video Games sections, with a modal window that opens when you click on them and displays a large cover image plus a description. I set up a light/dark theme with a small sun/moon button in the top right corner, which remembers your choice even if you close the site. I redesigned the borders and shadows of the cards to add more depth and added some small animations. The site is finally starting to look like a well-designed project, and I’m enjoying keeping it up to date.",
+    "note_16aug_text": "Looking back, I realize how far I&#x27;ve come since I started: I began with a very simple website made up of tabs (Home, About Me, Gallery, Videos, Contact) and gradually transformed it into something more my own. I added the YouTube, Movies &amp; TV Shows, and Video Games sections, each with a modal window that opens when you click on it and displays a large cover image plus a description. I set up a light/dark theme with a small sun/moon button in the top right corner that remembers your choice even if you close the site. I redesigned the borders and shadows of the cards to add more depth and added small animations. The site is finally starting to look polished, and I’m enjoying keeping it up to date.",
     "note_sardinia_date": "+ August 17–21, 2026",
     "note_sardinia_p1": "A week in Alghero that could be summed up as: crystal-clear sea, boat trips, aperitifs at sunset, and a final odyssey at the airport.",
-    "note_sardinia_p2": "The trip got off to a great start: the outbound flight went perfectly—smooth and right on time. Once we landed, we dove right into Sardinia’s laid-back pace. We explored the coast from a different perspective thanks to an unforgettable boat tour, stopping beneath the imposing limestone cliffs of the headland to snorkel in crystal-clear coves alongside the fish.",
-    "note_sardinia_p3": "Our days were filled with adventures on the water, freediving, and evening strolls through the streets of Alghero’s historic center, culminating in watching the golden sunset on the beach with the headland in the background.",
-    "note_sardinia_p4": "The only truly “adventurous” (and decidedly less pleasant) moment came right at the end: just as we were heading home, our return flight decided to test our patience with a 12-hour delay. It was a marathon at the airport that really put our relaxation to the test, but it couldn’t overshadow the memories of the fantastic days we spent on the boat with friends.",
+    "note_sardinia_p2": "The trip got off to a great start: the outbound flight went perfectly—smooth and right on time. Once we landed, we dove right into the laid-back pace of Sardinia. We explored the coast from a different perspective thanks to an unforgettable boat tour, stopping beneath the imposing limestone cliffs of the headland to snorkel in crystal-clear coves alongside the fish.",
+    "note_sardinia_p3": "Our days were filled with adventures on the water, free-diving, and evening strolls through the streets of Alghero’s historic center, culminating in watching the golden sunset on the beach with the headland in the background.",
+    "note_sardinia_p4": "The only truly “adventurous” (and decidedly less pleasant) moment came right at the end: just as we were about to head home, our return flight decided to test our patience with a 12-hour delay. It was a marathon at the airport that really put our relaxation to the test, but it couldn’t overshadow the memories of the fantastic days we spent on the boat with friends.",
     "note_23aug_date": "+ August 23, 2026",
-    "note_23aug_text": "It’s the last day of my vacation—rest and relaxation are a must. I’ll spend it living a slow, enjoyable life, just the way I like to, without neglecting my passions.",
-    "note_24aug_date": "+ August 24, 2026",
-    "note_24aug_text": "Back at the office, after a somewhat rough start to the day—it’s back to the routine: breakfast, preparing pasta for lunch, washing up and putting on some perfume, and then off I go in my special Kia… well, you know, hoping there’s no traffic, and I arrive at the magical office. The day has just begun—let’s hope it ends on a high note. I’ll keep you posted😉.",
-    "note_25aug_date": "+ August 25, 2026 <span class=\"fresh\"></span>",
-    "note_25aug_text": "Today started off with a big win—I managed to get the Python script working that had been giving me such a headache yesterday. With the help of a colleague, I was able to figure it out today. Let&#x27;s see how the rest of the day goes.",
+    "note_23aug_text": "It&#x27;s the last day of my vacation, so rest and relaxation are a must. I&#x27;ll spend it living a slow, enjoyable life—just the way I like it—without neglecting my passions.",
+    "note_24aug_date": "+ August 24, 2026 <span class=\"fresh\"></span>",
+    "note_24aug_text": "Back at the office—after a somewhat rough wake-up—it’s back to the routine: breakfast, making pasta for lunch, washing up and putting on some perfume, and then off I go in my special Kia… and, well, you know, let’s hope there’s no traffic so I can arrive at the magical office. The day has just begun—let’s hope it ends on a high note. I’ll keep you posted😉.",
     "gallery_title": "<small>Photo</small> Gallery",
     "gallery_note": "Click or press Enter on a photo to enlarge it.",
-    "video_title": "Music <small>Videos &amp; Film Footage</small>",
+    "video_title": "Music <small>Videos &amp; Filming</small>",
     "yt_title": "<small>YouTube Channels &amp; Content</small>",
-    "yt_1_sub": "The song that opens Chuwi’s Tiny Desk performance is lively, evocative, and full of questions. With intertwining vocals, keyboards, and percussion, the Puerto Rican band delicately tells the story of a life lived to the fullest.",
+    "yt_1_sub": "The song that opens Chuwi’s Tiny Desk performance is lively, suggestive, and full of questions. Amid intertwining vocals, keyboards, and percussion, the Puerto Rican band delicately tells the story of a life lived to the fullest.",
     "yt_2_sub": "A dynamic and catchy Afrobeats track. The accompanying Official Visualizer pairs the song&#x27;s rhythmic and captivating sounds with a clean, modern, and hypnotic visual aesthetic.",
     "yt_3_sub": "The music video is set in various summery and tropical locations, including a beach featuring a Jeep SUV, a boat or yacht, and urban settings with ATVs and motorcycles.",
     "yt_4_sub": "He wrote it, and I lived through it 🙁 .",
     "yt_5_sub": "Strangely enough, I like Bad&#x27;s sad songs 🙁.",
     "yt_6_sub": "A pleasant discovery on a relaxing August 23.",
-    "yt_7_sub": "Ryan Castro is on fire—I&#x27;m sorry, but there&#x27;s no arguing that.",
+    "yt_7_sub": "Ryan Castro is on fire—I&#x27;m sorry, but there&#x27;s no arguing with that.",
     "film_title": "Movies &amp; <small>TV</small> Shows: <small>My Favorites</small>",
     "film_scarface": "Directed by Brian De Palma in 1983 and starring Al Pacino, *Scarface* tells the story of Cuban refugee Tony Montana’s rise to power and subsequent downfall. After arriving in Miami in 1980, Tony becomes the king of the drug trade, but is ultimately destroyed by his own arrogance, paranoia, and addiction.",
     "film_goodfellas": "(GoodFellas) is a 1990 film directed by Martin Scorsese and based on the memoir by Nicholas Pileggi. It tells the true story of Henry Hill, a young man who grew up in the suburbs of New York and rose through the ranks of the Italian-American mafia alongside his associates Jimmy Conway and Tommy DeVito, until his downfall and entry into the witness protection program.",
-    "film_shrek": "Shrek&#x27;s peaceful solitude in the swamp is shattered when the evil Lord Farquaad exiles all the fairy-tale creatures there. To get his land back, Shrek agrees to rescue Princess Fiona from a dragon, discovering love and the girl&#x27;s true nature by the end of his journey.",
-    "film_pluribus": "It is a science fiction television series created by Vince Gilligan and starring Rhea Seehorn. The plot follows Carol Sturka, a writer from Albuquerque: a virus of extraterrestrial origin transforms all of humanity into a single, peaceful, and happy collective mind, leaving her and a very few others who are immune to fight to restore free will.",
+    "film_shrek": "Shrek&#x27;s peaceful solitude in the swamp is shattered when the evil Lord Farquaad exiles all the fairy-tale creatures there. To reclaim his land, Shrek agrees to rescue Princess Fiona from a dragon, discovering love and the girl&#x27;s true nature by the end of his journey.",
+    "film_pluribus": "It is a science fiction television series created by Vince Gilligan and starring Rhea Seehorn. The plot follows Carol Sturka, a writer from Albuquerque: a virus of extraterrestrial origin transforms all of humanity into a single, peaceful, and happy collective mind, leaving her and a very few others—who are immune—to fight to restore free will.",
     "film_lotr": "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring by casting it into the fires of Mount Doom in Mordor to save Middle-earth from the Dark Lord Sauron.",
-    "film_scrubs": "It is a famous sitcom created by Bill Lawrence. The series follows the daily, surreal life of young doctor John &quot;J.D.&quot; Dorian at Sacred Heart Hospital. Amid daydreams, human drama, and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
-    "film_new": "*Trainspotting* tells the story of Mark Renton, a young man from Edinburgh who chooses to live on the fringes of society, using heroin alongside his group of misfit friends. Amid attempts at rehab, tragic moments, and petty crimes, the story culminates in a major drug deal that Mark uses to escape and turn his life around.",
+    "film_scrubs": "It is a famous sitcom created by Bill Lawrence. The series follows the everyday and surreal life of young doctor John &quot;J.D.&quot; Dorian at Sacred Heart Hospital. Amid daydreams, human dramas, and comedy, J.D. learns the ropes of his profession and grows as a person alongside his colleagues.",
     "games_title": "Video Games<small>, Gaming, and Favorite Titles</small>",
     "game_tlou": "PS4 · Action-Adventure",
     "game_yugioh": "Collectible Card Games",
     "notes_title": "<small>Notes - Memo Section</small>",
     "memo_1_title": "I started this archive",
-    "memo_1_text": "Nothing to report for now—we&#x27;ll see what happens",
+    "memo_1_text": "Nothing to report for now; we&#x27;ll see what happens later.",
     "memo_2_title": "Next note",
-    "memo_2_text": "You&#x27;ll have to wait for the next news updates",
-    "contact_title": "Contact Information | Where <small>to Find Me</small>",
+    "memo_2_text": "You&#x27;ll have to wait for the next news update",
+    "contact_title": "Contact Information: Where <small>to Find Me</small>",
     "cv_it": "Download Resume (IT)",
     "cv_en": "Resume (English version)",
     "modal_close": "CLOSE ✕"
@@ -2129,19 +2086,22 @@
     }
   });
 
-  // ---- Gestione Carosello Note Sardegna ----
-  let noteCarouselIndex = 0;
-
-  function moveNoteCarousel(direction) {
-    const items = document.querySelectorAll('#sardiniaCarousel .carousel-item');
+  // ---- Gestione Caroselli foto/video nelle note (funziona con più caroselli insieme) ----
+  function moveCarousel(bottone, direction) {
+    const carosello = bottone.closest('.note-carousel');
+    if (!carosello) return;
+    const items = carosello.querySelectorAll('.carousel-item');
     if (!items.length) return;
 
-    const currentVideo = items[noteCarouselIndex].querySelector('video');
+    let idx = Array.from(items).findIndex(el => el.classList.contains('active'));
+    if (idx === -1) idx = 0;
+
+    const currentVideo = items[idx].querySelector('video');
     if (currentVideo) currentVideo.pause();
 
-    items[noteCarouselIndex].classList.remove('active');
-    noteCarouselIndex = (noteCarouselIndex + direction + items.length) % items.length;
-    items[noteCarouselIndex].classList.add('active');
+    items[idx].classList.remove('active');
+    idx = (idx + direction + items.length) % items.length;
+    items[idx].classList.add('active');
   }
 
   function openMediaZoom(el) {
@@ -2255,6 +2215,8 @@
   const openMediaModal = (item) => {
     const img = item.querySelector('img');
     const title = item.querySelector('.title');
+    // La descrizione (.sub) viene già aggiornata dalla traduzione generica
+    // ad ogni cambio lingua, quindi la leggiamo direttamente da lì.
     const desc = item.querySelector('.sub');
 
     mediaModalImg.src = img ? img.src : '';
