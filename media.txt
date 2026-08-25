@@ -1,0 +1,80 @@
+TIPO: film
+TITOLO: Scarface
+COPERTINA: FILM1.jpg
+DESCRIZIONE: Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.
+---
+TIPO: film
+TITOLO: Goodfellas
+COPERTINA: fiilm2.jpg
+DESCRIZIONE: (GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.
+---
+TIPO: film
+TITOLO: Shrek
+COPERTINA: film3.jpg
+DESCRIZIONE: Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.
+---
+TIPO: film
+TITOLO: Pluribus
+COPERTINA: film4.jpg
+DESCRIZIONE: È una serie televisiva di fantascienza ideata da Vince Gilligan e interpretata da Rhea Seehorn. La trama segue Carol Sturka, una scrittrice di Albuquerque: un virus di origine extraterrestre trasforma l'intera umanità in un'unica e pacifica mente collettiva felice, lasciando lei e pochissimi altri immuni a lottare per ripristinare il libero arbitrio.
+---
+TIPO: film
+TITOLO: Il Signore degli Anelli
+COPERTINA: film5.jpg
+DESCRIZIONE: Il Signore degli Anelli è un famoso romanzo epico di J.R.R. Tolkien. La storia segue il giovane hobbit Frodo Baggins in un lungo viaggio per distruggere il potente e malvagio Unico Anello, gettandolo nel fuoco del Monte Fato a Mordor per salvare la Terra di Mezzo dal signore oscuro Sauron.
+---
+TIPO: film
+TITOLO: Scrubs
+COPERTINA: film6.jpg
+DESCRIZIONE: È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John "J.D." Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.
+---
+TIPO: gioco
+TITOLO: The last of us
+COPERTINA: 127761.jpg
+DESCRIZIONE: PS4 · Azione-avventura
+---
+TIPO: gioco
+TITOLO: Pokémon Platino
+COPERTINA: 51GiGTjeigL._AC_UF894,1000_QL80_.jpg
+DESCRIZIONE: Nintendo DS · RPG
+---
+TIPO: gioco
+TITOLO: Yu-Gi-Oh
+COPERTINA: MV5BYzNkNjA1YTctMzU3ZS00ZWY3LWJjNjYtMTgyMmI0YWVkNjU4XkEyXkFqcGc@._V1_.jpg
+DESCRIZIONE: Giochi di carte collezionabili
+---
+TIPO: youtube
+TITOLO: Chuwi: Tiny Desk Concert🎵
+ID: r3ZPhIZ6_bM
+DESCRIZIONE: Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.
+---
+TIPO: youtube
+TITOLO: Victony - SLICK (Official Visualizer)🎵
+ID: Nr_Km2sqsCY
+DESCRIZIONE: Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.
+---
+TIPO: youtube
+TITOLO: Ryan Castro, Dongo - SANKA (Video Oficial) | SENDÉ🎵
+ID: m-FggUm8G0g
+DESCRIZIONE: Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.
+---
+TIPO: youtube
+TITOLO: BAD BUNNY - KLOuFRENS (Visualizer) | DeBÍ TiRAR MáS FOToS🎵
+ID: 3af9KM3Eq-E
+DESCRIZIONE: Lui l'ha scritta, io l'ho vissuta 🙁 .
+---
+TIPO: youtube
+TITOLO: Bad Bunny - Si Estuviésemos Juntos🎵
+ID: EB7G3fUUaeA
+DESCRIZIONE: Stranamente mi piacciono le canzoni tristi di Bad 🙁.
+---
+TIPO: youtube
+TITOLO: Arctic Monkeys - 505🎵
+ID: qU9mHegkTc4
+DESCRIZIONE: Piacevole scoperta in un 23 agosto di riposo.
+---
+TIPO: youtube
+TITOLO: Ryan Castro - HOPI SENDÉ (Live Session) [Medellín, Comuna 13]🎵
+ID: S-NjVK28_2w
+DESCRIZIONE: Ryan Castro gasa mi dispiace non si discute.
+---
