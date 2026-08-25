@@ -191,14 +191,19 @@ def genera_html_pensieri(voci):
     return '\n\n'.join(blocchi_mese)
 
 
-def genera_html_timeline(voci):
+def genera_html_timeline(voci, mostra_sempre=4):
     """Genera tutte le righe della timeline 'Attività recente'.
-    Solo le voci che hanno un TIMELINE."""
+    Solo le voci che hanno un TIMELINE. Le più recenti (ultime
+    'mostra_sempre') restano sempre visibili, quelle più vecchie vengono
+    nascoste dietro il bottone 'Carica altro' — così la lista non diventa
+    un elenco lunghissimo sempre tutto visibile."""
     voci_timeline = [v for v in voci if v.get('timeline')]
     if not voci_timeline:
         return '    <!-- nessuna voce per la timeline trovata in pensieri.txt -->'
 
+    n_totali = len(voci_timeline)
     righe = []
+
     for i, v in enumerate(voci_timeline):
         colore = COLORI_DOT[i % len(COLORI_DOT)]
         data_breve = f"{v['data_obj'].day} {MESI_ABBR_IT[v['data_obj'].month]} {v['data_obj'].year}"
@@ -207,8 +212,12 @@ def genera_html_timeline(voci):
         testo_timeline = escapa_html(v['timeline'])
         tag = escapa_html(v['tag'])
 
+        e_vecchia = i < (n_totali - mostra_sempre)
+        classe = 'entry extra-entry' if e_vecchia else 'entry'
+        stile = ' style="display:none;"' if e_vecchia else ''
+
         righe.append(
-            f'    <div class="entry">\n'
+            f'    <div class="{classe}"{stile}>\n'
             f'      <div class="dot" style="background: var({colore});"></div>\n'
             f'      <div class="entry-body">\n'
             f'        <span class="entry-date">{data_breve}</span>\n'
@@ -218,7 +227,12 @@ def genera_html_timeline(voci):
             f'    </div>'
         )
 
-    return '\n\n'.join(righe)
+    html = '\n\n'.join(righe)
+
+    if n_totali > mostra_sempre:
+        html += '\n\n    <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>'
+
+    return html
 
 
 def sostituisci_tra_marcatori(html, nome_marcatore, nuovo_contenuto):
