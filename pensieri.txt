@@ -35,8 +35,3 @@ DATA: 26 agosto 2026
 TIMELINE: vediamo se le ultime implementazioni funzionano.  
 TAG: Fixing ✅
 ---
-DATA: 25 agosto 2026
-PENSIERO: Oggi ho fatto varie implementazioni e automatismi, nella comodità di casa sto provando se tutto funziona come dovrebbe, nei prossimi giorni comunque farò altri test. Probabilmente inizierò a pensare anche a qualcosa a livello di ux ai design, ovviamente facendomi aiutare da claude AI, visto che non ho competenze del genere, ma vediamo con calma.  
-TIMELINE: Finito un progetto importante
-TAG: Ufficio💼
----
