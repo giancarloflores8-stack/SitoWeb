@@ -17,6 +17,43 @@ COLORI_DOT = [
     '--dot-cinema', '--dot-gaming', '--dot-note'
 ]
 
+# Note "speciali" con contenuti che il formato testo semplice di pensieri.txt
+# non può rappresentare (più foto in un carosello, layout particolare...).
+# Vanno aggiunte qui a mano (basta chiedere a Claude), ma da qui in poi il
+# resto del sistema le inserisce da solo nella cartella del mese giusto,
+# nella posizione cronologica corretta insieme a tutte le altre.
+NOTE_MANUALI = [
+    {
+        'data_obj': datetime(2026, 8, 17),
+        'html': (
+            '              <details class="note-item">\n'
+            '                <summary class="note-date">+ Dal 17 al 21 agosto 2026</summary>\n'
+            '                <p>Una settimana ad Alghero che si potrebbe riassumere in: mare cristallino, escursioni in barca, aperitivi al tramonto e un\'Odissea finale in aeroporto.</p>\n'
+            '                <p>Il viaggio è iniziato sotto i migliori auspici: l\'andata in volo è volata via in modo perfetto, liscio e puntualissimo. Una volta atterrati, ci siamo tuffati nei ritmi rilassati della Sardegna. Abbiamo esplorato la costa da un\'altra prospettiva grazie a un giro in barca indimenticabile, fermandoci sotto le imponenti scogliere calcaree del promontorio per fare snorkeling in calette trasparenti insieme ai pesci.</p>\n'
+            '                <p>Le giornate si sono divise tra avventure in acqua, nuotate in apnea e passeggiate serali per le vie del centro storico di Alghero, fino ad attendere il tramonto dorato sulla spiaggia con la vista del promontorio sullo sfondo.</p>\n'
+            '\n'
+            '                <div class="note-carousel" id="sardiniaCarousel">\n'
+            '                  <button class="carousel-nav prev" type="button" onclick="moveCarousel(this, -1)">&#10094;</button>\n'
+            '                  <div class="carousel-track">\n'
+            '                    <div class="carousel-item active" onclick="openMediaZoom(this)">\n'
+            '                      <img src="foto/sar1.jpg" alt="Dek, Fava ed Io">\n'
+            '                    </div>\n'
+            '                    <div class="carousel-item" onclick="openMediaZoom(this)">\n'
+            '                      <img src="foto/sar2.jpg" alt="ichnusa con il mare piu bello d\'italia">\n'
+            '                    </div>\n'
+            '                    <div class="carousel-item" onclick="openMediaZoom(this)">\n'
+            '                      <img src="foto/sar3.jpg" alt="Tramonto Alghero">\n'
+            '                    </div>\n'
+            '                  </div>\n'
+            '                  <button class="carousel-nav next" type="button" onclick="moveCarousel(this, 1)">&#10095;</button>\n'
+            '                </div>\n'
+            '\n'
+            '                <p>L\'unico vero momento "avventuroso" (e decisamente meno piacevole) è arrivato proprio alla fine: al momento di tornare a casa, il volo di rientro ha deciso di testare la nostra pazienza accumulate ben 12 ore di ritardo. Una maratona in aeroporto che ha messo a dura prova il nostro relax, ma che non è riuscita a scalzare il ricordo dei giorni fantastici passati in barca tra amici.</p>\n'
+            '              </details>'
+        ),
+    },
+]
+
 
 def slugify(testo):
     """Crea una chiave sicura (per data-i18n) a partire da un testo qualsiasi."""
@@ -140,33 +177,48 @@ def genera_html_foto(voce, chiave_slug):
 
 
 def genera_html_pensieri(voci):
-    """Genera i <details class="month-folder"> con dentro tutte le note,
-    raggruppate per mese/anno. Solo le voci che hanno un PENSIERO."""
+    """Genera i <details class="month-folder"> con dentro tutte le note
+    (sia quelle testuali da pensieri.txt, sia quelle manuali con foto da
+    NOTE_MANUALI), raggruppate per mese/anno e ordinate per data.
+    Le cartelle restano SEMPRE chiuse di default (niente più cascata di
+    date a vista appena apri la pagina)."""
     voci_con_pensiero = [v for v in voci if v.get('pensiero')]
-    if not voci_con_pensiero:
-        return '          <!-- nessuna nota con testo trovata in pensieri.txt -->'
 
-    ultima_data_con_pensiero = voci_con_pensiero[-1]['data_obj']
+    elementi = [{'data_obj': v['data_obj'], 'tipo': 'auto', 'dato': v} for v in voci_con_pensiero]
+    elementi += [{'data_obj': nm['data_obj'], 'tipo': 'manuale', 'dato': nm} for nm in NOTE_MANUALI]
+
+    if not elementi:
+        return '          <!-- nessuna nota trovata -->'
+
+    elementi.sort(key=lambda e: e['data_obj'])
+
+    # Il bollino "nuovo" va solo sull'ultima nota testuale (quelle manuali
+    # sono di solito ricordi passati, non l'ultimo aggiornamento del sito)
+    date_auto = [v['data_obj'] for v in voci_con_pensiero]
+    ultima_data_auto = max(date_auto) if date_auto else None
 
     gruppi = {}
-    for v in voci_con_pensiero:
-        chiave_mese = (v['data_obj'].year, v['data_obj'].month)
-        gruppi.setdefault(chiave_mese, []).append(v)
+    for e in elementi:
+        chiave_mese = (e['data_obj'].year, e['data_obj'].month)
+        gruppi.setdefault(chiave_mese, []).append(e)
 
-    ultima_chiave_mese = max(gruppi.keys())
     blocchi_mese = []
 
     for (anno, mese) in sorted(gruppi.keys()):
-        voci_mese = gruppi[(anno, mese)]
+        elementi_mese = gruppi[(anno, mese)]
         mese_nome = MESI_NOME_IT[mese]
-        aperto = ' open' if (anno, mese) == ultima_chiave_mese else ''
 
         righe_note = []
-        for v in voci_mese:
+        for e in elementi_mese:
+            if e['tipo'] == 'manuale':
+                righe_note.append(e['dato']['html'])
+                continue
+
+            v = e['dato']
             slug = slugify(f"{v['data_obj'].day}{mese_nome}{anno}")
             chiave_date = f"note_{slug}_date"
             chiave_testo = f"note_{slug}_text"
-            e_fresca = v['data_obj'] == ultima_data_con_pensiero
+            e_fresca = ultima_data_auto is not None and v['data_obj'] == ultima_data_auto
             badge = ' <span class="fresh"></span>' if e_fresca else ''
             testo_pensiero = escapa_html(v['pensiero'])
             html_foto = genera_html_foto(v, slug)
@@ -180,7 +232,7 @@ def genera_html_pensieri(voci):
             )
 
         blocchi_mese.append(
-            f'          <details class="month-folder"{aperto}>\n'
+            f'          <details class="month-folder">\n'
             f'            <summary class="month-header">📁 {mese_nome} {anno}</summary>\n'
             f'            <div class="month-body">\n'
             + '\n\n'.join(righe_note) +
