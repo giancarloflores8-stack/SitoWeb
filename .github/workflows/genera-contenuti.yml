@@ -24,12 +24,14 @@ jobs:
           python-version: '3.x'
 
       - name: Installa dipendenze
-        run: pip install beautifulsoup4 deep-translator
+        run: pip install beautifulsoup4 deepl
 
       - name: Genera Pensieri e Attività recente dal testo
         run: python genera_contenuti.py
 
       - name: Traduci in inglese le parti nuove
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: python script_traduzione.py
 
       - name: Salva e pubblica
