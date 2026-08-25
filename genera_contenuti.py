@@ -1,44 +1,273 @@
-name: Genera Contenuti da pensieri.txt
+import re
+import sys
+from datetime import datetime
 
-on:
-  push:
-    paths:
-      - 'pensieri.txt'
-      - 'genera_contenuti.py'
+MESI_IT = {
+    'gennaio': 1, 'febbraio': 2, 'marzo': 3, 'aprile': 4, 'maggio': 5, 'giugno': 6,
+    'luglio': 7, 'agosto': 8, 'settembre': 9, 'ottobre': 10, 'novembre': 11, 'dicembre': 12
+}
+MESI_ABBR_IT = {
+    1: 'gen', 2: 'feb', 3: 'mar', 4: 'apr', 5: 'mag', 6: 'giu',
+    7: 'lug', 8: 'ago', 9: 'set', 10: 'ott', 11: 'nov', 12: 'dic'
+}
+MESI_NOME_IT = {v: k.capitalize() for k, v in MESI_IT.items()}
 
-permissions:
-  contents: write
+COLORI_DOT = [
+    '--dot-fotografia', '--dot-video', '--dot-musica',
+    '--dot-cinema', '--dot-gaming', '--dot-note'
+]
 
-jobs:
-  genera-e-traduci:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    env:
-      PYTHONUNBUFFERED: "1"
-    steps:
-      - name: Scarica il repository
-        uses: actions/checkout@v3
 
-      - name: Configura Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+def slugify(testo):
+    """Crea una chiave sicura (per data-i18n) a partire da un testo qualsiasi."""
+    testo = testo.lower()
+    sostituzioni = {'à': 'a', 'è': 'e', 'é': 'e', 'ì': 'i', 'ò': 'o', 'ù': 'u', ' ': '_'}
+    for a, b in sostituzioni.items():
+        testo = testo.replace(a, b)
+    testo = re.sub(r'[^a-z0-9_]', '', testo)
+    return testo[:40] or 'voce'
 
-      - name: Installa dipendenze
-        run: pip install beautifulsoup4 deepl
 
-      - name: Genera Pensieri e Attività recente dal testo
-        run: python genera_contenuti.py
+def parse_data_italiana(testo_data):
+    """Es: '25 agosto 2026' -> datetime(2026, 8, 25).
+    Supporta anche intervalli tipo 'Dal 17 al 21 agosto 2026' (usa il giorno finale)."""
+    testo = testo_data.strip().lower()
+    parte_utile = testo.split(' al ')[-1] if ' al ' in testo else testo
 
-      - name: Traduci in inglese le parti nuove
-        env:
-          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
-        run: python script_traduzione.py
+    match = re.search(r'(\d{1,2})\s+([a-zàèéìòù]+)\s+(\d{4})', parte_utile)
+    if not match:
+        raise ValueError(f"Non riesco a interpretare la data: '{testo_data}'")
 
-      - name: Salva e pubblica
-        run: |
-          git config --global user.name "GitHub Content Bot"
-          git config --global user.email "bot@github.com"
-          git add index.html
-          git commit -m "Aggiornamento automatico contenuti da pensieri.txt [skip ci]" || exit 0
-          git push
+    giorno, mese_nome, anno = match.group(1), match.group(2), match.group(3)
+    mese = MESI_IT.get(mese_nome)
+    if not mese:
+        raise ValueError(f"Mese non riconosciuto: '{mese_nome}' (in '{testo_data}')")
+
+    return datetime(int(anno), mese, int(giorno))
+
+
+def escapa_html(testo):
+    """Escape minimo per inserire testo utente dentro attributi/HTML in sicurezza."""
+    return (testo.replace('&', '&amp;')
+                 .replace('<', '&lt;')
+                 .replace('>', '&gt;'))
+
+
+def parse_pensieri_txt(percorso='pensieri.txt'):
+    with open(percorso, 'r', encoding='utf-8') as f:
+        contenuto = f.read()
+
+    blocchi = [b.strip() for b in contenuto.split('---') if b.strip()]
+    voci = []
+
+    for numero_blocco, blocco in enumerate(blocchi, start=1):
+        campi = {}
+        chiave_corrente = None
+
+        for riga in blocco.splitlines():
+            m = re.match(r'^(DATA|PENSIERO|TIMELINE|TAG|FOTO)\s*:\s*(.*)$', riga.strip(), re.IGNORECASE)
+            if m:
+                chiave_corrente = m.group(1).upper()
+                campi[chiave_corrente] = m.group(2).strip()
+            elif chiave_corrente and riga.strip():
+                # riga di continuazione (es. un PENSIERO scritto su più righe)
+                campi[chiave_corrente] += ' ' + riga.strip()
+
+        if 'DATA' not in campi:
+            print(f"⚠️  Blocco {numero_blocco} ignorato: manca il campo DATA.")
+            continue
+        if 'PENSIERO' not in campi and 'TIMELINE' not in campi:
+            print(f"⚠️  Blocco {numero_blocco} ignorato: serve almeno PENSIERO o TIMELINE.")
+            continue
+
+        try:
+            data_obj = parse_data_italiana(campi['DATA'])
+        except ValueError as e:
+            print(f"⚠️  Blocco {numero_blocco} ignorato: {e}")
+            continue
+
+        voci.append({
+            'data_testo': campi['DATA'],
+            'data_obj': data_obj,
+            'pensiero': campi.get('PENSIERO'),
+            'timeline': campi.get('TIMELINE'),
+            'tag': campi.get('TAG', 'Update'),
+            'foto': campi.get('FOTO'),
+        })
+
+    voci.sort(key=lambda v: v['data_obj'])
+    return voci
+
+
+def genera_html_foto(voce, chiave_slug):
+    """Se la voce ha un campo FOTO, genera l'HTML della foto:
+    - una sola immagine -> foto singola cliccabile, senza freccine
+    - più immagini (separate da virgola) -> carosello con freccine avanti/indietro
+    Ritorna stringa vuota se non ci sono foto."""
+    foto_raw = voce.get('foto')
+    if not foto_raw:
+        return ''
+
+    nomi = [n.strip() for n in foto_raw.split(',') if n.strip()]
+    if not nomi:
+        return ''
+
+    if len(nomi) == 1:
+        return (
+            f'\n                <div class="note-photo-single" onclick="openMediaZoom(this)">\n'
+            f'                  <img src="foto/{escapa_html(nomi[0])}" alt="Foto del {escapa_html(voce["data_testo"])}">\n'
+            f'                </div>\n'
+        )
+
+    slide_html = []
+    for i, nome in enumerate(nomi):
+        attivo = ' active' if i == 0 else ''
+        slide_html.append(
+            f'                    <div class="carousel-item{attivo}" onclick="openMediaZoom(this)">\n'
+            f'                      <img src="foto/{escapa_html(nome)}" alt="Foto {i + 1} del {escapa_html(voce["data_testo"])}">\n'
+            f'                    </div>'
+        )
+
+    return (
+        f'\n                <div class="note-carousel" id="carousel_{chiave_slug}">\n'
+        f'                  <button class="carousel-nav prev" type="button" onclick="moveCarousel(this, -1)">&#10094;</button>\n'
+        f'                  <div class="carousel-track">\n'
+        + '\n'.join(slide_html) +
+        f'\n                  </div>\n'
+        f'                  <button class="carousel-nav next" type="button" onclick="moveCarousel(this, 1)">&#10095;</button>\n'
+        f'                </div>\n'
+    )
+
+
+def genera_html_pensieri(voci):
+    """Genera i <details class="month-folder"> con dentro tutte le note,
+    raggruppate per mese/anno. Solo le voci che hanno un PENSIERO."""
+    voci_con_pensiero = [v for v in voci if v.get('pensiero')]
+    if not voci_con_pensiero:
+        return '          <!-- nessuna nota con testo trovata in pensieri.txt -->'
+
+    ultima_data_con_pensiero = voci_con_pensiero[-1]['data_obj']
+
+    gruppi = {}
+    for v in voci_con_pensiero:
+        chiave_mese = (v['data_obj'].year, v['data_obj'].month)
+        gruppi.setdefault(chiave_mese, []).append(v)
+
+    ultima_chiave_mese = max(gruppi.keys())
+    blocchi_mese = []
+
+    for (anno, mese) in sorted(gruppi.keys()):
+        voci_mese = gruppi[(anno, mese)]
+        mese_nome = MESI_NOME_IT[mese]
+        aperto = ' open' if (anno, mese) == ultima_chiave_mese else ''
+
+        righe_note = []
+        for v in voci_mese:
+            slug = slugify(f"{v['data_obj'].day}{mese_nome}{anno}")
+            chiave_date = f"note_{slug}_date"
+            chiave_testo = f"note_{slug}_text"
+            e_fresca = v['data_obj'] == ultima_data_con_pensiero
+            badge = ' <span class="fresh"></span>' if e_fresca else ''
+            testo_pensiero = escapa_html(v['pensiero'])
+            html_foto = genera_html_foto(v, slug)
+
+            righe_note.append(
+                f'              <details class="note-item">\n'
+                f'                <summary class="note-date" data-i18n="{chiave_date}">+ {v["data_testo"]}{badge}</summary>\n'
+                f'                <p data-i18n="{chiave_testo}">{testo_pensiero}</p>'
+                f'{html_foto}'
+                f'\n              </details>'
+            )
+
+        blocchi_mese.append(
+            f'          <details class="month-folder"{aperto}>\n'
+            f'            <summary class="month-header">📁 {mese_nome} {anno}</summary>\n'
+            f'            <div class="month-body">\n'
+            + '\n\n'.join(righe_note) +
+            f'\n            </div>\n'
+            f'          </details>'
+        )
+
+    return '\n\n'.join(blocchi_mese)
+
+
+def genera_html_timeline(voci, mostra_sempre=1):
+    """Genera tutte le righe della timeline 'Attività recente'.
+    Solo le voci che hanno un TIMELINE. Le più recenti (ultime
+    'mostra_sempre') restano sempre visibili, quelle più vecchie vengono
+    nascoste dietro il bottone 'Carica altro' — così la lista non diventa
+    un elenco lunghissimo sempre tutto visibile."""
+    voci_timeline = [v for v in voci if v.get('timeline')]
+    if not voci_timeline:
+        return '    <!-- nessuna voce per la timeline trovata in pensieri.txt -->'
+
+    n_totali = len(voci_timeline)
+    righe = []
+
+    for i, v in enumerate(voci_timeline):
+        colore = COLORI_DOT[i % len(COLORI_DOT)]
+        data_breve = f"{v['data_obj'].day} {MESI_ABBR_IT[v['data_obj'].month]} {v['data_obj'].year}"
+        slug = slugify(f"{v['data_obj'].day}{v['data_obj'].month}{v['data_obj'].year}tl")
+        chiave_testo = f"log_{slug}"
+        testo_timeline = escapa_html(v['timeline'])
+        tag = escapa_html(v['tag'])
+
+        e_vecchia = i < (n_totali - mostra_sempre)
+        classe = 'entry extra-entry' if e_vecchia else 'entry'
+        stile = ' style="display:none;"' if e_vecchia else ''
+
+        righe.append(
+            f'    <div class="{classe}"{stile}>\n'
+            f'      <div class="dot" style="background: var({colore});"></div>\n'
+            f'      <div class="entry-body">\n'
+            f'        <span class="entry-date">{data_breve}</span>\n'
+            f'        <span class="entry-text" data-i18n="{chiave_testo}">{testo_timeline}</span>\n'
+            f'        <span class="entry-tag">{tag}</span>\n'
+            f'      </div>\n'
+            f'    </div>'
+        )
+
+    html = '\n\n'.join(righe)
+
+    if n_totali > mostra_sempre:
+        html += '\n\n    <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>'
+
+    return html
+
+
+def sostituisci_tra_marcatori(html, nome_marcatore, nuovo_contenuto):
+    pattern = rf'(<!-- {nome_marcatore}:START -->)([\s\S]*?)(<!-- {nome_marcatore}:END -->)'
+    if not re.search(pattern, html):
+        print(f"❌ Marcatori '{nome_marcatore}:START/END' non trovati in index.html!")
+        sys.exit(1)
+    sostituzione = f"\\1\n{nuovo_contenuto}\n    \\3"
+    # usiamo una funzione invece di una stringa di sostituzione diretta per
+    # evitare problemi con eventuali backslash/simboli speciali nel testo
+    return re.sub(pattern, lambda m: f"{m.group(1)}\n{nuovo_contenuto}\n    {m.group(3)}", html, count=1)
+
+
+def main():
+    voci = parse_pensieri_txt()
+    if not voci:
+        print("Nessuna voce valida trovata in pensieri.txt: niente da generare.")
+        return
+
+    with open('index.html', 'r', encoding='utf-8') as f:
+        html = f.read()
+
+    html_pensieri = genera_html_pensieri(voci)
+    html_timeline = genera_html_timeline(voci)
+
+    html = sostituisci_tra_marcatori(html, 'AUTO-PENSIERI', html_pensieri)
+    html = sostituisci_tra_marcatori(html, 'AUTO-TIMELINE', html_timeline)
+
+    with open('index.html', 'w', encoding='utf-8') as f:
+        f.write(html)
+
+    n_pensieri = sum(1 for v in voci if v.get('pensiero'))
+    n_timeline = sum(1 for v in voci if v.get('timeline'))
+    print(f"✅ Generate {n_pensieri} note in 'Pensieri' e {n_timeline} voci in 'Attività recente'.")
+
+
+if __name__ == '__main__':
+    main()
