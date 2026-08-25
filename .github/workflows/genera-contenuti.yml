@@ -1,10 +1,9 @@
-name: Genera Contenuti da pensieri.txt e media.txt
+name: Genera Contenuti da pensieri.txt
 
 on:
   push:
     paths:
       - 'pensieri.txt'
-      - 'media.txt'
       - 'genera_contenuti.py'
 
 permissions:
