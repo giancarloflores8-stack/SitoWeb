@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'pensieri.txt'
+      - 'genera_contenuti.py'
 
 permissions:
   contents: write
