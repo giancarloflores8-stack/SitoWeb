@@ -1,12 +1,30 @@
 import re
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 from bs4 import BeautifulSoup, NavigableString, Tag
 from deep_translator import GoogleTranslator, MyMemoryTranslator
 
 MAX_RETRY = 4
 PAUSA_TRA_CHIAMATE = 1.2  # secondi, per non farsi bloccare
 MYMEMORY_MAX_CHARS = 480  # margine di sicurezza sotto il limite di ~500 di MyMemory
+TIMEOUT_CHIAMATA = 10  # secondi massimi per ogni singola richiesta di traduzione
+
+_esecutore = ThreadPoolExecutor(max_workers=1)
+
+
+def con_timeout(funzione, *args, **kwargs):
+    """Esegue una funzione con un timeout forzato. Se il server non
+    risponde (Google a volte blocca le richieste in modo 'silenzioso',
+    senza restituire errore), senza questo la richiesta di rete resta
+    appesa per sempre e lo script si blocca. Dopo TIMEOUT_CHIAMATA secondi
+    solleva TimeoutError e si passa oltre."""
+    futuro = _esecutore.submit(funzione, *args, **kwargs)
+    try:
+        return futuro.result(timeout=TIMEOUT_CHIAMATA)
+    except FutureTimeoutError:
+        raise TimeoutError(f"Nessuna risposta entro {TIMEOUT_CHIAMATA}s")
+
 
 
 def _traduci_con_mymemory(testo):
@@ -14,20 +32,20 @@ def _traduci_con_mymemory(testo):
     più lungo (es. i paragrafi lunghi del diario) lo spezziamo per frasi e
     ricomponiamo il risultato."""
     if len(testo) <= MYMEMORY_MAX_CHARS:
-        return MyMemoryTranslator(source='it-IT', target='en-GB').translate(testo)
+        return con_timeout(MyMemoryTranslator(source='it-IT', target='en-GB').translate, testo)
 
     frasi = re.split(r'(?<=[.!?])\s+', testo)
     pezzi_tradotti = []
     blocco = ''
     for frase in frasi:
         if blocco and len(blocco) + len(frase) + 1 > MYMEMORY_MAX_CHARS:
-            pezzi_tradotti.append(MyMemoryTranslator(source='it-IT', target='en-GB').translate(blocco))
+            pezzi_tradotti.append(con_timeout(MyMemoryTranslator(source='it-IT', target='en-GB').translate, blocco))
             time.sleep(PAUSA_TRA_CHIAMATE)
             blocco = frase
         else:
             blocco = (blocco + ' ' + frase).strip()
     if blocco:
-        pezzi_tradotti.append(MyMemoryTranslator(source='it-IT', target='en-GB').translate(blocco))
+        pezzi_tradotti.append(con_timeout(MyMemoryTranslator(source='it-IT', target='en-GB').translate, blocco))
 
     return ' '.join(p for p in pezzi_tradotti if p)
 
@@ -51,7 +69,7 @@ def traduci_testo(testo):
     # sessione, insistere a lungo qui è solo tempo perso)
     for tentativo in range(1, 3):
         try:
-            risultato = GoogleTranslator(source='it', target='en').translate(testo)
+            risultato = con_timeout(GoogleTranslator(source='it', target='en').translate, testo)
             time.sleep(PAUSA_TRA_CHIAMATE)
             if risultato and risultato.strip():
                 return risultato
