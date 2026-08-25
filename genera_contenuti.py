@@ -213,15 +213,20 @@ def genera_html_timeline(voci, mostra_sempre=1):
         tag = escapa_html(v['tag'])
 
         e_vecchia = i < (n_totali - mostra_sempre)
+        e_ultima = (i == n_totali - 1)  # la voce più recente in assoluto
+
         classe = 'entry extra-entry' if e_vecchia else 'entry'
+        if e_ultima:
+            classe += ' newest'
         stile = ' style="display:none;"' if e_vecchia else ''
+        badge = ' <span class="fresh"></span>' if e_ultima else ''
 
         righe.append(
             f'    <div class="{classe}"{stile}>\n'
             f'      <div class="dot" style="background: var({colore});"></div>\n'
             f'      <div class="entry-body">\n'
             f'        <span class="entry-date">{data_breve}</span>\n'
-            f'        <span class="entry-text" data-i18n="{chiave_testo}">{testo_timeline}</span>\n'
+            f'        <span class="entry-text" data-i18n="{chiave_testo}">{testo_timeline}</span>{badge}\n'
             f'        <span class="entry-tag">{tag}</span>\n'
             f'      </div>\n'
             f'    </div>'
