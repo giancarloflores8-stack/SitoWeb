@@ -32,6 +32,6 @@ TIMELINE: Finalmente siamo riusciti a fixare lo scripy python per la traduzione,
 TAG: Fixing ✅
 ---
 DATA: 26 agosto 2026
-TIMELINE: prova del txt speriamo vada davvero a sto giro e vediamo se funziona la tendiana che mi ha tolto prima cloude. 
+TIMELINE: vediamo se le ultime implementazioni funzionano.  
 TAG: Fixing ✅
 ---
