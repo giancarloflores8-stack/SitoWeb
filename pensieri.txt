@@ -32,7 +32,7 @@ TIMELINE: Finalmente siamo riusciti a fixare lo scripy python per la traduzione,
 TAG: Fixing ✅
 ---
 DATA: 26 agosto 2026
-TIMELINE: vediamo se le ultime implementazioni funzionano.  
+TIMELINE: Vediamo se le ultime implementazioni funzionano + aggiunta di un film e due nuovi link YouTube.  
 TAG: Fixing ✅
 ---
 DATA: 25 agosto 2026
@@ -40,6 +40,6 @@ PENSIERO: Oggi ho fatto varie implementazioni e automatismi, nella comodità di 
 TIMELINE: Finito un progetto importante
 TAG: CASA
 ---
-DATA: 27 agosto 2026
-PENSIERO: vediamo se funziona con una data a caso.  
+DATA: 26 agosto 2026
+PENSIERO: Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di ux ui design, ma non prima di un back up di tutto , d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque.  
 ---
