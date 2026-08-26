@@ -947,6 +947,12 @@
  user-select: none;
  cursor: pointer;
  will-change: transform, opacity;
+ outline: none;
+ }
+
+ .xbox-card:focus-visible {
+ outline: 2px solid var(--forest);
+ outline-offset: 4px;
  }
 
  .xbox-card img {
@@ -1287,7 +1293,7 @@
  <li><a data-tab="contact" style="--tab-color:var(--rose)"><span class="swatch" style="background:var(--rose)"></span><span data-i18n="nav_contact">Contatti</span></a></li>
  </ul>
  </div>
- <div class="drawer-foot" data-i18n="drawer_foot">ARCHIVIO PERSONALE<br>EST. 2026</div>
+ <div class="drawer-foot"><span data-i18n="drawer_foot_line1">ARCHIVIO PERSONALE</span><br><span data-i18n="drawer_foot_line2">EST. 2026</span></div>
  </aside>
 
  <!-- ============ MAIN ============ -->
@@ -1439,7 +1445,7 @@
  <section id="about" class="card">
  <div class="card-head">
  <span class="card-index" style="--tab-color:var(--forest)">BIO</span>
- <h2 class="card-title" data-i18n="about_title">Chi sono<small>Bio</small></h2>
+ <h2 class="card-title"><span data-i18n="about_title_main">Chi sono</span><small data-i18n="about_title_sub">Bio</small></h2>
  </div>
  <div class="card-body about-body">
  <div class="about-portrait">
@@ -1564,7 +1570,7 @@
  <section id="gallery" class="card">
  <div class="card-head">
  <span class="card-index" style="--tab-color:var(--sky)">FOTO</span>
- <h2 class="card-title" data-i18n="gallery_title">Galleria<small>Foto</small></h2>
+ <h2 class="card-title"><span data-i18n="gallery_title_main">Galleria</span><small data-i18n="gallery_title_sub">Foto</small></h2>
  </div>
  <div class="card-body">
  <div class="polaroid-wrapper" id="polaroidWrapper">
@@ -1606,7 +1612,7 @@
  <section id="video" class="card">
  <div class="card-head">
  <span class="card-index" style="--tab-color:var(--plum)">CLIP</span>
- <h2 class="card-title" data-i18n="video_title">Video<small>Clip &amp; riprese</small></h2>
+ <h2 class="card-title"><span data-i18n="video_title_main">Video</span><small data-i18n="video_title_sub">Clip &amp; riprese</small></h2>
  </div>
  <div class="card-body">
  <div class="video-slider-container">
@@ -1644,7 +1650,7 @@
  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
  </svg>
  </span>
- <h2 class="card-title" data-i18n="yt_title">YouTube<small>Canali &amp; Contenuti</small></h2>
+ <h2 class="card-title"><span data-i18n="yt_title_main">YouTube</span><small data-i18n="yt_title_sub">Canali &amp; Contenuti</small></h2>
  </div>
  <div class="card-body" style="padding: 1rem;">
  <div class="yt-app-shell">
@@ -1795,7 +1801,7 @@
  <span class="card-index" style="--tab-color:var(--indigo); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 12h.01"></path></svg>
  </span>
- <h2 class="card-title" data-i18n="film_title">Film &amp; Serie<small>I miei preferiti</small></h2>
+ <h2 class="card-title"><span data-i18n="film_title_main">Film &amp; Serie</span><small data-i18n="film_title_sub">I miei preferiti</small></h2>
  </div>
  <div class="card-body" style="padding: 1.5rem 0.5rem 2.5rem; overflow: hidden;">
  
@@ -1866,7 +1872,7 @@
  <span class="card-index" style="--tab-color:var(--violet); padding:0.25rem 0.4rem; display:inline-flex; align-items:center; justify-content:center;">
  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="11" r="1" fill="#FFFFFF"></circle><circle cx="17.5" cy="13" r="1" fill="#FFFFFF"></circle><rect x="2" y="6" width="20" height="12" rx="5"></rect></svg>
  </span>
- <h2 class="card-title" data-i18n="games_title">Videogiochi<small>Gaming &amp; Titoli Preferiti</small></h2>
+ <h2 class="card-title"><span data-i18n="games_title_main">Videogiochi</span><small data-i18n="games_title_sub">Gaming &amp; Titoli Preferiti</small></h2>
  </div>
  <div class="card-body" style="padding: 1.5rem 0.5rem 2.5rem; overflow: hidden;">
  
@@ -1905,7 +1911,7 @@
  <section id="notes" class="card">
  <div class="card-head">
  <span class="card-index" style="--tab-color:var(--ochre)">NOTE</span>
- <h2 class="card-title" data-i18n="notes_title">Note<small>Sezione memo</small></h2>
+ <h2 class="card-title"><span data-i18n="notes_title_main">Note</span><small data-i18n="notes_title_sub">Sezione memo</small></h2>
  </div>
  <div class="card-body">
  <article class="note-entry">
@@ -1929,7 +1935,7 @@
  <section id="contact" class="card">
  <div class="card-head">
  <span class="card-index" style="--tab-color:var(--rose)">INFO</span>
- <h2 class="card-title" data-i18n="contact_title">Contatti<small>Dove trovarmi</small></h2>
+ <h2 class="card-title"><span data-i18n="contact_title_main">Contatti</span><small data-i18n="contact_title_sub">Dove trovarmi</small></h2>
  </div>
  <div class="card-body">
  <div class="contact-grid">
@@ -2013,6 +2019,24 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      drawer_foot_line1: "ARCHIVIO PERSONALE",
+      drawer_foot_line2: "EST. 2026",
+      about_title_main: "Chi sono",
+      about_title_sub: "Bio",
+      gallery_title_main: "Galleria",
+      gallery_title_sub: "Foto",
+      video_title_main: "Video",
+      video_title_sub: "Clip &amp; riprese",
+      yt_title_main: "YouTube",
+      yt_title_sub: "Canali &amp; Contenuti",
+      film_title_main: "Film &amp; Serie",
+      film_title_sub: "I miei preferiti",
+      games_title_main: "Videogiochi",
+      games_title_sub: "Gaming &amp; Titoli Preferiti",
+      notes_title_main: "Note",
+      notes_title_sub: "Sezione memo",
+      contact_title_main: "Contatti",
+      contact_title_sub: "Dove trovarmi",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2024,7 +2048,6 @@
       nav_contact: "Contatti",
       nav_film_full: "Film & Serie",
       nav_games_full: "Videogiochi",
-      drawer_foot: "ARCHIVIO PERSONALE<br/>EST. 2026",
       hero_title: "Il mio archivio personale",
       hero_desc: "Uno spazio dove raccolgo foto, video, pensieri e tutto ciò che mi interessa. Nessun tema fisso: solo le cose che valgono la pena di essere conservate e condivise.",
       timeline_title: "Attività recente",
@@ -2040,7 +2063,6 @@
       load_more: "Carica altro",
       suc_title: "Sito in continua costruzione",
       suc_desc: "Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.",
-      about_title: "Chi sono<small>Bio</small>",
       about_intro: "Ciao, racconto chi sono, cosa faccio e cosa mi appassiona.",
       about_base_label: "Base",
       about_age_label: "Età",
@@ -2073,10 +2095,7 @@
       note_1settembre2026_text: "prova per vedere se non si è rotto nulla",
       note_1gennaio2027_date: "+ 1 gennaio 2027 <span class=\"fresh\"></span>",
       note_1gennaio2027_text: "prova per vedere se non si è rotto nulla ...si comunque si è rotto tutto vediamo se cloud risolve",
-      gallery_title: "Galleria<small>Foto</small>",
       gallery_note: "Clicca per sfogliare, fai doppio click o premi Invio per ingrandire.",
-      video_title: "Video<small>Clip &amp; riprese</small>",
-      yt_title: "YouTube<small>Canali &amp; Contenuti</small>",
       yt_chuwi_tiny_desk_concert_sub: "Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.",
       yt_victony__slick_official_visualizer_sub: "Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.",
       yt_ryan_castro_dongo__sanka_video_oficial___sub: "Il videoclip è ambientato in diverse location estive e tropicali, tra cui una spiaggia con fuoristrada Jeep, una barca/yacht e scenari urbani con quad e moto.",
@@ -2085,7 +2104,6 @@
       yt_arctic_monkeys__505_sub: "Piacevole scoperta in un 23 agosto di riposo.",
       yt_ryan_castro__hopi_sende_live_session_med_sub: "Ryan Castro gasa mi dispiace non si discute.",
       yt_tufio__vida_criminal_sub: "Ho vissuto per un periodo della mia vita a Quito - Ecuador, le mie conoscenze più strette vivevano tutti i giorni quello che racconta l'artista.",
-      film_title: "Film & Serie<small>I miei preferiti</small>",
       film_scarface: "Brian De Palma nel 1983 e interpretato da Al Pacino, Scarface racconta la scalata al potere e la caduta del rifugiato cubano Tony Montana. Arrivato a Miami nel 1980, Tony diventa il re del narcotraffico, ma viene distrutto dalla sua stessa arroganza, dalla paranoia e dalla dipendenza.",
       film_goodfellas: "(GoodFellas) è un film del 1990 diretto da Martin Scorsese e tratto dal saggio di Nicholas Pileggi. Racconta la vera storia di Henry Hill, un ragazzo cresciuto nei sobborghi di New York che scala i ranghi della mafia italo-americana insieme ai soci Jimmy Conway e Tommy DeVito, fino al crollo e all'ingresso nel programma protezione testimoni.",
       film_shrek: "Shrek vede la sua tranquilla solitudine nella palude rovinata quando il malvagio Lord Farquaad esilia lì tutte le creature delle fiabe. Per riavere la sua terra, Shrek accetta di salvare la principessa Fiona da un drago, scoprendo a fine viaggio l'amore e la vera natura della ragazza.",
@@ -2094,21 +2112,36 @@
       film_scrubs: "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John \"J.D.\" Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
       film_trainspotting: "Trainspotting racconta la vita di Mark Renton, un giovane di Edimburgo che sceglie di vivere ai margini della società facendosi di eroina insieme al suo gruppo di amici disadattati. Tra tentativi di disintossicazione, momenti tragici e piccoli crimini, la storia culmina in un grosso colpo di droga che Mark sfrutta per fuggire e cambiare vita.",
       film_28_giorni_dopo: "28 giorni dopo è un film horror del 2002 diretto da Danny Boyle, incentrato su un'epidemia globale causata da un virus della rabbia.",
-      games_title: "Videogiochi<small>Gaming &amp; Titoli Preferiti</small>",
       game_the_last_of_us: "PS4 · Azione-avventura",
       game_pokemon_platino: "Nintendo DS · RPG",
       game_yugioh: "Giochi di carte collezionabili",
-      notes_title: "Note<small>Sezione memo</small>",
       memo_1_title: "Ho iniziato questo archivio",
       memo_1_text: "Per adesso nulla da dichiarare poi si vedrà",
       memo_2_title: "Prossima nota",
       memo_2_text: "Per le prossime news dovete attendere",
-      contact_title: "Contatti<small>Dove trovarmi</small>",
       cv_it: "Scarica CV (IT)",
       cv_en: "CV (EN version)",
       modal_close: "CHIUDI ✕",
     },
  en: {
+      drawer_foot_line1: "PERSONAL ARCHIVE",
+      drawer_foot_line2: "EST. 2026",
+      about_title_main: "About me",
+      about_title_sub: "Bio",
+      gallery_title_main: "Gallery",
+      gallery_title_sub: "Photos",
+      video_title_main: "Video",
+      video_title_sub: "Clips &amp; footage",
+      yt_title_main: "YouTube",
+      yt_title_sub: "Channels &amp; Content",
+      film_title_main: "Films &amp; Series",
+      film_title_sub: "My favourites",
+      games_title_main: "Video Games",
+      games_title_sub: "Gaming &amp; Favourite Titles",
+      notes_title_main: "Notes",
+      notes_title_sub: "Memo section",
+      contact_title_main: "Contact",
+      contact_title_sub: "Where to find me",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
@@ -2120,7 +2153,6 @@
       nav_contact: "Contact Us",
       nav_film_full: "Films &amp; TV series",
       nav_games_full: "Video games",
-      drawer_foot: "PERSONAL<br/>ARCHIVE NO. 2026",
       hero_title: "My personal archive",
       hero_desc: "A space where I collect photos, videos, thoughts and anything else that interests me. No set theme: just things that are worth keeping and sharing.",
       timeline_title: "Recent activity",
@@ -2136,7 +2168,6 @@
       load_more: "Load more",
       suc_title: "This website is currently under construction",
       suc_desc: "I’m updating this place bit by bit, a bit like these two — watch out for the building works.",
-      about_title: "About me<small>Bio</small>",
       about_intro: "Hi, I’ll tell you a bit about myself, what I do and what I’m passionate about.",
       about_base_label: "Home",
       about_age_label: "Age",
@@ -2169,10 +2200,7 @@
       note_1settembre2026_text: "Check to see if anything has broken",
       note_1gennaio2027_date: "+ 1 January 2027 <span class=\"fresh\"></span>",
       note_1gennaio2027_text: "Let’s check to see if anything’s broken … actually, everything’s broken – let’s see if Cloud can sort it out",
-      gallery_title: "Gallery<small>Photo</small>",
       gallery_note: "Click to flip through, double-click or press Enter to enlarge.",
-      video_title: "Video<small>Clip &amp; footage</small>",
-      yt_title: "YouTube<small>Channels &amp; Content</small>",
       yt_chuwi_tiny_desk_concert_sub: "The track that opens Chuwi’s Tiny Desk performance is lively, evocative and full of questions. Amidst intertwining vocals, keyboards and percussion, the Puerto Rican band delicately recounts a life lived to the full.",
       yt_victony__slick_official_visualizer_sub: "A dynamic and catchy Afrobeats track. The accompanying Official Visualiser complements the song’s rhythmic and immersive sounds with a clean, modern and hypnotic visual aesthetic.",
       yt_ryan_castro_dongo__sanka_video_oficial___sub: "The music video is set in various summery and tropical locations, including a beach featuring a Jeep off-roader, a boat or yacht, and urban settings with quad bikes and motorbikes.",
@@ -2181,7 +2209,6 @@
       yt_arctic_monkeys__505_sub: "A pleasant discovery on a quiet 23 August.",
       yt_ryan_castro__hopi_sende_live_session_med_sub: "Ryan Castro’s on top form – I’m sorry, but there’s no arguing with that.",
       yt_tufio__vida_criminal_sub: "I lived in Quito, Ecuador, for a period of my life; my closest friends experienced every day what the artist describes.",
-      film_title: "Films &amp; <small>TV</small> series: <small>My favourites</small>",
       film_scarface: "Directed by Brian De Palma in 1983 and starring Al Pacino, Scarface tells the story of Cuban refugee Tony Montana’s rise to power and subsequent downfall. Having arrived in Miami in 1980, Tony becomes the king of the drug trade, but is brought down by his own arrogance, paranoia and addiction.",
       film_goodfellas: "(GoodFellas) is a 1990 film directed by Martin Scorsese and based on the non-fiction book by Nicholas Pileggi. It tells the true story of Henry Hill, a young man who grew up in the suburbs of New York and rose through the ranks of the Italian-American mafia alongside his associates Jimmy Conway and Tommy DeVito, until the organisation’s downfall and his entry into the witness protection programme.",
       film_shrek: "Shrek’s peaceful solitude in the swamp is shattered when the evil Lord Farquaad banishes all the fairy-tale creatures there. To get his land back, Shrek agrees to rescue Princess Fiona from a dragon, discovering, by the end of his journey, love and the girl’s true nature.",
@@ -2190,16 +2217,13 @@
       film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the surreal daily life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human drama and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
       film_trainspotting: "Trainspotting tells the story of Mark Renton, a young man from Edinburgh who chooses to live on the fringes of society, shooting up heroin with his group of misfit friends. Amidst attempts at rehabilitation, tragic moments and petty crimes, the story culminates in a major drug deal which Mark uses as an opportunity to escape and turn his life around.",
       film_28_giorni_dopo: "28 Days Later is a 2002 horror film directed by Danny Boyle, centring on a global epidemic caused by a rabies virus.",
-      games_title: "Video Games<small>Gaming &amp; Favourite Titles</small>",
       game_the_last_of_us: "PS4 · Action-adventure",
       game_pokemon_platino: "Nintendo DS · RPG",
       game_yugioh: "Collectible card games",
-      notes_title: "Notes<small>Memo section</small>",
       memo_1_title: "I started this archive",
       memo_1_text: "Nothing to report for the time being; we’ll see what happens",
       memo_2_title: "Next note",
       memo_2_text: "You’ll have to wait for the next news update",
-      contact_title: "Contact<small>Where to find me</small>",
       cv_it: "Download CV (IT)",
       cv_en: "CV (English version)",
       modal_close: "CLOSE ✕",
