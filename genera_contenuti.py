@@ -178,11 +178,11 @@ def genera_html_foto(voce, chiave_slug):
 
 
 def genera_html_pensieri(voci):
-    """Genera i <details class="month-folder"> con dentro tutte le note
-    (sia quelle testuali da pensieri.txt, sia quelle manuali con foto da
-    NOTE_MANUALI), raggruppate per mese/anno e ordinate per data.
-    Le cartelle restano SEMPRE chiuse di default (niente più cascata di
-    date a vista appena apri la pagina)."""
+    """Genera i <details class="year-folder"> (2026, 2027...) con dentro,
+    per ognuno, i <details class="month-folder"> (Agosto, Settembre...)
+    con le note vere e proprie. Raggruppa sia le note testuali da
+    pensieri.txt sia quelle manuali con foto da NOTE_MANUALI, ordinate
+    per data. Tutte le cartelle restano SEMPRE chiuse di default."""
     voci_con_pensiero = [v for v in voci if v.get('pensiero')]
 
     elementi = [{'data_obj': v['data_obj'], 'tipo': 'auto', 'dato': v} for v in voci_con_pensiero]
@@ -198,53 +198,68 @@ def genera_html_pensieri(voci):
     date_auto = [v['data_obj'] for v in voci_con_pensiero]
     ultima_data_auto = max(date_auto) if date_auto else None
 
-    gruppi = {}
+    # Raggruppo prima per anno, poi per mese dentro ogni anno
+    anni = {}
     for e in elementi:
-        chiave_mese = (e['data_obj'].year, e['data_obj'].month)
-        gruppi.setdefault(chiave_mese, []).append(e)
+        anno = e['data_obj'].year
+        mese = e['data_obj'].month
+        anni.setdefault(anno, {}).setdefault(mese, []).append(e)
 
-    blocchi_mese = []
+    blocchi_anno = []
 
-    for (anno, mese) in sorted(gruppi.keys()):
-        elementi_mese = gruppi[(anno, mese)]
-        mese_nome = MESI_NOME_IT[mese]
+    for anno in sorted(anni.keys()):
+        mesi_anno = anni[anno]
+        blocchi_mese = []
+        contatore_slug = {}  # condiviso su tutto l'anno, per sicurezza sulle chiavi uniche
 
-        righe_note = []
-        contatore_slug = {}
-        for e in elementi_mese:
-            if e['tipo'] == 'manuale':
-                righe_note.append(e['dato']['html'])
-                continue
+        for mese in sorted(mesi_anno.keys()):
+            elementi_mese = mesi_anno[mese]
+            mese_nome = MESI_NOME_IT[mese]
 
-            v = e['dato']
-            slug_base = slugify(f"{v['data_obj'].day}{mese_nome}{anno}")
-            contatore_slug[slug_base] = contatore_slug.get(slug_base, 0) + 1
-            slug = slug_base if contatore_slug[slug_base] == 1 else f"{slug_base}_{contatore_slug[slug_base]}"
-            chiave_date = f"note_{slug}_date"
-            chiave_testo = f"note_{slug}_text"
-            e_fresca = ultima_data_auto is not None and v['data_obj'] == ultima_data_auto
-            badge = ' <span class="fresh"></span>' if e_fresca else ''
-            testo_pensiero = escapa_html(v['pensiero'])
-            html_foto = genera_html_foto(v, slug)
+            righe_note = []
+            for e in elementi_mese:
+                if e['tipo'] == 'manuale':
+                    righe_note.append(e['dato']['html'])
+                    continue
 
-            righe_note.append(
-                f'              <details class="note-item">\n'
-                f'                <summary class="note-date" data-i18n="{chiave_date}">+ {v["data_testo"]}{badge}</summary>\n'
-                f'                <p data-i18n="{chiave_testo}">{testo_pensiero}</p>'
-                f'{html_foto}'
-                f'\n              </details>'
+                v = e['dato']
+                slug_base = slugify(f"{v['data_obj'].day}{mese_nome}{anno}")
+                contatore_slug[slug_base] = contatore_slug.get(slug_base, 0) + 1
+                slug = slug_base if contatore_slug[slug_base] == 1 else f"{slug_base}_{contatore_slug[slug_base]}"
+                chiave_date = f"note_{slug}_date"
+                chiave_testo = f"note_{slug}_text"
+                e_fresca = ultima_data_auto is not None and v['data_obj'] == ultima_data_auto
+                badge = ' <span class="fresh"></span>' if e_fresca else ''
+                testo_pensiero = escapa_html(v['pensiero'])
+                html_foto = genera_html_foto(v, slug)
+
+                righe_note.append(
+                    f'                <details class="note-item">\n'
+                    f'                  <summary class="note-date" data-i18n="{chiave_date}">+ {v["data_testo"]}{badge}</summary>\n'
+                    f'                  <p data-i18n="{chiave_testo}">{testo_pensiero}</p>'
+                    f'{html_foto}'
+                    f'\n                </details>'
+                )
+
+            blocchi_mese.append(
+                f'            <details class="month-folder">\n'
+                f'              <summary class="month-header">📁 {mese_nome}</summary>\n'
+                f'              <div class="month-body">\n'
+                + '\n\n'.join(righe_note) +
+                f'\n              </div>\n'
+                f'            </details>'
             )
 
-        blocchi_mese.append(
-            f'          <details class="month-folder">\n'
-            f'            <summary class="month-header">📁 {mese_nome} {anno}</summary>\n'
-            f'            <div class="month-body">\n'
-            + '\n\n'.join(righe_note) +
+        blocchi_anno.append(
+            f'          <details class="year-folder">\n'
+            f'            <summary class="year-header">📅 {anno}</summary>\n'
+            f'            <div class="year-body">\n'
+            + '\n\n'.join(blocchi_mese) +
             f'\n            </div>\n'
             f'          </details>'
         )
 
-    return '\n\n'.join(blocchi_mese)
+    return '\n\n'.join(blocchi_anno)
 
 
 def genera_html_timeline(voci, mostra_sempre=1):
