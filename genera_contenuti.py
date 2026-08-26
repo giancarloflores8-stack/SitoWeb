@@ -291,12 +291,21 @@ def genera_html_timeline(voci, mostra_sempre=1):
             f'    </div>'
         )
 
-    html = '\n\n'.join(righe)
+    return '\n\n'.join(righe)
 
-    if n_totali > mostra_sempre:
-        html += '\n\n    <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>'
 
-    return html
+def genera_html_loadmore(voci, mostra_sempre=1):
+    """Genera il bottone 'Carica altro', ma solo se ci sono davvero voci
+    nascoste da rivelare. Va tenuto FUORI dal div della timeline (con il
+    suo marcatore separato), altrimenti la lineetta verticale della
+    timeline si allunga fino a coprire anche lo spazio del bottone."""
+    voci_timeline = [v for v in voci if v.get('timeline')]
+    n_totali = len(voci_timeline)
+
+    if n_totali <= mostra_sempre:
+        return '  <!-- nessuna voce nascosta, bottone non necessario -->'
+
+    return '  <button class="load-more" id="loadMoreBtn" data-i18n="load_more">Carica altro</button>'
 
 
 def sostituisci_tra_marcatori(html, nome_marcatore, nuovo_contenuto):
@@ -321,8 +330,10 @@ def main():
 
     html_pensieri = genera_html_pensieri(voci)
     html_timeline = genera_html_timeline(voci)
+    html_loadmore = genera_html_loadmore(voci)
     html = sostituisci_tra_marcatori(html, 'AUTO-PENSIERI', html_pensieri)
     html = sostituisci_tra_marcatori(html, 'AUTO-TIMELINE', html_timeline)
+    html = sostituisci_tra_marcatori(html, 'AUTO-LOADMORE', html_loadmore)
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(html)
