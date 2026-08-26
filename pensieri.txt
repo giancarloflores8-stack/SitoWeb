@@ -47,4 +47,4 @@ DATA: 1 settembre 2026
 PENSIERO: prova per vedere se non si è rotto nulla 
 ---
 DATA: 1 gennaio 2027
-PENSIERO: prova per vedere se non si è rotto nulla 
+PENSIERO: prova per vedere se non si è rotto nulla ...si comunque si è rotto
