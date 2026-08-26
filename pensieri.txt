@@ -45,5 +45,6 @@ PENSIERO: Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialme
 ---
 DATA: 1 settembre 2026
 PENSIERO: Primo giorno di settembre, si ricomincia con nuove energie dopo un'estate intensa.
-TIMELINE: Inizio settembre
-TAG: Casa 🏠
+---
+DATA: 1 gennaio 2027
+PENSIERO: Primo giorno del nuovo anno...
