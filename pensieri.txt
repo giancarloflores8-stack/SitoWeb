@@ -43,4 +43,8 @@ TAG: CASA
 DATA: 26 agosto 2026
 PENSIERO: Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di ux ui design, ma non prima di un back up di tutto , d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.
 ---
-
+DATA: 1 settemnre 2026
+PENSIERO: prova per vedere se non si è rotto nulla 
+---
+DATA: 1 genneaio 2027
+PENSIERO: prova per vedere se non si è rotto nulla 
