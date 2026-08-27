@@ -1415,20 +1415,11 @@
       </div>
     </div>
 
-    <div class="entry extra-entry" style="display:none;">
+    <div class="entry newest">
       <div class="dot" style="background: var(--dot-musica);"></div>
       <div class="entry-body">
-        <span class="entry-date">26 ago 2026</span>
+        <span class="entry-date">26 ago 2026</span> <span class="fresh"></span>
         <span class="entry-text" data-i18n="log_2682026tl">Vediamo se le ultime implementazioni funzionano + aggiunta di un film e due nuovi link YouTube.</span>
-        <span class="entry-tag">Fixing ✅</span>
-      </div>
-    </div>
-
-    <div class="entry newest">
-      <div class="dot" style="background: var(--dot-cinema);"></div>
-      <div class="entry-body">
-        <span class="entry-date">27 ago 2026</span> <span class="fresh"></span>
-        <span class="entry-text" data-i18n="log_2782026tl">prova per vedere se non si è rotto nulla</span>
         <span class="entry-tag">Fixing ✅</span>
       </div>
     </div>
@@ -1510,7 +1501,7 @@
             <summary class="year-header">📅 2026</summary>
             <div class="year-body">
             <details class="month-folder">
-              <summary class="month-header">📁 Agosto</summary>
+              <summary class="month-header">📁 <span data-i18n="month_agosto">Agosto</span></summary>
               <div class="month-body">
                 <details class="note-item">
                   <summary class="note-date" data-i18n="note_14agosto2026_date">+ 14 agosto 2026</summary>
@@ -1568,13 +1559,8 @@
                 </details>
 
                 <details class="note-item">
-                  <summary class="note-date" data-i18n="note_26agosto2026_date">+ 26 agosto 2026</summary>
+                  <summary class="note-date" data-i18n="note_26agosto2026_date">+ 26 agosto 2026 <span class="fresh"></span></summary>
                   <p data-i18n="note_26agosto2026_text">Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di ux ui design, ma non prima di un back up di tutto , d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.</p>
-                </details>
-
-                <details class="note-item">
-                  <summary class="note-date" data-i18n="note_27agosto2026_date">+ 27 agosto 2026 <span class="fresh"></span></summary>
-                  <p data-i18n="note_27agosto2026_text">prova per vedere se non si è rotto nulla</p>
                 </details>
               </div>
             </details>
@@ -2069,6 +2055,19 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      yt_search_placeholder: "Cerca nei preferiti...",
+      month_gennaio: "Gennaio",
+      month_febbraio: "Febbraio",
+      month_marzo: "Marzo",
+      month_aprile: "Aprile",
+      month_maggio: "Maggio",
+      month_giugno: "Giugno",
+      month_luglio: "Luglio",
+      month_agosto: "Agosto",
+      month_settembre: "Settembre",
+      month_ottobre: "Ottobre",
+      month_novembre: "Novembre",
+      month_dicembre: "Dicembre",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2094,7 +2093,6 @@
       log_2582026tl: "Finalmente siamo riusciti a fixare lo scripy python per la traduzione, per me è una grossa vittoria 🤩 .",
       log_2582026tl_2: "Finito un progetto importante",
       log_2682026tl: "Vediamo se le ultime implementazioni funzionano + aggiunta di un film e due nuovi link YouTube.",
-      log_2782026tl: "prova per vedere se non si è rotto nulla",
       load_more: "Carica altro",
       suc_title: "Sito in continua costruzione",
       suc_desc: "Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.",
@@ -2126,10 +2124,8 @@
       note_24agosto2026_text: "Rientro in ufficio, con un risveglio un po' traumatico , si ritorna alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con la mia Kia special che… poi sai si prega di non trovare traffico e si arriva nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .",
       note_25agosto2026_date: "+ 25 agosto 2026",
       note_25agosto2026_text: "Oggi ho fatto varie implementazioni e automatismi, nella comodità di casa sto provando se tutto funziona come dovrebbe, nei prossimi giorni comunque farò altri test. Probabilmente inizierò a pensare anche a qualcosa a livello di ux ai design, ovviamente facendomi aiutare da claude AI, visto che non ho competenze del genere, ma vediamo con calma.",
-      note_26agosto2026_date: "+ 26 agosto 2026",
+      note_26agosto2026_date: "+ 26 agosto 2026 <span class=\"fresh\"></span>",
       note_26agosto2026_text: "Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di ux ui design, ma non prima di un back up di tutto , d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.",
-      note_27agosto2026_date: "+ 27 agosto 2026 <span class=\"fresh\"></span>",
-      note_27agosto2026_text: "prova per vedere se non si è rotto nulla",
       gallery_title_main: "Galleria",
       gallery_title_sub: "Foto",
       gallery_cap1: "Santorini walking on",
@@ -2182,6 +2178,19 @@
       modal_close: "CHIUDI ✕",
     },
  en: {
+      yt_search_placeholder: "Search your favourites...",
+      month_gennaio: "January",
+      month_febbraio: "February",
+      month_marzo: "March",
+      month_aprile: "April",
+      month_maggio: "May",
+      month_giugno: "June",
+      month_luglio: "July",
+      month_agosto: "August",
+      month_settembre: "September",
+      month_ottobre: "October",
+      month_novembre: "November",
+      month_dicembre: "December",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
@@ -2207,7 +2216,6 @@
       log_2582026tl: "We’ve finally managed to sort out the Python script for the translation – for me, that’s a huge win 🤩.",
       log_2582026tl_2: "An important project has been completed",
       log_2682026tl: "Let’s see if the latest updates are working + the addition of a film and two new YouTube links.",
-      log_2782026tl: "Check to see if anything has broken",
       load_more: "Load more",
       suc_title: "This website is currently under construction",
       suc_desc: "I’m updating this place bit by bit, a bit like these two — watch out for the building works.",
@@ -2232,17 +2240,15 @@
       note_sardinia_p1: "A week in Alghero that could be summed up as: crystal-clear sea, boat trips, aperitifs at sunset and a final odyssey at the airport.",
       note_sardinia_p2: "The trip got off to the best possible start: the outbound flight went perfectly – it was smooth and right on time. Once we’d landed, we immersed ourselves in Sardinia’s relaxed way of life. We explored the coast from a different perspective thanks to an unforgettable boat trip, stopping beneath the imposing limestone cliffs of the headland to go snorkelling in crystal-clear coves alongside the fish.",
       note_sardinia_p3: "Our days were spent alternating between adventures in the water, freediving and evening strolls through the streets of Alghero’s old town, culminating in watching the golden sunset on the beach with the headland in the background.",
-      note_sardinia_p4: "The only truly ‘adventurous’ (and decidedly less pleasant) moment came right at the end: just as we were about to head home, our return flight decided to test our patience with a delay of no less than 12 hours. It was a marathon at the airport that really put our relaxation to the test, but it didn’t manage to overshadow the memories of the fantastic days spent on the boat with friends.",
+      note_sardinia_p4: "The only truly ‘adventurous’ (and decidedly less pleasant) moment came right at the end: just as we were about to head home, our return flight decided to test our patience with a delay of no less than 12 hours. It was a marathon at the airport that really put our relaxation to the test, but it couldn’t overshadow the memories of the fantastic days spent on the boat with friends.",
       note_23agosto2026_date: "+ 23 August 2026",
       note_23agosto2026_text: "It’s the last day of my holiday, so rest and relaxation are a must; I’ll spend it living a slow, leisurely life – just as I love to do – without neglecting my passions.",
       note_24agosto2026_date: "+ 24 August 2026",
       note_24agosto2026_text: "Back at the office, after a rather rough start to the day – back to the daily grind: breakfast, preparing pasta for lunch, a quick wash and a splash of perfume, and then off in my special Kia… well, you know, fingers crossed there’s no traffic, and I arrive at the magical office. The day has only just begun – let’s hope it ends on a high note. I’ll keep you posted😉.",
       note_25agosto2026_date: "+ 25 August 2026",
       note_25agosto2026_text: "Today I’ve carried out various implementations and automated processes; from the comfort of my own home, I’m checking whether everything is working as it should, though I’ll be running further tests over the next few days. I’ll probably start thinking about UX and design as well, obviously with the help of Claude AI, as I don’t have any expertise in that area, but let’s take it one step at a time.",
-      note_26agosto2026_date: "+ 26 August 2026",
+      note_26agosto2026_date: "+ 26 August 2026 <span class=\"fresh\"></span>",
       note_26agosto2026_text: "After some gruelling debugging and what felt like an endless number of minutes spent deploying, I can officially say that the structure is solid and the implementations and automations are working. The next step will be UX and UI design, but not before I’ve backed everything up – after all, losing everything now would be devastating. I’ll keep you updated anyway, The most frustrating thing is when you fix one thing and break three others.",
-      note_27agosto2026_date: "+ 27 August 2026 <span class=\"fresh\"></span>",
-      note_27agosto2026_text: "Check to see if anything has broken",
       gallery_title_main: "Gallery",
       gallery_title_sub: "Photos",
       gallery_cap1: "Santorini walking on",
@@ -2274,7 +2280,7 @@
       film_shrek: "Shrek’s peaceful solitude in the swamp is shattered when the evil Lord Farquaad banishes all the fairy-tale creatures there. To get his land back, Shrek agrees to rescue Princess Fiona from a dragon, discovering, by the end of his journey, love and the girl’s true nature.",
       film_pluribus: "It is a science fiction television series created by Vince Gilligan and starring Rhea Seehorn. The plot follows Carol Sturka, a writer from Albuquerque: a virus of extraterrestrial origin transforms the whole of humanity into a single, peaceful, happy collective mind, leaving her and a handful of others who are immune to fight to restore free will.",
       film_il_signore_degli_anelli: "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring by casting it into the fires of Mount Doom in Mordor, in order to save Middle-earth from the Dark Lord Sauron.",
-      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the surreal daily life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human drama and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
+      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the everyday and surreal life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human drama and humour, J.D. learns the ropes and grows as a person alongside his colleagues.",
       film_trainspotting: "Trainspotting tells the story of Mark Renton, a young man from Edinburgh who chooses to live on the fringes of society, shooting up heroin with his group of misfit friends. Amidst attempts at rehabilitation, tragic moments and petty crimes, the story culminates in a major drug deal which Mark uses as an opportunity to escape and turn his life around.",
       film_28_giorni_dopo: "28 Days Later is a 2002 horror film directed by Danny Boyle, centring on a global epidemic caused by a rabies virus.",
       games_title_main: "Video Games",
