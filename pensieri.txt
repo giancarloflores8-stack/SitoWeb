@@ -44,8 +44,8 @@ DATA: 26 agosto 2026
 PENSIERO: Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di ux ui design, ma non prima di un back up di tutto , d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.
 ---
 DATA: 27 agosto 2026
-PENSIERO: prova per vedere se non si è rotto nulla 
+PENSIERO: Oggi ho sistemato delle cose a livello visivo, senza compromettere la struttura del sito, ormai per fortuna ho imparato. spero di riuscire a mettere anche qualche foto nei pensieri, però magari nei fini settimana, durante la settimana principalmente o è ufficio o è casa 🏠. 
 ---
 DATA: 27 agosto 2026
-TIMELINE: prova per vedere se non si è rotto nulla 
-TAG: Fixing ✅
+TIMELINE: Fixing di alcune minuzie + ho caricato un il nuovo pensiero di oggi.  
+TAG: Fixing ✅ + Pensieri 
