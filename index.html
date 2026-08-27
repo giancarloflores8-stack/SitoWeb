@@ -761,13 +761,31 @@
   .yt-app-header {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 1rem;
     padding-bottom: 1.2rem;
     margin-bottom: 1.2rem;
     border-bottom: 1px dashed var(--line);
   }
-  .yt-app-brand{ display:none; }
+  .yt-app-brand{
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .yt-app-brand:hover{
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  .yt-app-brand img{
+    display: block;
+    height: 22px;
+    width: auto;
+  }
 
   .yt-search-fake {
     background: var(--paper);
@@ -780,7 +798,8 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    width: 100%;
+    flex: 1;
+    min-width: 180px;
     max-width: 300px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
@@ -927,8 +946,10 @@
   }
 
   @media (max-width: 640px) {
-    .yt-app-header{ justify-content:center; }
-    .yt-search-fake { max-width: 100%; }
+    .yt-app-header{ gap: 0.7rem; }
+    .yt-app-brand{ padding: 0.35rem 0.65rem; }
+    .yt-app-brand img{ height: 18px; }
+    .yt-search-fake { min-width: 130px; max-width: none; }
   }
 
 
@@ -1711,6 +1732,9 @@
  <div class="yt-app-shell">
  
  <div class="yt-app-header">
+ <div class="yt-app-brand">
+ <img src="foto/logo_youtube.png" alt="YouTube">
+ </div>
  <div class="yt-search-fake">
  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
  <input type="text" id="ytSearchInput" data-i18n-placeholder="yt_search_placeholder" placeholder="Cerca nei preferiti...">
@@ -2081,6 +2105,7 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      yt_search_placeholder: "Cerca nei preferiti...",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2196,6 +2221,7 @@
       modal_close: "CHIUDI ✕",
     },
  en: {
+      yt_search_placeholder: "Search your favourites...",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
