@@ -751,156 +751,186 @@
  margin-top: 0.8rem;
  }
 
- /* ============ YOUTUBE FEED UI ============ */
- .yt-app-shell {
- background: var(--paper);
- border: 1px solid var(--line);
- border-radius: var(--radius);
- overflow: hidden;
- box-shadow: var(--shadow-sm);
- }
 
- .yt-app-header {
- background: #0f0f0f;
- color: #fff;
- padding: 0.75rem 1.25rem;
- display: flex;
- align-items: center;
- justify-content: space-between;
- gap: 1rem;
- border-bottom: 1px solid rgba(255,255,255,0.1);
- }
+  /* ============ YOUTUBE FEED UI ============ */
+  .yt-app-shell {
+    background: transparent;
+    overflow: visible;
+  }
 
- .yt-app-brand {
- display: flex;
- align-items: center;
- gap: 0.5rem;
- font-weight: 700;
- font-family: 'Space Mono', monospace;
- letter-spacing: -0.03em;
- color: #fff;
- }
+  .yt-app-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px dashed var(--line);
+  }
+  .yt-app-brand{ display:none; }
 
- .yt-search-fake {
- background: #121212;
- border: 1px solid #303030;
- border-radius: 40px;
- padding: 0.35rem 1rem;
- font-family: 'Space Mono', monospace;
- font-size: 0.75rem;
- color: #888;
- display: flex;
- align-items: center;
- justify-content: space-between;
- width: 100%;
- max-width: 320px;
- }
+  .yt-search-fake {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 40px;
+    padding: 0.5rem 1.1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 300px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .yt-search-fake:focus-within{
+    border-color: var(--amber);
+    box-shadow: var(--shadow-sm);
+  }
+  .yt-search-fake input{
+    border: none;
+    background: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--ink);
+    width: 100%;
+  }
+  .yt-search-fake input::placeholder{ color: var(--ink-soft); }
+  .yt-search-fake svg{ flex-shrink:0; color:var(--ink-soft); }
 
- .yt-feed-grid {
- display: grid;
- grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
- gap: 1.5rem;
- padding: 1.5rem;
- }
+  .yt-no-results{
+    display:none;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    grid-column: 1 / -1;
+  }
 
- .yt-video-card {
- display: flex;
- flex-direction: column;
- cursor: pointer;
- transition: transform 0.2s ease;
- }
- .yt-video-card:hover { transform: translateY(-3px); }
+  .yt-feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.4rem;
+  }
 
- .yt-thumb-box {
- position: relative;
- width: 100%;
- aspect-ratio: 16 / 9;
- border-radius: 8px;
- overflow: hidden;
- background: #000;
- }
+  .yt-video-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0.8rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease, border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .yt-video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .yt-video-card:focus-visible{
+    outline: 2px solid var(--forest);
+    outline-offset: 3px;
+  }
 
- .yt-thumb-box img {
- width: 100%;
- height: 100%;
- object-fit: cover;
- display: block;
- transition: transform 0.3s ease;
- }
+  .yt-thumb-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: calc(var(--radius) - 3px);
+    overflow: hidden;
+    background: #000;
+  }
 
- .yt-video-card:hover .yt-thumb-box img { transform: scale(1.04); }
+  .yt-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
 
- .yt-duration {
- position: absolute;
- bottom: 8px;
- right: 8px;
- background: rgba(0, 0, 0, 0.8);
- color: #fff;
- font-family: 'Space Mono', monospace;
- font-size: 0.65rem;
- padding: 2px 5px;
- border-radius: 4px;
- }
+  .yt-video-card:hover .yt-thumb-box img { transform: scale(1.05); }
 
- .yt-details {
- display: flex;
- gap: 0.75rem;
- margin-top: 0.75rem;
- }
+  .yt-duration {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(20,19,15,0.82);
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
 
- .yt-avatar {
- width: 36px;
- height: 36px;
- border-radius: 50%;
- background: var(--amber);
- color: #fff;
- display: flex;
- align-items: center;
- justify-content: center;
- font-weight: bold;
- font-size: 0.85rem;
- flex-shrink: 0;
- }
+  .yt-details {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 0.85rem;
+  }
 
- .yt-info {
- display: flex;
- flex-direction: column;
- gap: 0.2rem;
- min-width: 0;
- }
+  .yt-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--yt-accent, var(--amber));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+  }
 
- .yt-info .title {
- font-size: 0.9rem;
- font-weight: 600;
- line-height: 1.3;
- color: var(--ink);
- display: -webkit-box;
- -webkit-line-clamp: 2;
- -webkit-box-orient: vertical;
- overflow: hidden;
- }
+  .yt-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
 
- .yt-info .channel-name {
- font-family: 'Space Mono', monospace;
- font-size: 0.7rem;
- color: var(--ink-soft);
- }
+  .yt-info .title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
- .yt-info .sub {
- font-size: 0.8rem;
- color: var(--ink-soft);
- margin-top: 0.3rem;
- line-height: 1.4;
- display: -webkit-box;
- -webkit-line-clamp: 3;
- -webkit-box-orient: vertical;
- overflow: hidden;
- }
+  .yt-info .channel-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--yt-accent, var(--amber));
+    font-weight: 700;
+  }
 
- @media (max-width: 640px) {
- .yt-search-fake { display: none; }
- .yt-feed-grid { padding: 1rem; gap: 1.2rem; }
- }
+  .yt-info .sub {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin-top: 0.3rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .yt-app-header{ justify-content:center; }
+    .yt-search-fake { max-width: 100%; }
+  }
+
 
  /* ============ XBOX COVER FLOW CAROUSEL ============ */
  .xbox-carousel-wrapper {
@@ -1631,21 +1661,16 @@
  <div class="yt-app-shell">
  
  <div class="yt-app-header">
- <div class="yt-app-brand">
- <svg viewBox="0 0 24 24" width="22" height="22" fill="#FF0000">
- <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
- </svg>
- <span>YouTube Feed</span>
- </div>
  <div class="yt-search-fake">
- <span>Cerca nei preferiti...</span>
  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+ <input type="text" id="ytSearchInput" data-i18n-placeholder="yt_search_placeholder" placeholder="Cerca nei preferiti...">
  </div>
  </div>
 
- <div class="yt-feed-grid">
- 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="r3ZPhIZ6_bM">
+ <div class="yt-feed-grid" id="ytFeedGrid">
+ <div class="yt-no-results" id="ytNoResults" data-i18n="yt_no_results">Nessun video trovato.</div>
+
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--forest);" tabindex="0" role="button" data-yt-id="r3ZPhIZ6_bM">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/r3ZPhIZ6_bM/hqdefault.jpg" alt="Chuwi: Tiny Desk Concert">
  <span class="yt-duration">18:24</span>
@@ -1660,7 +1685,7 @@
  </div>
  </div>
 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="Nr_Km2sqsCY">
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--plum);" tabindex="0" role="button" data-yt-id="Nr_Km2sqsCY">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/Nr_Km2sqsCY/hqdefault.jpg" alt="Victony - SLICK">
  <span class="yt-duration">03:12</span>
@@ -1675,7 +1700,7 @@
  </div>
  </div>
 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="m-FggUm8G0g">
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--rose);" tabindex="0" role="button" data-yt-id="m-FggUm8G0g">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/m-FggUm8G0g/hqdefault.jpg" alt="Ryan Castro, Dongo - SANKA">
  <span class="yt-duration">03:45</span>
@@ -1690,7 +1715,7 @@
  </div>
  </div>
 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="3af9KM3Eq-E">
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--sky);" tabindex="0" role="button" data-yt-id="3af9KM3Eq-E">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/3af9KM3Eq-E/hqdefault.jpg" alt="BAD BUNNY - KLOuFRENS">
  <span class="yt-duration">03:20</span>
@@ -1705,7 +1730,7 @@
  </div>
  </div>
 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="EB7G3fUUaeA">
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--ochre);" tabindex="0" role="button" data-yt-id="EB7G3fUUaeA">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/EB7G3fUUaeA/hqdefault.jpg" alt="Bad Bunny - Si Estuviésemos Juntos">
  <span class="yt-duration">02:49</span>
@@ -1720,7 +1745,7 @@
  </div>
  </div>
 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="qU9mHegkTc4">
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--violet);" tabindex="0" role="button" data-yt-id="qU9mHegkTc4">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/qU9mHegkTc4/hqdefault.jpg" alt="Arctic Monkeys - 505">
  <span class="yt-duration">04:13</span>
@@ -1735,7 +1760,7 @@
  </div>
  </div>
 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="S-NjVK28_2w">
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--indigo);" tabindex="0" role="button" data-yt-id="S-NjVK28_2w">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/S-NjVK28_2w/hqdefault.jpg" alt="Ryan Castro - HOPI SENDÉ">
  <span class="yt-duration">04:05</span>
@@ -1750,7 +1775,7 @@
  </div>
  </div>
 
- <div class="yt-video-card yt-card" tabindex="0" role="button" data-yt-id="Mz8o7dwfyV4">
+ <div class="yt-video-card yt-card" style="--yt-accent: var(--amber);" tabindex="0" role="button" data-yt-id="Mz8o7dwfyV4">
  <div class="yt-thumb-box">
  <img src="https://img.youtube.com/vi/Mz8o7dwfyV4/hqdefault.jpg" alt="Tufiño - Vida Criminal">
  <span class="yt-duration">03:30</span>
@@ -1994,6 +2019,8 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      yt_no_results: "Nessun video trovato.",
+      yt_search_placeholder: "Cerca nei preferiti...",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2095,6 +2122,8 @@
       modal_close: "CHIUDI ✕",
     },
  en: {
+      yt_no_results: "No videos found.",
+      yt_search_placeholder: "Search your favourites...",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
@@ -2207,6 +2236,13 @@
  const key = el.getAttribute('data-i18n');
  if (translations[lang] && translations[lang][key]) {
  el.innerHTML = translations[lang][key];
+ }
+ });
+
+ document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+ const key = el.getAttribute('data-i18n-placeholder');
+ if (translations[lang] && translations[lang][key]) {
+ el.setAttribute('placeholder', translations[lang][key]);
  }
  });
 
@@ -2518,6 +2554,32 @@
  document.addEventListener('keydown', (e) => {
  if (e.key === 'Escape' && ytModal.classList.contains('open')) closeYtModal();
  });
+
+ // ---- Ricerca reale nei video YouTube preferiti ----
+ const ytSearchInput = document.getElementById('ytSearchInput');
+ const ytFeedGrid = document.getElementById('ytFeedGrid');
+ const ytNoResults = document.getElementById('ytNoResults');
+
+ if (ytSearchInput && ytFeedGrid) {
+ const ytCards = Array.from(ytFeedGrid.querySelectorAll('.yt-video-card'));
+
+ ytSearchInput.addEventListener('input', () => {
+ const query = ytSearchInput.value.trim().toLowerCase();
+ let trovati = 0;
+
+ ytCards.forEach(card => {
+ const titolo = (card.querySelector('.title')?.textContent || '').toLowerCase();
+ const canale = (card.querySelector('.channel-name')?.textContent || '').toLowerCase();
+ const corrisponde = !query || titolo.includes(query) || canale.includes(query);
+ card.style.display = corrisponde ? '' : 'none';
+ if (corrisponde) trovati++;
+ });
+
+ if (ytNoResults) {
+ ytNoResults.style.display = trovati === 0 ? 'block' : 'none';
+ }
+ });
+ }
 
  // ---- Navigazione a Schede ----
  const allSections = document.querySelectorAll('main section[id]');
