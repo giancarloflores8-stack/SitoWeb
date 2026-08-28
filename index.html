@@ -406,14 +406,19 @@
  position: absolute;
  left: 0;
  right: 0;
- height: 15px;
- background-image: url('foto/foglio_log.png');
- background-size: 100% auto;
+ height: 26px;
  background-repeat: no-repeat;
+ background-size: 100% 100%;
  pointer-events: none;
  }
- .entry.newest .entry-body::before { top: -8px; background-position: top; }
- .entry.newest .entry-body::after { bottom: -8px; background-position: bottom; }
+ .entry.newest .entry-body::before {
+ top: -14px;
+ background-image: url('foto/bordo_carta_sopra.png');
+ }
+ .entry.newest .entry-body::after {
+ bottom: -14px;
+ background-image: url('foto/bordo_carta_sotto.png');
+ }
 
  /* Testo sempre "inchiostro scuro su carta chiara", solo per questo ritaglio */
  .entry.newest .entry-body .entry-date { color: #6b6656; }
