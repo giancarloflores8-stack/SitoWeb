@@ -1252,6 +1252,108 @@
  .yt-modal-video{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
  .yt-modal-video iframe{ position:absolute; inset:0; width:100%; height:100%; border:none; }
 
+ /* ============ LOGIN MODAL (demo — nessun dato viene mai inviato o salvato) ============ */
+ .login-modal{
+ position:fixed; inset:0;
+ background:rgba(8,8,6,0.88);
+ backdrop-filter:blur(6px);
+ -webkit-backdrop-filter:blur(6px);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ z-index:100;
+ padding:2rem;
+ }
+ .login-modal.open{ display:flex; animation:overlayIn 0.2s ease; }
+ .login-modal-inner{
+ position:relative;
+ max-width:380px;
+ width:100%;
+ background:var(--paper-raised);
+ border:1px solid var(--line);
+ border-radius:var(--radius);
+ padding:2rem 1.8rem 1.8rem;
+ animation:modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+ box-shadow:var(--shadow-lg);
+ }
+ .login-modal-close{
+ position:absolute;
+ top:0.9rem;
+ right:0.9rem;
+ background:none;
+ border:none;
+ cursor:pointer;
+ color:var(--ink-soft);
+ font-family:'Space Mono', monospace;
+ font-size:0.9rem;
+ line-height:1;
+ padding:0.3rem;
+ transition:color 0.2s ease;
+ }
+ .login-modal-close:hover{ color:var(--ink); }
+ .login-modal-inner h3{ font-size:1.4rem; margin-bottom:0.9rem; }
+ .login-disclaimer{
+ display:flex;
+ gap:0.5rem;
+ background:var(--paper);
+ border:1px solid var(--line);
+ border-radius:calc(var(--radius) - 2px);
+ padding:0.7rem 0.85rem;
+ font-family:'Space Mono', monospace;
+ font-size:0.7rem;
+ line-height:1.55;
+ color:var(--ink-soft);
+ margin-bottom:1.3rem;
+ }
+ .login-label{
+ display:block;
+ font-family:'Space Mono', monospace;
+ font-size:0.68rem;
+ text-transform:uppercase;
+ letter-spacing:0.05em;
+ color:var(--ink-soft);
+ margin-bottom:0.35rem;
+ margin-top:0.9rem;
+ }
+ .login-label:first-of-type{ margin-top:0; }
+ .login-input{
+ width:100%;
+ border:1px solid var(--line);
+ border-radius:calc(var(--radius) - 2px);
+ background:var(--paper);
+ color:var(--ink);
+ font-family:'Inter', sans-serif;
+ font-size:0.92rem;
+ padding:0.65rem 0.8rem;
+ transition:border-color 0.2s ease, box-shadow 0.2s ease;
+ }
+ .login-input:focus{
+ outline:none;
+ border-color:var(--forest);
+ box-shadow:var(--shadow-sm);
+ }
+ .login-submit{
+ display:block;
+ width:100%;
+ margin-top:1.4rem;
+ background:var(--forest);
+ border:1px solid var(--forest);
+ color:#fff;
+ font-family:'Space Mono', monospace;
+ font-weight:700;
+ font-size:0.8rem;
+ text-transform:uppercase;
+ letter-spacing:0.04em;
+ padding:0.75rem 1rem;
+ border-radius:calc(var(--radius) - 2px);
+ cursor:pointer;
+ transition:transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+ }
+ .login-submit:hover{ filter:brightness(1.1); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+ #loginSuccessView p{ color:var(--ink-soft); font-size:0.9rem; line-height:1.7; margin-bottom:0.3rem; }
+ #loginSuccessView .login-submit{ margin-top:1.2rem; background:var(--paper); border-color:var(--line); color:var(--ink); }
+ #loginSuccessView .login-submit:hover{ filter:none; background:var(--paper-raised); }
+
  /* ============ VIDEO SLIDER ============ */
  .video-slider-container { position: relative; max-width: 720px; margin: 0 auto; }
  .video-card { display: none; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--paper); box-shadow: var(--shadow-sm); transition: background-color 0.3s ease, border-color 0.3s ease; }
@@ -1368,6 +1470,7 @@
  <a data-tab="games" style="--tab-color:var(--violet)" data-i18n="nav_games">Giochi</a>
  <a data-tab="notes" style="--tab-color:var(--ochre)" data-i18n="nav_notes">Note</a>
  <a data-tab="contact" style="--tab-color:var(--rose)" data-i18n="nav_contact">Contatti</a>
+ <a class="login-nav-trigger" style="--tab-color:var(--emerald)" data-i18n="nav_login">Accedi</a>
 </nav>
 
 <div class="shell">
@@ -1388,6 +1491,7 @@
  <li><a data-tab="games" style="--tab-color:var(--violet)"><span class="swatch" style="background:var(--violet)"></span><span data-i18n="nav_games_full">Videogiochi</span></a></li>
  <li><a data-tab="notes" style="--tab-color:var(--ochre)"><span class="swatch" style="background:var(--ochre)"></span><span data-i18n="nav_notes">Note</span></a></li>
  <li><a data-tab="contact" style="--tab-color:var(--rose)"><span class="swatch" style="background:var(--rose)"></span><span data-i18n="nav_contact">Contatti</span></a></li>
+ <li><a class="login-nav-trigger" style="--tab-color:var(--emerald)"><span class="swatch" style="background:var(--emerald)"></span><span data-i18n="nav_login">Accedi</span></a></li>
  </ul>
  </div>
  <div class="drawer-foot"><span data-i18n="drawer_foot_line1">ARCHIVIO PERSONALE</span><br><span data-i18n="drawer_foot_line2">EST. 2026</span></div>
@@ -2182,6 +2286,35 @@
  </div>
 </div>
 
+<!-- ============ LOGIN MODAL (demo — nessun dato viene mai inviato o salvato) ============ -->
+<div class="login-modal" id="loginModal">
+ <div class="login-modal-inner">
+ <button class="login-modal-close" id="loginModalClose" aria-label="Chiudi">✕</button>
+
+ <div id="loginFormView">
+ <h3 data-i18n="login_title">Bentornato</h3>
+ <div class="login-disclaimer">
+ <span data-i18n="login_disclaimer">🔒 È solo una demo: questo modulo non invia né salva i tuoi dati da nessuna parte — serve solo per sperimentare un po' di codice.</span>
+ </div>
+ <form id="loginForm" autocomplete="off">
+ <label class="login-label" for="loginEmail" data-i18n="login_email_label">Email</label>
+ <input class="login-input" type="email" id="loginEmail" autocomplete="off">
+
+ <label class="login-label" for="loginPassword" data-i18n="login_password_label">Password</label>
+ <input class="login-input" type="password" id="loginPassword" autocomplete="off">
+
+ <button type="submit" class="login-submit" data-i18n="login_submit">Accedi</button>
+ </form>
+ </div>
+
+ <div id="loginSuccessView" style="display:none;">
+ <h3 data-i18n="login_success_title">Visto? 😊</h3>
+ <p data-i18n="login_success_text">Nessun dato è stato inviato o salvato da nessuna parte. Era solo una prova per sperimentare con il codice — grazie per aver giocato con me!</p>
+ <button type="button" class="login-submit" id="loginBackBtn" data-i18n="login_back">Chiudi</button>
+ </div>
+ </div>
+</div>
+
 <script>
  // ---- Dizionario Traduzioni ----
  const translations = {
@@ -2197,6 +2330,7 @@
       nav_contact: "Contatti",
       nav_film_full: "Film & Serie",
       nav_games_full: "Videogiochi",
+      nav_login: "Accedi",
       drawer_foot_line1: "ARCHIVIO PERSONALE",
       drawer_foot_line2: "EST. 2026",
       hero_title: "Il mio archivio personale",
@@ -2213,6 +2347,7 @@
       log_2682026tl: "Vediamo se le ultime implementazioni funzionano + aggiunta di un film e due nuovi link YouTube.",
       log_2882026tl: "Ho aggiunto un nuovo pensiero, ho aggiunto anche qualche pezzo nella sezione YouTube.",
       load_more: "Carica altro",
+      load_less: "Mostra meno",
       suc_title: "Sito in continua costruzione",
       suc_desc: "Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.",
       about_title_main: "Chi sono",
@@ -2265,6 +2400,7 @@
       video_title_sub: "Clip & riprese",
       yt_title_main: "YouTube",
       yt_title_sub: "Canali & Contenuti",
+      yt_search_placeholder: "Cerca nei preferiti...",
       yt_no_results: "Nessun video trovato.",
       yt_chuwi_tiny_desk_concert_sub: "Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.",
       yt_victony__slick_official_visualizer_sub: "Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.",
@@ -2303,6 +2439,14 @@
       cv_it: "Scarica CV (IT)",
       cv_en: "CV (EN version)",
       modal_close: "CHIUDI ✕",
+      login_title: "Bentornato",
+      login_disclaimer: "🔒 È solo una demo: questo modulo non invia né salva i tuoi dati da nessuna parte — serve solo per sperimentare un po' di codice.",
+      login_email_label: "Email",
+      login_password_label: "Password",
+      login_submit: "Accedi",
+      login_success_title: "Visto? 😊",
+      login_success_text: "Nessun dato è stato inviato o salvato da nessuna parte. Era solo una prova per sperimentare con il codice — grazie per aver giocato con me!",
+      login_back: "Chiudi",
     },
  en: {
       nav_home: "Home",
@@ -2316,6 +2460,7 @@
       nav_contact: "Contact Us",
       nav_film_full: "Films &amp; TV series",
       nav_games_full: "Video games",
+      nav_login: "Log in",
       drawer_foot_line1: "PERSONAL ARCHIVE",
       drawer_foot_line2: "EST. 2026",
       hero_title: "My personal archive",
@@ -2332,6 +2477,7 @@
       log_2682026tl: "Let’s see if the latest updates are working + the addition of a film and two new YouTube links.",
       log_2882026tl: "I&#x27;ve added a new thought, and I&#x27;ve also added a few videos to the YouTube section.",
       load_more: "Load more",
+      load_less: "Show less",
       suc_title: "This website is currently under construction",
       suc_desc: "I’m updating this place bit by bit, a bit like these two — watch out for the building works.",
       about_title_main: "About me",
@@ -2384,6 +2530,7 @@
       video_title_sub: "Clips &amp; footage",
       yt_title_main: "YouTube",
       yt_title_sub: "Channels &amp; Content",
+      yt_search_placeholder: "Search your favourites...",
       yt_no_results: "No videos found.",
       yt_chuwi_tiny_desk_concert_sub: "The track that opens Chuwi’s Tiny Desk performance is lively, evocative and full of questions. Amidst intertwining vocals, keyboards and percussion, the Puerto Rican band delicately recounts a life lived to the full.",
       yt_victony__slick_official_visualizer_sub: "A dynamic and catchy Afrobeats track. The accompanying Official Visualiser complements the song’s rhythmic and immersive sounds with a clean, modern and hypnotic visual aesthetic.",
@@ -2393,7 +2540,7 @@
       yt_arctic_monkeys__505_sub: "A pleasant discovery on a quiet 23 August.",
       yt_ryan_castro__hopi_sende_live_session_med_sub: "Ryan Castro’s on top form – I’m sorry, but there’s no arguing with that.",
       yt_tufio__vida_criminal_sub: "I lived in Quito, Ecuador, for a period of my life; my closest friends experienced every day what the artist describes.",
-      yt_el_dia_de_mi_suerte_hector_lavoe_sub: "A classic sauce to get the day off to a good start",
+      yt_el_dia_de_mi_suerte_hector_lavoe_sub: "A classic salsa track to get the day off to a good start",
       yt_oh_que_sera_sub: "A track to listen to on vinyl on a dreary day with a cup of hot tea.",
       film_title_main: "Films &amp; TV series",
       film_title_sub: "My favourites",
@@ -2422,6 +2569,14 @@
       cv_it: "Download CV (IT)",
       cv_en: "CV (English version)",
       modal_close: "CLOSE ✕",
+      login_title: "Welcome back",
+      login_disclaimer: "🔒 Just a demo: this form never sends or stores your data anywhere — it's only here to experiment with some code.",
+      login_email_label: "Email",
+      login_password_label: "Password",
+      login_submit: "Log in",
+      login_success_title: "See? 😊",
+      login_success_text: "No data was ever sent or stored anywhere. It was just a test to experiment with some code — thanks for playing along!",
+      login_back: "Close",
     }
 };
 
@@ -2780,6 +2935,61 @@
  }
  });
  }
+
+ // ---- Login Modal (demo — non invia né salva mai nulla) ----
+ const loginModal = document.getElementById('loginModal');
+ const loginForm = document.getElementById('loginForm');
+ const loginFormView = document.getElementById('loginFormView');
+ const loginSuccessView = document.getElementById('loginSuccessView');
+ const loginEmailInput = document.getElementById('loginEmail');
+ const loginPasswordInput = document.getElementById('loginPassword');
+ const loginModalClose = document.getElementById('loginModalClose');
+ const loginBackBtn = document.getElementById('loginBackBtn');
+
+ function openLoginModal() {
+ if (loginFormView) loginFormView.style.display = '';
+ if (loginSuccessView) loginSuccessView.style.display = 'none';
+ if (loginModal) {
+ loginModal.classList.add('open');
+ document.body.style.overflow = 'hidden';
+ }
+ }
+
+ function closeLoginModal() {
+ if (loginModal) {
+ loginModal.classList.remove('open');
+ document.body.style.overflow = '';
+ }
+ if (loginForm) loginForm.reset();
+ if (loginEmailInput) loginEmailInput.value = '';
+ if (loginPasswordInput) loginPasswordInput.value = '';
+ }
+
+ document.querySelectorAll('.login-nav-trigger').forEach(el => {
+ el.addEventListener('click', (e) => {
+ e.preventDefault();
+ openLoginModal();
+ });
+ });
+
+ if (loginForm) {
+ loginForm.addEventListener('submit', (e) => {
+ e.preventDefault(); // demo: non invia MAI nulla da nessuna parte
+ if (loginEmailInput) loginEmailInput.value = '';
+ if (loginPasswordInput) loginPasswordInput.value = '';
+ if (loginFormView) loginFormView.style.display = 'none';
+ if (loginSuccessView) loginSuccessView.style.display = '';
+ });
+ }
+
+ if (loginModalClose) loginModalClose.addEventListener('click', closeLoginModal);
+ if (loginBackBtn) loginBackBtn.addEventListener('click', closeLoginModal);
+ if (loginModal) {
+ loginModal.addEventListener('click', (e) => { if (e.target === loginModal) closeLoginModal(); });
+ }
+ document.addEventListener('keydown', (e) => {
+ if (e.key === 'Escape' && loginModal && loginModal.classList.contains('open')) closeLoginModal();
+ });
 
  // ---- Navigazione a Schede ----
  const allSections = document.querySelectorAll('main section[id]');
