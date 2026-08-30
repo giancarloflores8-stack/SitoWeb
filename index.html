@@ -106,8 +106,6 @@
  position:fixed;
  top:1.2rem;
  z-index:60;
- width:44px;
- height:44px;
  border-radius:50%;
  border:1px solid var(--line);
  background:var(--paper-raised);
@@ -119,10 +117,22 @@
  box-shadow:var(--shadow-sm);
  transition:background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
  }
+ .theme-toggle, .lang-toggle{ width:44px; height:44px; }
  .theme-toggle{ right:1.2rem; }
  .lang-toggle{ right:4.5rem; }
- .login-toggle{ right:7.8rem; color:var(--emerald); }
- .login-toggle svg{ width:19px; height:19px; }
+ .login-toggle{
+ right:8.3rem;
+ height:44px;
+ padding:0 1.1rem;
+ border-radius:22px;
+ color:var(--emerald);
+ font-family:'Space Mono', monospace;
+ font-size:0.75rem;
+ font-weight:700;
+ text-transform:uppercase;
+ letter-spacing:0.04em;
+ white-space:nowrap;
+ }
 
  .theme-toggle:hover, .lang-toggle:hover{ transform:scale(1.07); box-shadow:var(--shadow-md); }
  .theme-toggle:hover{ transform:scale(1.07) rotate(-8deg); }
@@ -1307,6 +1317,47 @@
  color:var(--ink-soft);
  margin-bottom:1.3rem;
  }
+ .login-social-btn{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:0.7rem;
+ width:100%;
+ background:#fff;
+ border:1px solid var(--line);
+ border-radius:calc(var(--radius) - 2px);
+ padding:0.65rem 1rem;
+ font-family:'Inter', sans-serif;
+ font-weight:600;
+ font-size:0.85rem;
+ color:#1a1a1a;
+ cursor:pointer;
+ transition:border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+ margin-bottom:0.6rem;
+ }
+ .login-social-btn:hover{
+ border-color:var(--ink-soft);
+ box-shadow:var(--shadow-sm);
+ transform:translateY(-1px);
+ }
+ .login-social-btn svg{ flex-shrink:0; }
+ .login-divider{
+ display:flex;
+ align-items:center;
+ gap:0.8rem;
+ margin:1rem 0;
+ font-family:'Space Mono', monospace;
+ font-size:0.68rem;
+ text-transform:uppercase;
+ letter-spacing:0.05em;
+ color:var(--ink-soft);
+ }
+ .login-divider::before, .login-divider::after{
+ content:'';
+ flex:1;
+ height:1px;
+ background:var(--line);
+ }
  .login-label{
  display:block;
  font-family:'Space Mono', monospace;
@@ -1352,6 +1403,46 @@
  transition:transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
  }
  .login-submit:hover{ filter:brightness(1.1); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+ .login-loading{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ padding:1.6rem 0;
+ gap:0.9rem;
+ }
+ .login-spinner{
+ width:32px;
+ height:32px;
+ border:3px solid var(--line);
+ border-top-color:var(--forest);
+ border-radius:50%;
+ animation:loginSpin 0.7s linear infinite;
+ }
+ @keyframes loginSpin{ to{ transform:rotate(360deg); } }
+ @media (prefers-reduced-motion: reduce){
+ .login-spinner{ animation:none; border-top-color:var(--line); }
+ }
+ .login-loading p{
+ font-family:'Space Mono', monospace;
+ font-size:0.75rem;
+ color:var(--ink-soft);
+ text-transform:uppercase;
+ letter-spacing:0.05em;
+ }
+ .login-signup-line{
+ text-align:center;
+ margin-top:1rem;
+ font-size:0.82rem;
+ color:var(--ink-soft);
+ }
+ .login-signup-link{
+ color:var(--forest);
+ font-weight:600;
+ text-decoration:none;
+ margin-left:0.3rem;
+ }
+ .login-signup-link:hover{ text-decoration:underline; }
  #loginSuccessView p{ color:var(--ink-soft); font-size:0.9rem; line-height:1.7; margin-bottom:0.3rem; }
  #loginSuccessView .login-submit{ margin-top:1.2rem; background:var(--paper); border-color:var(--line); color:var(--ink); }
  #loginSuccessView .login-submit:hover{ filter:none; background:var(--paper-raised); }
@@ -1433,7 +1524,7 @@
  .card-body{ padding:1.5rem; }
  .theme-toggle{ top:auto; bottom:1rem; right:1rem; width:44px; height:44px; }
  .lang-toggle{ top:auto; bottom:5.2rem; right:1rem; width:44px; height:44px; }
- .login-toggle{ top:auto; bottom:9.4rem; right:1rem; width:44px; height:44px; }
+ .login-toggle{ top:auto; bottom:9.4rem; right:1rem; height:44px; }
  }
 </style>
 </head>
@@ -1446,10 +1537,7 @@
 
 <!-- ============ LOGIN TOGGLE ============ -->
 <button class="login-toggle login-nav-trigger" aria-label="Accedi" title="Accedi" data-i18n-title="nav_login">
- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
- <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
- <circle cx="12" cy="7" r="4"></circle>
- </svg>
+ <span data-i18n="nav_login">Accedi</span>
 </button>
 
 <!-- ============ THEME TOGGLE ============ -->
@@ -1604,21 +1692,12 @@
       </div>
     </div>
 
-    <div class="entry extra-entry" style="display:none;">
+    <div class="entry newest">
       <div class="dot" style="background: var(--dot-cinema);"></div>
       <div class="entry-body">
-        <span class="entry-date">28 ago 2026</span>
+        <span class="entry-date">28 ago 2026</span> <span class="fresh"></span>
         <span class="entry-text" data-i18n="log_2882026tl">Ho aggiunto un nuovo pensiero, ho aggiunto anche qualche pezzo nella sezione YouTube.</span>
         <span class="entry-tag">Pensieri + YouTube</span>
-      </div>
-    </div>
-
-    <div class="entry newest">
-      <div class="dot" style="background: var(--dot-gaming);"></div>
-      <div class="entry-body">
-        <span class="entry-date">29 ago 2026</span> <span class="fresh"></span>
-        <span class="entry-text" data-i18n="log_2982026tl">Aggiunto un pensiero.</span>
-        <span class="entry-tag">Pensieri</span>
       </div>
     </div>
     <!-- AUTO-TIMELINE:END -->
@@ -1767,13 +1846,8 @@
                 </details>
 
                 <details class="note-item">
-                  <summary class="note-date" data-i18n="note_28agosto2026_date">+ 28 agosto 2026</summary>
+                  <summary class="note-date" data-i18n="note_28agosto2026_date">+ 28 agosto 2026 <span class="fresh"></span></summary>
                   <p data-i18n="note_28agosto2026_text">Oggi visto il brutto tempo mi è venuta voglia di ascoltare un po' di salsa classica, poi per il resto è un famoso venerdì pigro come tanto mi piace chiamarli 😁, poi per il resto vediamo come andrà questa giornata uggiosa.</p>
-                </details>
-
-                <details class="note-item">
-                  <summary class="note-date" data-i18n="note_29agosto2026_date">+ 29 agosto 2026 <span class="fresh"></span></summary>
-                  <p data-i18n="note_29agosto2026_text">Oggi voglio solo rilassarmi e non pensare a niente, la parola d'ordine è relax, anche perché è sabato.</p>
                 </details>
               </div>
             </details>
@@ -2317,8 +2391,31 @@
  <div id="loginFormView">
  <h3 data-i18n="login_title">Bentornato</h3>
  <div class="login-disclaimer">
- <span data-i18n="login_disclaimer">🔒 Questo modulo non invia né salva i tuoi dati. Serve solo per sperimentare un po' di codice.</span>
+ <span data-i18n="login_disclaimer">🔒 Questo modulo non invia né salva i tuoi dati da nessuna parte.</span>
  </div>
+
+ <button type="button" class="login-social-btn login-social-google" id="loginGoogleBtn">
+ <svg viewBox="0 0 24 24" width="18" height="18">
+ <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+ <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
+ <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29A11.96 11.96 0 0 0 0 12c0 1.94.46 3.77 1.29 5.38l3.98-3.09z"/>
+ <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09C6.22 6.86 8.87 4.75 12 4.75z"/>
+ </svg>
+ <span data-i18n="login_google">Continua con Google</span>
+ </button>
+
+ <button type="button" class="login-social-btn login-social-microsoft" id="loginMicrosoftBtn">
+ <svg viewBox="0 0 23 23" width="18" height="18">
+ <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+ <rect x="12" y="1" width="10" height="10" fill="#7FBA00"/>
+ <rect x="1" y="12" width="10" height="10" fill="#00A4EF"/>
+ <rect x="12" y="12" width="10" height="10" fill="#FFB900"/>
+ </svg>
+ <span data-i18n="login_microsoft">Continua con Microsoft</span>
+ </button>
+
+ <div class="login-divider"><span data-i18n="login_or">oppure</span></div>
+
  <form id="loginForm" autocomplete="off">
  <label class="login-label" for="loginEmail" data-i18n="login_email_label">Email</label>
  <input class="login-input" type="email" id="loginEmail" autocomplete="off">
@@ -2328,6 +2425,15 @@
 
  <button type="submit" class="login-submit" data-i18n="login_submit">Accedi</button>
  </form>
+ <p class="login-signup-line">
+ <span data-i18n="login_no_account">Non hai un account?</span>
+ <a href="#" class="login-signup-link" id="loginSignupLink" data-i18n="login_signup">Registrati qui</a>
+ </p>
+ </div>
+
+ <div id="loginLoadingView" style="display:none;" class="login-loading">
+ <div class="login-spinner"></div>
+ <p data-i18n="login_loading_text">Verifica in corso...</p>
  </div>
 
  <div id="loginSuccessView" style="display:none;">
@@ -2342,6 +2448,12 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      login_loading_text: "Verifica in corso...",
+      login_signup: "Registrati qui",
+      login_no_account: "Non hai un account?",
+      login_or: "oppure",
+      login_microsoft: "Continua con Microsoft",
+      login_google: "Continua con Google",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2353,6 +2465,7 @@
       nav_contact: "Contatti",
       nav_film_full: "Film & Serie",
       nav_games_full: "Videogiochi",
+      nav_login: "Accedi",
       drawer_foot_line1: "ARCHIVIO PERSONALE",
       drawer_foot_line2: "EST. 2026",
       hero_title: "Il mio archivio personale",
@@ -2368,8 +2481,8 @@
       log_2582026tl_2: "Finito un progetto importante",
       log_2682026tl: "Vediamo se le ultime implementazioni funzionano + aggiunta di un film e due nuovi link YouTube.",
       log_2882026tl: "Ho aggiunto un nuovo pensiero, ho aggiunto anche qualche pezzo nella sezione YouTube.",
-      log_2982026tl: "Aggiunto un pensiero.",
       load_more: "Carica altro",
+      load_less: "Mostra meno",
       suc_title: "Sito in continua costruzione",
       suc_desc: "Aggiorno questo posto a piccoli passi, un po' come questi due — occhio ai lavori in corso.",
       about_title_main: "Chi sono",
@@ -2405,10 +2518,8 @@
       note_26agosto2026_text: "Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di ux ui design, ma non prima di un back up di tutto , d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.",
       note_27agosto2026_date: "+ 27 agosto 2026",
       note_27agosto2026_text: "Oggi ho sistemato delle cose a livello visivo, senza compromettere la struttura del sito, ormai per fortuna ho imparato. Spero di riuscire a mettere anche qualche foto nei pensieri, però magari nei fini settimana, durante la settimana principalmente o è ufficio o è casa 🏠.",
-      note_28agosto2026_date: "+ 28 agosto 2026",
+      note_28agosto2026_date: "+ 28 agosto 2026 <span class=\"fresh\"></span>",
       note_28agosto2026_text: "Oggi visto il brutto tempo mi è venuta voglia di ascoltare un po' di salsa classica, poi per il resto è un famoso venerdì pigro come tanto mi piace chiamarli 😁, poi per il resto vediamo come andrà questa giornata uggiosa.",
-      note_29agosto2026_date: "+ 29 agosto 2026 <span class=\"fresh\"></span>",
-      note_29agosto2026_text: "Oggi voglio solo rilassarmi e non pensare a niente, la parola d'ordine è relax, anche perché è sabato.",
       gallery_title_main: "Galleria",
       gallery_title_sub: "Foto",
       gallery_cap1: "Santorini walking on",
@@ -2424,6 +2535,7 @@
       video_title_sub: "Clip & riprese",
       yt_title_main: "YouTube",
       yt_title_sub: "Canali & Contenuti",
+      yt_search_placeholder: "Cerca nei preferiti...",
       yt_no_results: "Nessun video trovato.",
       yt_chuwi_tiny_desk_concert_sub: "Il brano che apre l'esibizione di Chuwi per il Tiny Desk è vivace, allusivo e carico di interrogativi. Tra voci che si intrecciano, tastiere e percussioni, la band portoricana racconta con delicatezza una vita vissuta appieno.",
       yt_victony__slick_official_visualizer_sub: "Un brano Afrobeats dinamico e orecchiabile. Il relativo Official Visualizer accompagna le sonorità ritmate e avvolgenti della canzone con un'estetica visiva pulita, moderna e ipnotica.",
@@ -2463,7 +2575,7 @@
       cv_en: "CV (EN version)",
       modal_close: "CHIUDI ✕",
       login_title: "Bentornato",
-      login_disclaimer: "🔒 Questo modulo non invia né salva i tuoi dati. Serve solo per sperimentare un po' di codice.",
+      login_disclaimer: "🔒 È solo una demo: questo modulo non invia né salva i tuoi dati da nessuna parte — serve solo per sperimentare un po' di codice.",
       login_email_label: "Email",
       login_password_label: "Password",
       login_submit: "Accedi",
@@ -2472,6 +2584,12 @@
       login_back: "Chiudi",
     },
  en: {
+      login_loading_text: "Verifying...",
+      login_signup: "Sign up here",
+      login_no_account: "Don't have an account?",
+      login_or: "or",
+      login_microsoft: "Continue with Microsoft",
+      login_google: "Continue with Google",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
@@ -2483,6 +2601,7 @@
       nav_contact: "Contact Us",
       nav_film_full: "Films &amp; TV series",
       nav_games_full: "Video games",
+      nav_login: "Log in",
       drawer_foot_line1: "PERSONAL ARCHIVE",
       drawer_foot_line2: "EST. 2026",
       hero_title: "My personal archive",
@@ -2498,8 +2617,8 @@
       log_2582026tl_2: "An important project has been completed",
       log_2682026tl: "Let’s see if the latest updates are working + the addition of a film and two new YouTube links.",
       log_2882026tl: "I&#x27;ve added a new thought, and I&#x27;ve also added a few videos to the YouTube section.",
-      log_2982026tl: "Added a comment.",
       load_more: "Load more",
+      load_less: "Show less",
       suc_title: "This website is currently under construction",
       suc_desc: "I’m updating this place bit by bit, a bit like these two — watch out for the building works.",
       about_title_main: "About me",
@@ -2524,7 +2643,7 @@
       note_sardinia_p1: "A week in Alghero that could be summed up as: crystal-clear sea, boat trips, aperitifs at sunset and a final odyssey at the airport.",
       note_sardinia_p2: "The trip got off to the best possible start: the outbound flight went perfectly – it was smooth and right on time. Once we’d landed, we immersed ourselves in Sardinia’s relaxed way of life. We explored the coast from a different perspective thanks to an unforgettable boat trip, stopping beneath the imposing limestone cliffs of the headland to go snorkelling in crystal-clear coves alongside the fish.",
       note_sardinia_p3: "Our days were spent alternating between adventures in the water, freediving and evening strolls through the streets of Alghero’s old town, culminating in watching the golden sunset on the beach with the headland in the background.",
-      note_sardinia_p4: "The only truly ‘adventurous’ (and decidedly less pleasant) moment came right at the end: just as we were about to head home, our return flight decided to test our patience with a delay of no less than 12 hours. It was a marathon at the airport that really put our sense of relaxation to the test, but it didn’t manage to overshadow the memories of the fantastic days spent on the boat with friends.",
+      note_sardinia_p4: "The only truly ‘adventurous’ (and decidedly less pleasant) moment came right at the end: just as we were about to head home, our return flight decided to test our patience by running a full 12 hours late. It was a marathon at the airport that really put our relaxation to the test, but it didn’t manage to overshadow the memories of the fantastic days spent on the boat with friends.",
       note_23agosto2026_date: "+ 23 August 2026",
       note_23agosto2026_text: "It’s the last day of my holiday, so rest and relaxation are a must; I’ll spend it living a slow, leisurely life – just as I love to do – without neglecting my passions.",
       note_24agosto2026_date: "+ 24 August 2026",
@@ -2535,10 +2654,8 @@
       note_26agosto2026_text: "After some gruelling debugging and what felt like an endless number of minutes spent deploying, I can officially say that the structure is solid and the implementations and automations are working. The next step will be UX and UI design, but not before I’ve backed everything up – after all, losing everything now would be devastating. I’ll keep you updated anyway, The most frustrating thing is when you fix one thing and break three others.",
       note_27agosto2026_date: "+ 27 August 2026",
       note_27agosto2026_text: "Today I’ve tweaked the visual layout a bit, without affecting the site’s structure – thankfully, I’ve got the hang of it now. I hope to manage to add a few photos to my thoughts as well, though perhaps at the weekends; during the week I’m either at the office or at home 🏠.",
-      note_28agosto2026_date: "+ 28 August 2026",
+      note_28agosto2026_date: "+ 28 August 2026 <span class=\"fresh\"></span>",
       note_28agosto2026_text: "Given the rubbish weather today, I fancied listening to a bit of classic salsa; apart from that, it’s one of those famous ‘lazy Fridays’ as I like to call them 😁; as for the rest, we’ll see how this gloomy day turns out.",
-      note_29agosto2026_date: "+ 29 August 2026 <span class=\"fresh\"></span>",
-      note_29agosto2026_text: "Today I just want to relax and not think about anything; the watchword is ‘relax’, not least because it’s Saturday.",
       gallery_title_main: "Gallery",
       gallery_title_sub: "Photos",
       gallery_cap1: "Santorini walking on",
@@ -2554,6 +2671,7 @@
       video_title_sub: "Clips &amp; footage",
       yt_title_main: "YouTube",
       yt_title_sub: "Channels &amp; Content",
+      yt_search_placeholder: "Search your favourites...",
       yt_no_results: "No videos found.",
       yt_chuwi_tiny_desk_concert_sub: "The track that opens Chuwi’s Tiny Desk performance is lively, evocative and full of questions. Amidst intertwining vocals, keyboards and percussion, the Puerto Rican band delicately recounts a life lived to the full.",
       yt_victony__slick_official_visualizer_sub: "A dynamic and catchy Afrobeats track. The accompanying Official Visualiser complements the song’s rhythmic and immersive sounds with a clean, modern and hypnotic visual aesthetic.",
@@ -2572,7 +2690,7 @@
       film_shrek: "Shrek’s peaceful solitude in the swamp is shattered when the evil Lord Farquaad banishes all the fairy-tale creatures there. To get his land back, Shrek agrees to rescue Princess Fiona from a dragon, discovering, by the end of his journey, love and the girl’s true nature.",
       film_pluribus: "It is a science fiction television series created by Vince Gilligan and starring Rhea Seehorn. The plot follows Carol Sturka, a writer from Albuquerque: a virus of extraterrestrial origin transforms the whole of humanity into a single, peaceful, happy collective mind, leaving her and a handful of others who are immune to fight to restore free will.",
       film_il_signore_degli_anelli: "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring by casting it into the fires of Mount Doom in Mordor, in order to save Middle-earth from the Dark Lord Sauron.",
-      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the everyday and surreal life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human drama and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
+      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the everyday and surreal life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human dramas and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
       film_trainspotting: "Trainspotting tells the story of Mark Renton, a young man from Edinburgh who chooses to live on the fringes of society, shooting up heroin with his group of misfit friends. Amidst attempts at rehabilitation, tragic moments and petty crimes, the story culminates in a major drug deal which Mark uses as an opportunity to escape and turn his life around.",
       film_28_giorni_dopo: "28 Days Later is a 2002 horror film directed by Danny Boyle, centring on a global epidemic caused by a rabies virus.",
       games_title_main: "Video Games",
@@ -2593,7 +2711,7 @@
       cv_en: "CV (English version)",
       modal_close: "CLOSE ✕",
       login_title: "Welcome back",
-      login_disclaimer: "🔒 This form does not send or save your data. It is only intended for experimenting with some code.",
+      login_disclaimer: "🔒 Just a demo: this form never sends or stores your data anywhere — it's only here to experiment with some code.",
       login_email_label: "Email",
       login_password_label: "Password",
       login_submit: "Log in",
@@ -2971,6 +3089,7 @@
  const loginModal = document.getElementById('loginModal');
  const loginForm = document.getElementById('loginForm');
  const loginFormView = document.getElementById('loginFormView');
+ const loginLoadingView = document.getElementById('loginLoadingView');
  const loginSuccessView = document.getElementById('loginSuccessView');
  const loginEmailInput = document.getElementById('loginEmail');
  const loginPasswordInput = document.getElementById('loginPassword');
@@ -2979,6 +3098,7 @@
 
  function openLoginModal() {
  if (loginFormView) loginFormView.style.display = '';
+ if (loginLoadingView) loginLoadingView.style.display = 'none';
  if (loginSuccessView) loginSuccessView.style.display = 'none';
  if (loginModal) {
  loginModal.classList.add('open');
@@ -3003,13 +3123,36 @@
  });
  });
 
- if (loginForm) {
- loginForm.addEventListener('submit', (e) => {
- e.preventDefault(); // demo: non invia MAI nulla da nessuna parte
+ // Mostra il messaggio "Visto?" — richiamata sia dal form email/password
+ // sia dai bottoni Google/Microsoft: nessuno di questi invia MAI dati da nessuna parte
+ function mostraSuccessoLogin() {
  if (loginEmailInput) loginEmailInput.value = '';
  if (loginPasswordInput) loginPasswordInput.value = '';
  if (loginFormView) loginFormView.style.display = 'none';
+ if (loginLoadingView) loginLoadingView.style.display = '';
+ setTimeout(() => {
+ if (loginLoadingView) loginLoadingView.style.display = 'none';
  if (loginSuccessView) loginSuccessView.style.display = '';
+ }, 750);
+ }
+
+ if (loginForm) {
+ loginForm.addEventListener('submit', (e) => {
+ e.preventDefault(); // demo: non invia MAI nulla da nessuna parte
+ mostraSuccessoLogin();
+ });
+ }
+
+ const loginGoogleBtn = document.getElementById('loginGoogleBtn');
+ const loginMicrosoftBtn = document.getElementById('loginMicrosoftBtn');
+ if (loginGoogleBtn) loginGoogleBtn.addEventListener('click', mostraSuccessoLogin);
+ if (loginMicrosoftBtn) loginMicrosoftBtn.addEventListener('click', mostraSuccessoLogin);
+
+ const loginSignupLink = document.getElementById('loginSignupLink');
+ if (loginSignupLink) {
+ loginSignupLink.addEventListener('click', (e) => {
+ e.preventDefault();
+ mostraSuccessoLogin();
  });
  }
 
