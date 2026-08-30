@@ -60,3 +60,7 @@ TAG: Pensieri
 DATA: 29 agosto 2026
 PENSIERO: Oggi voglio solo rilassarmi e non pensare a niente, la parola d'ordine è relax, anche perché è sabato. 
 ---
+DATA: 30 agosto 2026
+PENSIERO: Sono andato al cinema con Marta a vedere Spider Man: Brand New Day, sinceramente aspettavo qualcosa di diverso , mi ha leggermente deluso, d'altronde quest'anno sono usciti un sacco di film che hanno sodisfatto completamente le mie aspettative , qualcuno di questi doveva deludermi 😄, peccato perché Spider Man è il mio eroe preferito.    
+FOTO: foto/pensierilocanda.jpg
+---
