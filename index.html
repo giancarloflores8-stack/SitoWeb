@@ -105,7 +105,7 @@
  }
 
  /* ============ THEME & LANG TOGGLES ============ */
- .theme-toggle, .lang-toggle, .login-toggle{
+ .theme-toggle, .lang-toggle, .login-toggle, .chat-toggle{
  position:fixed;
  top:1.2rem;
  z-index:60;
@@ -126,6 +126,132 @@
  .lang-toggle{ right:4.5rem; }
  .login-toggle{ right:7.8rem; color:var(--emerald); }
  .login-toggle svg{ width:19px; height:19px; }
+
+ /* Bottone chat: in basso a sinistra, per non affollare l'angolo destro */
+ .chat-toggle{
+ top:auto;
+ bottom:1.2rem;
+ left:1.2rem;
+ right:auto;
+ background:var(--forest);
+ border-color:var(--forest);
+ color:#fff;
+ }
+ .chat-toggle:hover{ transform:scale(1.07); box-shadow:var(--shadow-md); }
+ .chat-toggle svg{ width:21px; height:21px; }
+
+ .chat-panel{
+ position:fixed;
+ bottom:5.4rem;
+ left:1.2rem;
+ z-index:65;
+ width:320px;
+ max-width:calc(100vw - 2.4rem);
+ max-height:min(480px, 70vh);
+ background:var(--paper-raised);
+ border:1px solid var(--line);
+ border-radius:var(--radius);
+ box-shadow:var(--shadow-lg);
+ display:none;
+ flex-direction:column;
+ overflow:hidden;
+ }
+ .chat-panel.open{ display:flex; animation:modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+
+ .chat-panel-head{
+ display:flex;
+ align-items:center;
+ gap:0.7rem;
+ padding:0.8rem 1rem;
+ border-bottom:1px solid var(--line);
+ background:var(--forest);
+ color:#fff;
+ }
+ .chat-bot-avatar{
+ width:34px; height:34px;
+ border-radius:50%;
+ background:rgba(255,255,255,0.15);
+ display:flex; align-items:center; justify-content:center;
+ font-size:1.1rem;
+ flex-shrink:0;
+ }
+ .chat-panel-title{ display:flex; flex-direction:column; line-height:1.25; min-width:0; flex:1; }
+ .chat-panel-title strong{ font-size:0.85rem; }
+ .chat-panel-title span{ font-size:0.66rem; opacity:0.85; font-family:'Space Mono', monospace; }
+ .chat-panel-close{
+ background:none; border:none; color:#fff; cursor:pointer;
+ font-size:1rem; opacity:0.8; padding:0.2rem; flex-shrink:0;
+ transition:opacity 0.2s ease;
+ }
+ .chat-panel-close:hover{ opacity:1; }
+
+ .chat-messages{
+ flex:1;
+ overflow-y:auto;
+ padding:1rem;
+ display:flex;
+ flex-direction:column;
+ gap:0.6rem;
+ background:var(--paper);
+ }
+ .chat-bubble{
+ max-width:80%;
+ padding:0.55rem 0.8rem;
+ border-radius:14px;
+ font-size:0.85rem;
+ line-height:1.45;
+ word-wrap:break-word;
+ }
+ .chat-bubble-bot{
+ align-self:flex-start;
+ background:var(--paper-raised);
+ border:1px solid var(--line);
+ color:var(--ink);
+ border-bottom-left-radius:4px;
+ }
+ .chat-bubble-utente{
+ align-self:flex-end;
+ background:var(--forest);
+ color:#fff;
+ border-bottom-right-radius:4px;
+ }
+ .chat-typing{ font-style:italic; opacity:0.6; }
+
+ .chat-input-row{
+ display:flex;
+ gap:0.5rem;
+ padding:0.7rem;
+ border-top:1px solid var(--line);
+ background:var(--paper-raised);
+ }
+ .chat-input{
+ flex:1;
+ border:1px solid var(--line);
+ border-radius:20px;
+ background:var(--paper);
+ color:var(--ink);
+ padding:0.5rem 0.9rem;
+ font-family:'Inter', sans-serif;
+ font-size:0.85rem;
+ }
+ .chat-input:focus{ outline:none; border-color:var(--forest); }
+ .chat-send-btn{
+ width:38px; height:38px;
+ border-radius:50%;
+ border:none;
+ background:var(--forest);
+ color:#fff;
+ display:flex; align-items:center; justify-content:center;
+ cursor:pointer;
+ flex-shrink:0;
+ transition:transform 0.15s ease;
+ }
+ .chat-send-btn:hover{ transform:scale(1.08); }
+ .chat-send-btn svg{ width:16px; height:16px; }
+
+ @media (max-width:640px){
+ .chat-panel{ left:0.7rem; bottom:5rem; }
+ }
 
  .theme-toggle:hover, .lang-toggle:hover{ transform:scale(1.07); box-shadow:var(--shadow-md); }
  .theme-toggle:hover{ transform:scale(1.07) rotate(-8deg); }
@@ -1644,6 +1770,31 @@
  </svg>
 </button>
 
+<!-- ============ CHATBOT FINTO (nessuna vera intelligenza, solo per gioco) ============ -->
+<button class="chat-toggle" id="chatToggle" aria-label="Apri assistente virtuale" title="Assistente virtuale" data-i18n-title="chat_toggle_title">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+ </svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+ <div class="chat-panel-head">
+ <span class="chat-bot-avatar">🤖</span>
+ <div class="chat-panel-title">
+ <strong data-i18n="chat_bot_name">BotArchivio</strong>
+ <span data-i18n="chat_bot_status">Assistente virtuale</span>
+ </div>
+ <button class="chat-panel-close" id="chatPanelClose" aria-label="Chiudi">✕</button>
+ </div>
+ <div class="chat-messages" id="chatMessages"></div>
+ <form class="chat-input-row" id="chatForm" autocomplete="off">
+ <input type="text" id="chatInput" class="chat-input" data-i18n-placeholder="chat_input_placeholder" placeholder="Scrivi un messaggio...">
+ <button type="submit" class="chat-send-btn" aria-label="Invia">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+ </button>
+ </form>
+</div>
+
 <!-- ============ THEME TOGGLE ============ -->
 <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema chiaro/scuro" title="Cambia tema">
  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2650,6 +2801,12 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      yt_search_placeholder: "Cerca nei preferiti...",
+      nav_login: "Accedi",
+      chat_input_placeholder: "Scrivi un messaggio...",
+      chat_bot_status: "Assistente (non troppo) virtuale",
+      chat_bot_name: "BotArchivio",
+      chat_toggle_title: "Assistente virtuale",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2799,6 +2956,12 @@
       login_back: "Chiudi",
     },
  en: {
+      yt_search_placeholder: "Search your favourites...",
+      nav_login: "Log in",
+      chat_input_placeholder: "Type a message...",
+      chat_bot_status: "(Not so) virtual assistant",
+      chat_bot_name: "ArchiveBot",
+      chat_toggle_title: "Virtual assistant",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
@@ -3312,6 +3475,217 @@
  }
  });
  }
+
+ // ---- BotArchivio: chatbot finto, nessuna vera intelligenza, nessuna rete ----
+ const chatToggle = document.getElementById('chatToggle');
+ const chatPanel = document.getElementById('chatPanel');
+ const chatPanelClose = document.getElementById('chatPanelClose');
+ const chatMessages = document.getElementById('chatMessages');
+ const chatForm = document.getElementById('chatForm');
+ const chatInput = document.getElementById('chatInput');
+
+ const rispostaCasualeIt = [
+ "Interessante! Dimmi di più... o forse no, non capisco molto in realtà 😅",
+ "Mmm, non sono sicuro di aver capito, ma annuisco comunque 🤖",
+ "Bella domanda! La risposta è... 42.",
+ "Sto ancora imparando l'italiano, abbi pazienza 😄",
+ "🤖 beep boop... elaborazione fallita, riprova con parole più semplici.",
+ "Ottima osservazione! (Non ho capito una parola, ma sembrava ottima)",
+ "Chiedimelo in un'altra vita, magari avrò una risposta migliore.",
+ ];
+ const rispostaCasualeEn = [
+ "Interesting! Tell me more... or maybe not, I don't really understand much 😅",
+ "Hmm, not sure I got that, but I'll nod along anyway 🤖",
+ "Great question! The answer is... 42.",
+ "Still learning, bear with me 😄",
+ "🤖 beep boop... processing failed, try simpler words.",
+ "Great point! (I didn't understand a word of it, but it sounded great)",
+ "Ask me again in another life, maybe I'll have a better answer.",
+ ];
+
+ // Legge i dati VERI presenti nella pagina in quel momento, così il bot
+ // può rispondere con numeri e contenuti reali invece di inventarli.
+ function leggiDatiSito() {
+ const dati = {};
+
+ dati.numPensieri = document.querySelectorAll('.scribble-content .note-item').length;
+ dati.numPosti = (typeof luoghiVisitati !== 'undefined') ? luoghiVisitati.length : null;
+
+ dati.filmTitoli = Array.from(document.querySelectorAll('#film .xbox-card .title')).map(el => el.textContent.trim());
+ dati.giochiTitoli = Array.from(document.querySelectorAll('#games .xbox-card .title')).map(el => el.textContent.trim());
+ dati.numVideo = document.querySelectorAll('.yt-video-card').length;
+ dati.numFoto = document.querySelectorAll('.polaroid-card').length;
+
+ const introEl = document.querySelector('.about-text p');
+ dati.bioIntro = introEl ? introEl.textContent.trim() : '';
+
+ const fattiEl = document.querySelectorAll('.about-facts dd');
+ dati.base = fattiEl[0] ? fattiEl[0].textContent.trim() : '';
+ dati.eta = fattiEl[1] ? fattiEl[1].textContent.trim() : '';
+ dati.interessi = fattiEl[2] ? fattiEl[2].textContent.trim() : '';
+
+ const recapNum = document.querySelectorAll('.recap-num');
+ if (recapNum.length >= 6) {
+ dati.recapPensieri = recapNum[0].textContent.trim();
+ dati.recapParole = recapNum[1].textContent.trim();
+ dati.recapGiorno = recapNum[3].textContent.trim();
+ dati.recapParolaTop = recapNum[4].textContent.trim();
+ dati.recapEmoji = recapNum[5].textContent.trim();
+ }
+
+ const ultimoEl = document.querySelector('.entry.newest .entry-text');
+ dati.ultimoPensiero = ultimoEl ? ultimoEl.textContent.trim() : '';
+
+ return dati;
+ }
+
+ function rispostaBot(messaggioUtente) {
+ const testo = messaggioUtente.toLowerCase();
+ const inglese = currentLang === 'en';
+ const dati = leggiDatiSito();
+
+ if (/\bciao\b|\bsalve\b|\bhey\b|buongiorno|buonasera|\bhello\b|\bhi\b/.test(testo)) {
+ return inglese ? "Hey there! 👋 How can I help you explore this archive?" : "Ciao! 👋 Come posso aiutarti a esplorare questo archivio?";
+ }
+ if (/grazie|thanks|thank you/.test(testo)) {
+ return inglese ? "You're welcome! Anything else you'd like to know?" : "Prego! C'è altro che vuoi sapere?";
+ }
+ if (/come stai|how are you/.test(testo)) {
+ return inglese ? "Doing great, thanks for asking! Ready to answer your questions." : "Sto benissimo, grazie di aver chiesto! Pronto a rispondere alle tue domande.";
+ }
+
+ if (/quanti pensieri|\bquanti post\b|how many (thoughts|posts|notes)/.test(testo)) {
+ const n = dati.recapPensieri || dati.numPensieri;
+ return inglese ? `As far as I can tell, ${n} thoughts have been written so far.` : `Da quello che vedo, finora sono stati scritti ${n} pensieri.`;
+ }
+ if (/ultimo pensiero|cosa hai scritto|latest thought|recent thought/.test(testo)) {
+ return dati.ultimoPensiero
+ ? (inglese ? `The most recent update says: "${dati.ultimoPensiero}"` : `L'aggiornamento più recente dice: "${dati.ultimoPensiero}"`)
+ : (inglese ? "I couldn't find a recent entry right now." : "Non riesco a trovare una voce recente al momento.");
+ }
+ if (/parola più usata|most used word/.test(testo) && dati.recapParolaTop) {
+ return inglese ? `The most used word so far is ${dati.recapParolaTop}.` : `La parola più usata finora è ${dati.recapParolaTop}.`;
+ }
+ if (/emoji preferita|favou?rite emoji/.test(testo) && dati.recapEmoji) {
+ return inglese ? `The favourite emoji seems to be ${dati.recapEmoji}.` : `L'emoji preferita sembra essere ${dati.recapEmoji}.`;
+ }
+ if (/giorno più attivo|most active day/.test(testo) && dati.recapGiorno) {
+ return inglese ? `The most active day of the week is ${dati.recapGiorno}.` : `Il giorno più attivo della settimana è ${dati.recapGiorno}.`;
+ }
+
+ if (/quanti (posti|paesi|luoghi)|dove.*stato|how many (places|countries)|where.*been/.test(testo)) {
+ return dati.numPosti
+ ? (inglese ? `There are ${dati.numPosti} places marked on the world map — check out the Map section!` : `Sulla mappa del mondo ci sono ${dati.numPosti} posti segnati — dai un'occhiata alla sezione Mappa!`)
+ : (inglese ? "Try opening the Map section to see." : "Prova ad aprire la sezione Mappa per vederli.");
+ }
+
+ if (/che film|quali film|film preferiti|favou?rite (films|movies)|what (films|movies)/.test(testo)) {
+ return dati.filmTitoli.length
+ ? (inglese ? `Some favourites here: ${dati.filmTitoli.slice(0, 4).join(', ')}.` : `Tra i preferiti ci sono: ${dati.filmTitoli.slice(0, 4).join(', ')}.`)
+ : (inglese ? "Try the Films & Series section." : "Prova la sezione Film & Serie.");
+ }
+
+ if (/che giochi|videogiochi|quali giochi|favou?rite games|what games/.test(testo)) {
+ return dati.giochiTitoli.length
+ ? (inglese ? `Some favourites: ${dati.giochiTitoli.join(', ')}.` : `Tra i preferiti: ${dati.giochiTitoli.join(', ')}.`)
+ : (inglese ? "Try the Games section." : "Prova la sezione Videogiochi.");
+ }
+
+ if (/che musica|canzoni|youtube|what music/.test(testo)) {
+ return dati.numVideo
+ ? (inglese ? `There are ${dati.numVideo} favourite videos in the YouTube section.` : `Ci sono ${dati.numVideo} video preferiti nella sezione YouTube.`)
+ : (inglese ? "Check out the YouTube section!" : "Dai un'occhiata alla sezione YouTube!");
+ }
+
+ if (/quante foto|how many photos/.test(testo)) {
+ return dati.numFoto
+ ? (inglese ? `There are ${dati.numFoto} photos in the gallery.` : `Ci sono ${dati.numFoto} foto nella galleria.`)
+ : (inglese ? "Check the Gallery section!" : "Guarda la sezione Galleria!");
+ }
+
+ if (/chi (sei|è)|parlami di te|about (you|giancarlo)|who are you/.test(testo)) {
+ return dati.bioIntro || (inglese ? "Check out the About section for more!" : "Dai un'occhiata alla sezione Chi sono per saperne di più!");
+ }
+ if (/dove (abiti|vivi)|where.*live/.test(testo) && dati.base) {
+ return inglese ? `Based in ${dati.base}.` : `Con base a ${dati.base}.`;
+ }
+ if (/quanti anni|età|how old/.test(testo) && dati.eta) {
+ return dati.eta + '.';
+ }
+ if (/interessi|passioni|hobbies|interests/.test(testo) && dati.interessi) {
+ return inglese ? `Interests: ${dati.interessi}.` : `Interessi: ${dati.interessi}.`;
+ }
+
+ if (/contatt|email|come ti (contatto|trovo)|how.*contact/.test(testo)) {
+ return inglese ? "Check the Contact section for email, Instagram, YouTube and LinkedIn!" : "Guarda la sezione Contatti per email, Instagram, YouTube e LinkedIn!";
+ }
+
+ if (/aiuto|help/.test(testo)) {
+ return inglese
+ ? "I can tell you about thoughts written, places visited, favourite films/games, photos, and more — just ask!"
+ : "Posso dirti quanti pensieri sono stati scritti, quanti posti visitati, i film/giochi preferiti, le foto, e altro — chiedimi pure!";
+ }
+
+ const elenco = inglese ? rispostaCasualeEn : rispostaCasualeIt;
+ return elenco[Math.floor(Math.random() * elenco.length)];
+ }
+
+ function aggiungiMessaggioChat(testo, mittente) {
+ if (!chatMessages) return;
+ const bolla = document.createElement('div');
+ bolla.className = `chat-bubble chat-bubble-${mittente}`;
+ bolla.textContent = testo;
+ chatMessages.appendChild(bolla);
+ chatMessages.scrollTop = chatMessages.scrollHeight;
+ }
+
+ function apriChat() {
+ if (!chatPanel) return;
+ chatPanel.classList.add('open');
+ if (!chatMessages.dataset.avviato) {
+ const messaggioIniziale = "Ciao! Sono il tuo assistente AI, e sono qui per rispondere alle tue domande.";
+ aggiungiMessaggioChat(messaggioIniziale, 'bot');
+ chatMessages.dataset.avviato = '1';
+ }
+ if (chatInput) chatInput.focus();
+ }
+
+ function chiudiChat() {
+ if (chatPanel) chatPanel.classList.remove('open');
+ }
+
+ if (chatToggle) {
+ chatToggle.addEventListener('click', () => {
+ if (chatPanel.classList.contains('open')) chiudiChat(); else apriChat();
+ });
+ }
+ if (chatPanelClose) chatPanelClose.addEventListener('click', chiudiChat);
+
+ if (chatForm) {
+ chatForm.addEventListener('submit', (e) => {
+ e.preventDefault();
+ const testo = chatInput.value.trim();
+ if (!testo) return;
+
+ aggiungiMessaggioChat(testo, 'utente');
+ chatInput.value = '';
+
+ const digitando = document.createElement('div');
+ digitando.className = 'chat-bubble chat-bubble-bot chat-typing';
+ digitando.textContent = '...';
+ chatMessages.appendChild(digitando);
+ chatMessages.scrollTop = chatMessages.scrollHeight;
+
+ setTimeout(() => {
+ digitando.remove();
+ aggiungiMessaggioChat(rispostaBot(testo), 'bot');
+ }, 600 + Math.random() * 500);
+ });
+ }
+
+ document.addEventListener('keydown', (e) => {
+ if (e.key === 'Escape' && chatPanel && chatPanel.classList.contains('open')) chiudiChat();
+ });
 
  // ---- Login Modal (demo — non invia né salva mai nulla) ----
  const loginModal = document.getElementById('loginModal');
