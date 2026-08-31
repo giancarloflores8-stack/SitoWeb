@@ -71,3 +71,7 @@ TAG: Pensieri
 DATA: 31 agosto 2026
 TIMELINE: Aggiunto una nuova mappa interattiva che vi fa vedere dove sono stato nel mondo🌍. 
 TAG: Mappa🌍
+---
+DATA: 31 agosto 2026
+PENSIERO: Oggi ho aggiunto delle statistiche con uno script Python, che agiscono a livello tessutale, e mi indicano l'andamento del mio umore nei vari periodi del mese, poi ho aggiunto una mappa interattiva che mi fa vedere dove sono stato nel mondo, anche perché avvolto mi dimentico anche io dove sono stato 🗺️.
+---
