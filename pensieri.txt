@@ -76,6 +76,6 @@ DATA: 31 agosto 2026
 PENSIERO: Oggi ho aggiunto delle statistiche con uno script Python, che agiscono a livello tessutale, e mi indicano l'andamento del mio umore nei vari periodi del mese, poi ho aggiunto una mappa interattiva che mi fa vedere dove sono stato nel mondo, anche perché avvolto mi dimentico anche io dove sono stato 🗺️.
 ---
 DATA: 1 settembre 2026
-PENSIERO: Io sono andato al mare ieri e era molto bello, ma non aveva portato il costume. 
+PENSIERO: Io sono andato al mare ieri e era molto bello, ma non aveva portatoa il costume. 
 TIMELINE: Test correzione grammaticale 
 TAG: Test 🧪
