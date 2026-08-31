@@ -1,16 +1,16 @@
 DATA: 14 agosto 2026
-PENSIERO: Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task , quindi ho deciso di creare e mettere on line il mio sito personale, visto che alle superiori ho imparato ad utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.
+PENSIERO: Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task, quindi ho deciso di creare e mettere online il mio sito personale, visto che alle superiori ho imparato a utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.
 TIMELINE: Idea e Creazione del sito WEB
 TAG: Ufficio💼
 ---
 DATA: 15 agosto 2026
-PENSIERO: Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito , d'altronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è difficile trovare i bug in quasi 1800 righe di codice , e si che è un sito molto statico , non oso pensare come siano i siti che devono gestire utenti , mail e pagamenti 😱.
+PENSIERO: Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito, d'altronde sono in vacanza posso fare quello che voglio 😄, Gemini e Laude mi hanno dato una grossa mano, è difficile trovare i bug in quasi 1800 righe di codice, e si che è un sito molto statico, non oso pensare come siano i siti che devono gestire utenti, mail e pagamenti 😱.
 TIMELINE: Implementazione del sito web sia di contenuti che a livello codice
 TAG: Casa 🏠
 ---
 DATA: 16 agosto 2026
-PENSIERO: Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Home, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.
-TIMELINE: Nuovi brani in YouTube Chuwi Tiny Desk & Bad Bunny
+PENSIERO: Guardando indietro, mi rendo conto di quanta strada ho fatto da quando ho iniziato: sono partito da un sito semplicissimo a schede (Homo, Chi sono, Galleria, Video, Contatti) e piano piano l'ho trasformato in qualcosa di più mio. Ho aggiunto le sezioni YouTube, Film & Serie e Videogiochi, con un modale che si apre cliccando sopra e mostra copertina grande + descrizione. Ho messo un tema chiaro/scuro con un bottoncino sole/luna in alto a destra, che si ricorda la scelta anche se richiudo il sito. Ho ridisegnato bordi e ombre delle card per dare più profondità, e aggiunto piccole animazioni. Alla fine il sito comincia davvero a sembrare qualcosa di curato, e mi sta piacendo tenerlo aggiornato.
+TIMELINE: Nuovi brani in YouTube Causi Tina Disk & Bad Bunny
 TAG: YouTube
 ---
 DATA: 17 agosto 2026
@@ -18,17 +18,17 @@ TIMELINE: Sono partito per le vacanze estive Sarde, tutte le info nella sezioni 
 TAG: Pensieri
 ---
 DATA: 23 agosto 2026
-PENSIERO: Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduriosa come tanto mi piace fare senza lasciare indietro le mie passioni.
+PENSIERO: Ultimo giorno di ferie, riposo e relax sono d'obbligo, lo passero a vivere una vita lenta e goduria come tanto mi piace fare senza lasciare indietro le mie passioni.
 TIMELINE: Nuovi brani in YouTube + pensieri sparsi della giornata
 TAG: Casa🏠 & RELAX
 ---
 DATA: 24 agosto 2026
-PENSIERO: Rientro in ufficio, con un risveglio un po' traumatico , si ritorna alla routine, colazione, preparazione della pasta per pranzo , ci si lava e ci si profuma e poi via con la mia Kia special che… poi sai si prega di non trovare traffico e si arriva nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉 .
-TIMELINE: Ho creato uno script python che traduce l'intera pagina da italiano ad inglese e vice versa, ma non è del tutto funzionante.
+PENSIERO: Rientro in ufficio, con un risveglio un po' traumatico, si ritorna alla routine, colazione, preparazione della pasta per pranzo, ci si lava e ci si profuma e poi via con la mia Kia special che… Poi sai si prega di non trovare traffico e si arriva nel magico ufficio. La giornata è appena iniziata speriamo finisca nei migliori dei modi, vi terrò aggiornati😉.
+TIMELINE: Ho creato uno script Python che traduce l'intera pagina da italiano a inglese e vice versa, ma non è del tutto funzionante.
 TAG: Implementation 🧠
 ---
 DATA: 25 agosto 2026
-TIMELINE: Finalmente siamo riusciti a fixare lo scripy python per la traduzione, per me è una grossa vittoria 🤩 .
+TIMELINE: Finalmente siamo riusciti a fidare lo script Python per la traduzione, per me è una grossa vittoria 🤩.
 TAG: Fixing ✅
 ---
 DATA: 26 agosto 2026
@@ -36,36 +36,36 @@ TIMELINE: Vediamo se le ultime implementazioni funzionano + aggiunta di un film 
 TAG: Fixing ✅
 ---
 DATA: 25 agosto 2026
-PENSIERO: Oggi ho fatto varie implementazioni e automatismi, nella comodità di casa sto provando se tutto funziona come dovrebbe, nei prossimi giorni comunque farò altri test. Probabilmente inizierò a pensare anche a qualcosa a livello di ux ai design, ovviamente facendomi aiutare da claude AI, visto che non ho competenze del genere, ma vediamo con calma.  
+PENSIERO: Oggi ho fatto varie implementazioni e automatismi, nella comodità di casa sto provando se tutto funziona come dovrebbe, nei prossimi giorni comunque farò altri test. Probabilmente inizierò a pensare anche a qualcosa a livello di UE hai design, ovviamente facendomi aiutare da laude AI, visto che non ho competenze del genere, ma vediamo con calma.  
 TIMELINE: Finito un progetto importante
 TAG: CASA
 ---
 DATA: 26 agosto 2026
-PENSIERO: Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di ux ui design, ma non prima di un back up di tutto , d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.
+PENSIERO: Dopo un estenuante de bug e infiniti minuti di dello, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di UE UE design, ma non prima di un backup di tutto, d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.
 ---
 DATA: 27 agosto 2026
 PENSIERO: Oggi ho sistemato delle cose a livello visivo, senza compromettere la struttura del sito, ormai per fortuna ho imparato. Spero di riuscire a mettere anche qualche foto nei pensieri, però magari nei fini settimana, durante la settimana principalmente o è ufficio o è casa 🏠. 
 ---
 DATA: 28 agosto 2026
-TIMELINE: Ho aggiunto un nuovo pensiero, ho aggiunto anche qualche pezzo nella sezione YouTube.    
+TIMELINE: Ho aggiunto un nuovo pensiero, ho aggiunto anche qualche pezzo nella sezione YouTube.  
 TAG: Pensieri + YouTube
 ---
 DATA: 28 agosto 2026
 PENSIERO: Oggi visto il brutto tempo mi è venuta voglia di ascoltare un po' di salsa classica, poi per il resto è un famoso venerdì pigro come tanto mi piace chiamarli 😁, poi per il resto vediamo come andrà questa giornata uggiosa.
 ---
 DATA: 29 agosto 2026
-TIMELINE: Aggiunto un pensiero.    
+TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
 DATA: 29 agosto 2026
 PENSIERO: Oggi voglio solo rilassarmi e non pensare a niente, la parola d'ordine è relax, anche perché è sabato. 
 ---
 DATA: 30 agosto 2026
-PENSIERO: Sono andato al The space con Marta a vedere Spider Man: Brand New Day, sinceramente aspettavo qualcosa di diverso , mi ha leggermente deluso, d'altronde quest'anno sono usciti un sacco di film che hanno sodisfatto completamente le mie aspettative , qualcuno di questi doveva deludermi 😄, peccato perché Spider Man è il mio eroe preferito.   
+PENSIERO: Sono andato al Ohe space con Marta a vedere Spider Man: Brand New Day, sinceramente aspettavo qualcosa di diverso, mi ha leggermente deluso, d'altronde quest'anno sono usciti un sacco di film che hanno soddisfatto completamente le mie aspettative, qualcuno di questi doveva deludermi 😄, peccato perché Spider Man è il mio eroe preferito.  
 FOTO: pensierilocanda.jpg
 ---
 DATA: 30 agosto 2026
-TIMELINE: Aggiunto un pensiero.    
+TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
 DATA: 31 agosto 2026
