@@ -1782,7 +1782,7 @@
  <span class="chat-bot-avatar">🤖</span>
  <div class="chat-panel-title">
  <strong data-i18n="chat_bot_name">BotArchivio</strong>
- <span data-i18n="chat_bot_status">Assistente virtuale</span>
+ <span data-i18n="chat_bot_status">Assistente (non troppo) virtuale</span>
  </div>
  <button class="chat-panel-close" id="chatPanelClose" aria-label="Chiudi">✕</button>
  </div>
@@ -2801,8 +2801,12 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      yt_search_placeholder: "Cerca nei preferiti...",
+      nav_login: "Accedi",
+      chat_input_placeholder: "Scrivi un messaggio...",
+      chat_bot_status: "Assistente (non troppo) virtuale",
       chat_bot_name: "BotArchivio",
-      chat_bot_status: "Assistente virtuale",
+      chat_toggle_title: "Assistente virtuale",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2952,8 +2956,12 @@
       login_back: "Chiudi",
     },
  en: {
+      yt_search_placeholder: "Search your favourites...",
+      nav_login: "Log in",
+      chat_input_placeholder: "Type a message...",
+      chat_bot_status: "(Not so) virtual assistant",
       chat_bot_name: "ArchiveBot",
-      chat_bot_status: "Virtual assistant",
+      chat_toggle_title: "Virtual assistant",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
@@ -3017,7 +3025,7 @@
       note_sardinia_p1: "A week in Alghero that could be summed up as: crystal-clear sea, boat trips, aperitifs at sunset and a final odyssey at the airport.",
       note_sardinia_p2: "The trip got off to the best possible start: the outbound flight went perfectly – it was smooth and right on time. Once we’d landed, we immersed ourselves in Sardinia’s relaxed way of life. We explored the coast from a different perspective thanks to an unforgettable boat trip, stopping beneath the imposing limestone cliffs of the headland to go snorkelling in crystal-clear coves alongside the fish.",
       note_sardinia_p3: "Our days were spent alternating between adventures in the water, freediving and evening strolls through the streets of Alghero’s old town, culminating in watching the golden sunset on the beach with the headland in the background.",
-      note_sardinia_p4: "The only truly ‘adventurous’ (and decidedly less pleasant) moment came right at the end: just as we were about to head home, our return flight decided to test our patience with a delay of no less than 12 hours. It was a marathon at the airport that really put our relaxation to the test, but it didn’t manage to overshadow the memories of the fantastic days spent on the boat with friends.",
+      note_sardinia_p4: "The only truly ‘adventurous’ (and decidedly less pleasant) moment came right at the very end: just as we were about to head home, our return flight decided to test our patience with a delay of no less than 12 hours. It was a marathon at the airport that really put our relaxation to the test, but it failed to overshadow the memories of the fantastic days spent on the boat with friends.",
       note_23agosto2026_date: "+ 23 August 2026",
       note_23agosto2026_text: "It’s the last day of my holiday – rest and relaxation are a must. I’ll spend it living a slow, leisurely life, just as I love to do, without neglecting my passions.",
       note_24agosto2026_date: "+ 24 August 2026",
@@ -3069,7 +3077,7 @@
       film_shrek: "Shrek’s peaceful solitude in the swamp is shattered when the evil Lord Farquaad banishes all the fairy-tale creatures there. To get his land back, Shrek agrees to rescue Princess Fiona from a dragon, discovering, by the end of his journey, love and the girl’s true nature.",
       film_pluribus: "It is a science fiction television series created by Vince Gilligan and starring Rhea Seehorn. The plot follows Carol Sturka, a writer from Albuquerque: a virus of extraterrestrial origin transforms the whole of humanity into a single, peaceful, happy collective mind, leaving her and a handful of others who are immune to fight to restore free will.",
       film_il_signore_degli_anelli: "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring by casting it into the fires of Mount Doom in Mordor, in order to save Middle-earth from the Dark Lord Sauron.",
-      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the everyday and surreal life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human drama and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
+      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the everyday, surreal life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human drama and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
       film_trainspotting: "Trainspotting tells the story of Mark Renton, a young man from Edinburgh who chooses to live on the fringes of society, shooting up heroin with his group of misfit friends. Amidst attempts at rehabilitation, tragic moments and petty crimes, the story culminates in a major drug deal which Mark uses as an opportunity to escape and turn his life around.",
       film_28_giorni_dopo: "28 Days Later is a 2002 horror film directed by Danny Boyle, centring on a global epidemic caused by a rabies virus.",
       film_Matrix: "*The Matrix* centres on the young hacker Neo (Keanu Reeves), who discovers that everyday reality is merely a virtual simulation created by machines to enslave humanity and use it as a source of energy.",
@@ -3531,10 +3539,46 @@
  return dati;
  }
 
+ // Se il messaggio contiene una data (es. "14 agosto" o "14 agosto 2026"),
+ // cerca il pensiero scritto proprio in quel giorno, dentro il foglio Pensieri.
+ function cercaPensieroPerData(testo, inglese) {
+ const mesiIt = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+ const regex = new RegExp('\\b(\\d{1,2})\\s+(' + mesiIt.join('|') + ')\\b', 'i');
+ const match = testo.match(regex);
+ if (!match) return null;
+
+ const giorno = String(parseInt(match[1], 10)); // toglie eventuali zeri iniziali
+ const mese = match[2].toLowerCase();
+
+ const noteItems = document.querySelectorAll('.scribble-content .note-item');
+ for (const item of noteItems) {
+ const dataEl = item.querySelector('.note-date');
+ if (!dataEl) continue;
+ const dataTesto = dataEl.textContent.toLowerCase();
+ if (dataTesto.includes(giorno + ' ' + mese)) {
+ const testoEl = item.querySelector('p');
+ const contenuto = testoEl ? testoEl.textContent.trim() : '';
+ if (!contenuto) continue;
+ return inglese
+ ? `On that day: "${contenuto}"`
+ : `In quel giorno: "${contenuto}"`;
+ }
+ }
+
+ return inglese
+ ? "I couldn't find anything written on that date."
+ : "Non trovo nulla scritto in quella data.";
+ }
+
  function rispostaBot(messaggioUtente) {
  const testo = messaggioUtente.toLowerCase();
  const inglese = currentLang === 'en';
  const dati = leggiDatiSito();
+
+ // Cerca una data specifica nel messaggio (es. "14 agosto" o "14 agosto 2026")
+ // e, se la trova, cerca il pensiero corrispondente nel foglio Pensieri.
+ const rispostaData = cercaPensieroPerData(testo, inglese);
+ if (rispostaData) return rispostaData;
 
  if (/\bciao\b|\bsalve\b|\bhey\b|buongiorno|buonasera|\bhello\b|\bhi\b/.test(testo)) {
  return inglese ? "Hey there! 👋 How can I help you explore this archive?" : "Ciao! 👋 Come posso aiutarti a esplorare questo archivio?";
@@ -3546,7 +3590,7 @@
  return inglese ? "Doing great, thanks for asking! Ready to answer your questions." : "Sto benissimo, grazie di aver chiesto! Pronto a rispondere alle tue domande.";
  }
 
- if (/quanti pensieri|\bquanti post\b|how many (thoughts|posts|notes)/.test(testo)) {
+ if (/quanti pensieri|\bquanti post\b|blog|how many (thoughts|posts|notes|blog)/.test(testo)) {
  const n = dati.recapPensieri || dati.numPensieri;
  return inglese ? `As far as I can tell, ${n} thoughts have been written so far.` : `Da quello che vedo, finora sono stati scritti ${n} pensieri.`;
  }
@@ -3608,11 +3652,11 @@
  return inglese ? `Interests: ${dati.interessi}.` : `Interessi: ${dati.interessi}.`;
  }
 
- if (/contatt|email|come ti (contatto|trovo)|how.*contact/.test(testo)) {
- return inglese ? "Check the Contact section for email, Instagram, YouTube and LinkedIn!" : "Guarda la sezione Contatti per email, Instagram, YouTube e LinkedIn!";
+ if (/contatt|email|\bcv\b|curriculum|come ti (contatto|trovo)|how.*contact/.test(testo)) {
+ return inglese ? "Check the Contact section for email, Instagram, YouTube, LinkedIn and the downloadable CV!" : "Guarda la sezione Contatti per email, Instagram, YouTube, LinkedIn e il CV scaricabile!";
  }
 
- if (/aiuto|help/.test(testo)) {
+ if (/aiuto|help|cosa (puoi|sai) fare|what can you do/.test(testo)) {
  return inglese
  ? "I can tell you about thoughts written, places visited, favourite films/games, photos, and more — just ask!"
  : "Posso dirti quanti pensieri sono stati scritti, quanti posti visitati, i film/giochi preferiti, le foto, e altro — chiedimi pure!";
