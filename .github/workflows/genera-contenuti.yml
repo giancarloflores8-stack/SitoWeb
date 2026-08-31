@@ -5,7 +5,6 @@ on:
     paths:
       - 'pensieri.txt'
       - 'genera_contenuti.py'
-      - 'correggi_grammatica.py'
 
 permissions:
   contents: write
@@ -26,10 +25,7 @@ jobs:
           python-version: '3.x'
 
       - name: Installa dipendenze
-        run: pip install beautifulsoup4 deepl language-tool-python
-
-      - name: Correggi la grammatica in pensieri.txt
-        run: python correggi_grammatica.py
+        run: pip install beautifulsoup4 deepl
 
       - name: Genera Pensieri e Attività recente dal testo
         run: python genera_contenuti.py
@@ -43,6 +39,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Content Bot"
           git config --global user.email "bot@github.com"
-          git add index.html pensieri.txt
+          git add index.html
           git commit -m "Aggiornamento automatico contenuti da pensieri.txt [skip ci]" || exit 0
           git push
