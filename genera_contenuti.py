@@ -2,6 +2,7 @@ import os
 import re
 import sys
 from datetime import datetime
+from collections import Counter
 
 MESI_IT = {
     'gennaio': 1, 'febbraio': 2, 'marzo': 3, 'aprile': 4, 'maggio': 5, 'giugno': 6,
@@ -241,10 +242,9 @@ def genera_html_pensieri(voci):
                     f'\n                </details>'
                 )
 
-            chiave_mese_i18n = f"month_{mese_nome.lower()}"
             blocchi_mese.append(
                 f'            <details class="month-folder">\n'
-                f'              <summary class="month-header">📁 <span data-i18n="{chiave_mese_i18n}">{mese_nome}</span></summary>\n'
+                f'              <summary class="month-header">📁 {mese_nome}</summary>\n'
                 f'              <div class="month-body">\n'
                 + '\n\n'.join(righe_note) +
                 f'\n              </div>\n'
@@ -335,6 +335,174 @@ def sostituisci_tra_marcatori(html, nome_marcatore, nuovo_contenuto):
     return re.sub(pattern, lambda m: f"{m.group(1)}\n{nuovo_contenuto}\n    {m.group(3)}", html, count=1)
 
 
+# ============ RECAP: "il mio archivio in numeri" ============
+# Analizza tutti i Pensieri scritti finora e genera statistiche + un
+# grafico dell'andamento dell'umore, calcolati automaticamente ogni volta
+# che pensieri.txt cambia. L'umore è una stima giocosa (parole ed emoji
+# chiave), non un'analisi seria: va presa con lo spirito giusto.
+
+STOPWORDS_IT = {
+    'il', 'lo', 'la', 'i', 'gli', 'le', 'un', 'uno', 'una', 'di', 'a', 'da', 'in', 'con', 'su',
+    'per', 'tra', 'fra', 'e', 'o', 'ma', 'se', 'che', 'chi', 'cui', 'non', 'mi', 'ti', 'si', 'ci',
+    'vi', 'ho', 'hai', 'ha', 'abbiamo', 'avete', 'hanno', 'sono', 'sei', 'è', 'siamo', 'siete',
+    'del', 'della', 'dei', 'delle', 'dello', 'degli', 'al', 'allo', 'alla', 'ai', 'agli', 'alle',
+    'come', 'più', 'anche', 'ancora', 'già', 'poi', 'quindi', 'perché', 'però', 'così', 'tutto',
+    'tutti', 'tutta', 'tutte', 'questo', 'questa', 'questi', 'queste', 'quello', 'quella',
+    'quelli', 'quelle', 'mio', 'mia', 'miei', 'mie', 'suo', 'sua', 'loro', 'nostro', 'nostra',
+    'me', 'te', 'lui', 'lei', 'noi', 'voi', 'essere', 'stato', 'stata', 'stati', 'avevo', 'era',
+    'erano', 'sarà', 'saranno', 'ogni', 'qualche', 'molto', 'molti', 'molta', 'poco', 'pochi',
+    'due', 'tre', 'giorno', 'oggi', 'poi', 'quando', 'dove', 'sempre', 'quasi', 'senza', 'fino',
+}
+
+PAROLE_POSITIVE = {
+    'felice', 'bello', 'bella', 'belli', 'belle', 'vittoria', 'grande', 'piace', 'piaciuto',
+    'piacevole', 'buon', 'buono', 'buona', 'ottimo', 'bene', 'riposo', 'relax', 'goduriosa',
+    'curato', 'fantastico', 'fantastici', 'indimenticabile', 'divertente', 'soddisfatto',
+    'scoperta', 'solida', 'solido', 'vinto', 'riuscito', 'riusciti', 'successo', 'orgoglioso',
+    'contento', 'bellissima', 'perfetto', 'perfetta',
+}
+PAROLE_NEGATIVE = {
+    'traumatico', 'stanco', 'stanca', 'frustrante', 'difficile', 'problema', 'problemi', 'rompi',
+    'rotto', 'brutto', 'brutta', 'uggiosa', 'stress', 'stressante', 'odissea', 'ritardo',
+    'faticoso', 'estenuante', 'deluso', 'deludermi', 'traffico', 'infiniti',
+}
+EMOJI_POSITIVI = ['😄', '😁', '🤩', '✅', '😊', '😍', '🥳', '🎉', '😎', '💪']
+EMOJI_NEGATIVI = ['😱', '😢', '😭', '😡', '🙁', '😔', '💥']
+
+GIORNI_IT = {
+    'Monday': 'lunedì', 'Tuesday': 'martedì', 'Wednesday': 'mercoledì', 'Thursday': 'giovedì',
+    'Friday': 'venerdì', 'Saturday': 'sabato', 'Sunday': 'domenica',
+}
+
+
+def _pulisci_parole(testo):
+    testo = testo.lower()
+    parole = re.findall(r"[a-zàèéìòùç]+", testo)
+    return [p for p in parole if len(p) > 2 and p not in STOPWORDS_IT]
+
+
+def _calcola_umore(testo):
+    testo_lower = testo.lower()
+    punteggio = 0
+    for parola in PAROLE_POSITIVE:
+        if parola in testo_lower:
+            punteggio += 1
+    for parola in PAROLE_NEGATIVE:
+        if parola in testo_lower:
+            punteggio -= 1
+    for emo in EMOJI_POSITIVI:
+        punteggio += testo.count(emo)
+    for emo in EMOJI_NEGATIVI:
+        punteggio -= testo.count(emo)
+    return punteggio
+
+
+def genera_recap(voci):
+    """Genera la sezione 'Il mio archivio in numeri': statistiche e un
+    grafico SVG dell'umore, ricalcolati ogni volta da zero sui Pensieri
+    presenti in pensieri.txt."""
+    voci_con_pensiero = [v for v in voci if v.get('pensiero')]
+    if len(voci_con_pensiero) < 2:
+        return '          <!-- Recap non generato: servono almeno 2 pensieri con testo -->'
+
+    voci_con_pensiero = sorted(voci_con_pensiero, key=lambda v: v['data_obj'])
+
+    tutte_parole = []
+    punteggi_umore = []
+    lunghezze = []
+    tutti_emoji = []
+    contatore_emoji_regex = re.compile("[\U0001F300-\U0001FAFF\U00002600-\U000027BF]")
+
+    for v in voci_con_pensiero:
+        testo = v['pensiero']
+        tutte_parole.extend(_pulisci_parole(testo))
+        lunghezze.append(len(testo.split()))
+        punteggi_umore.append(_calcola_umore(testo))
+        tutti_emoji.extend(contatore_emoji_regex.findall(testo))
+
+    n_pensieri = len(voci_con_pensiero)
+    totale_parole = sum(lunghezze)
+    media_parole = round(totale_parole / n_pensieri) if n_pensieri else 0
+
+    contatore_parole = Counter(tutte_parole)
+    parola_top = contatore_parole.most_common(1)[0][0] if contatore_parole else '—'
+
+    contatore_emoji = Counter(tutti_emoji)
+    emoji_top = contatore_emoji.most_common(1)[0][0] if contatore_emoji else '—'
+
+    contatore_giorni = Counter(v['data_obj'].strftime('%A') for v in voci_con_pensiero)
+    giorno_top_eng = contatore_giorni.most_common(1)[0][0] if contatore_giorni else None
+    giorno_top_it = GIORNI_IT.get(giorno_top_eng, '—')
+    chiave_giorno = f"recap_day_{giorno_top_eng.lower()}" if giorno_top_eng else None
+
+    # --- Grafico SVG dell'andamento dell'umore, usa le variabili CSS del sito ---
+    larghezza = 600
+    altezza = 130
+    margine = 16
+    n = len(punteggi_umore)
+    max_assoluto = max(1, max(abs(p) for p in punteggi_umore))
+
+    punti = []
+    for i, punteggio in enumerate(punteggi_umore):
+        x = margine + (i / max(1, n - 1)) * (larghezza - 2 * margine)
+        y = (altezza / 2) - (punteggio / max_assoluto) * (altezza / 2 - margine)
+        punti.append((round(x, 1), round(y, 1)))
+
+    punti_linea = ' '.join(f"{x},{y}" for x, y in punti)
+    cerchi = '\n'.join(
+        f'                  <circle cx="{x}" cy="{y}" r="3.5" fill="var(--forest)"></circle>'
+        for x, y in punti
+    )
+
+    html_grafico = (
+        f'              <svg viewBox="0 0 {larghezza} {altezza}" class="recap-mood-chart" preserveAspectRatio="none">\n'
+        f'                <line x1="{margine}" y1="{altezza / 2}" x2="{larghezza - margine}" y2="{altezza / 2}" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"></line>\n'
+        f'                <polyline points="{punti_linea}" fill="none" stroke="var(--forest)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>\n'
+        f'{cerchi}\n'
+        f'              </svg>'
+    )
+
+    giorno_html = (
+        f'<span data-i18n="{chiave_giorno}">{giorno_top_it}</span>' if chiave_giorno else giorno_top_it
+    )
+
+    html = (
+        f'          <div class="recap-grid">\n'
+        f'            <div class="recap-stat">\n'
+        f'              <div class="recap-num">{n_pensieri}</div>\n'
+        f'              <div class="recap-label" data-i18n="recap_label_pensieri">Pensieri scritti</div>\n'
+        f'            </div>\n'
+        f'            <div class="recap-stat">\n'
+        f'              <div class="recap-num">{totale_parole}</div>\n'
+        f'              <div class="recap-label" data-i18n="recap_label_parole">Parole totali</div>\n'
+        f'            </div>\n'
+        f'            <div class="recap-stat">\n'
+        f'              <div class="recap-num">{media_parole}</div>\n'
+        f'              <div class="recap-label" data-i18n="recap_label_media">Parole a nota</div>\n'
+        f'            </div>\n'
+        f'            <div class="recap-stat">\n'
+        f'              <div class="recap-num recap-num-small">{giorno_html}</div>\n'
+        f'              <div class="recap-label" data-i18n="recap_label_giorno">Giorno più attivo</div>\n'
+        f'            </div>\n'
+        f'            <div class="recap-stat">\n'
+        f'              <div class="recap-num recap-num-small">"{parola_top}"</div>\n'
+        f'              <div class="recap-label" data-i18n="recap_label_parola">Parola più usata</div>\n'
+        f'            </div>\n'
+        f'            <div class="recap-stat">\n'
+        f'              <div class="recap-num">{emoji_top}</div>\n'
+        f'              <div class="recap-label" data-i18n="recap_label_emoji">Emoji preferita</div>\n'
+        f'            </div>\n'
+        f'          </div>\n'
+        f'\n'
+        f'          <div class="recap-mood-box">\n'
+        f'            <div class="recap-mood-title" data-i18n="recap_mood_title">Andamento dell\'umore</div>\n'
+        f'{html_grafico}\n'
+        f'          </div>'
+    )
+
+    return html
+
+
 def main():
     voci = parse_pensieri_txt()
     if not voci:
@@ -347,16 +515,18 @@ def main():
     html_pensieri = genera_html_pensieri(voci)
     html_timeline = genera_html_timeline(voci)
     html_loadmore = genera_html_loadmore(voci)
+    html_recap = genera_recap(voci)
     html = sostituisci_tra_marcatori(html, 'AUTO-PENSIERI', html_pensieri)
     html = sostituisci_tra_marcatori(html, 'AUTO-TIMELINE', html_timeline)
     html = sostituisci_tra_marcatori(html, 'AUTO-LOADMORE', html_loadmore)
+    html = sostituisci_tra_marcatori(html, 'AUTO-RECAP', html_recap)
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(html)
 
     n_pensieri = sum(1 for v in voci if v.get('pensiero'))
     n_timeline = sum(1 for v in voci if v.get('timeline'))
-    print(f"✅ Generate {n_pensieri} note in 'Pensieri' e {n_timeline} voci in 'Attività recente'.")
+    print(f"✅ Generate {n_pensieri} note in 'Pensieri' e {n_timeline} voci in 'Attività recente'. Recap aggiornato.")
 
 
 if __name__ == '__main__':
