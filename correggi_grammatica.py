@@ -11,11 +11,13 @@ _strumento = None
 
 
 def ottieni_strumento():
-    """Si collega al servizio pubblico e gratuito di LanguageTool, in
-    italiano. Nessuna chiave API richiesta."""
+    """Avvia un server LanguageTool IN LOCALE, dentro l'Action stessa.
+    A differenza del servizio pubblico condiviso (che ha un limite di
+    richieste molto basso, esaurito quasi subito), questo non ha alcun
+    limite: gira per conto suo, non condiviso con nessun altro."""
     global _strumento
     if _strumento is None:
-        _strumento = language_tool_python.LanguageToolPublicAPI('it')
+        _strumento = language_tool_python.LanguageTool('it')
     return _strumento
 
 
@@ -88,3 +90,5 @@ def correggi_pensieri_txt(percorso='pensieri.txt'):
 
 if __name__ == '__main__':
     correggi_pensieri_txt()
+    if _strumento is not None:
+        _strumento.close()
