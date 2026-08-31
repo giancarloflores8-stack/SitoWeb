@@ -528,6 +528,75 @@
  .about-facts dt{ color:var(--ink-soft); }
  .about-facts dd{ color:var(--ink); font-weight:700; }
 
+ /* ============ RECAP: "il mio archivio in numeri" ============ */
+ .recap-panel{
+ margin-top:2rem;
+ border:1px solid var(--line);
+ border-radius:var(--radius);
+ overflow:hidden;
+ box-shadow:var(--shadow-sm);
+ background:var(--paper);
+ transition:background-color 0.3s ease, border-color 0.3s ease;
+ }
+ .recap-panel-head{
+ padding:0.7rem 1.2rem;
+ border-bottom:1px dashed var(--line);
+ font-family:'Space Mono', monospace;
+ font-size:0.68rem;
+ text-transform:uppercase;
+ letter-spacing:0.08em;
+ color:var(--ink-soft);
+ background:var(--paper-raised);
+ }
+ .recap-grid{
+ display:grid;
+ grid-template-columns:repeat(3, 1fr);
+ gap:1px;
+ background:var(--line);
+ }
+ .recap-stat{
+ background:var(--paper);
+ padding:1.3rem 0.8rem;
+ text-align:center;
+ transition:background-color 0.3s ease;
+ }
+ .recap-num{
+ font-family:'Fraunces', serif;
+ font-size:1.75rem;
+ font-weight:600;
+ color:var(--ink);
+ }
+ .recap-num-small{
+ font-size:1.05rem;
+ font-family:'Space Mono', monospace;
+ font-weight:700;
+ }
+ .recap-label{
+ margin-top:0.3rem;
+ font-family:'Space Mono', monospace;
+ font-size:0.63rem;
+ text-transform:uppercase;
+ letter-spacing:0.04em;
+ color:var(--ink-soft);
+ }
+ .recap-mood-box{
+ padding:1.2rem 1.4rem 1.5rem;
+ border-top:1px solid var(--line);
+ background:var(--paper);
+ }
+ .recap-mood-title{
+ font-family:'Space Mono', monospace;
+ font-size:0.7rem;
+ text-transform:uppercase;
+ letter-spacing:0.05em;
+ color:var(--ink-soft);
+ margin-bottom:0.8rem;
+ }
+ .recap-mood-chart{ width:100%; height:auto; display:block; }
+ @media (max-width:640px){
+ .recap-grid{ grid-template-columns:repeat(2, 1fr); }
+ }
+
  /* ============ FOGLIO A QUADRETTI (note sparse) ============ */
  .scribble-pad{
  margin-top:2rem;
@@ -1699,21 +1768,12 @@
       </div>
     </div>
 
-    <div class="entry extra-entry" style="display:none;">
+    <div class="entry newest">
       <div class="dot" style="background: var(--dot-gaming);"></div>
       <div class="entry-body">
-        <span class="entry-date">29 ago 2026</span>
-        <span class="entry-text" data-i18n="log_2982026tl">Aggiunto un pensiero.</span>
-        <span class="entry-tag">Pensieri</span>
-      </div>
-    </div>
-
-    <div class="entry newest">
-      <div class="dot" style="background: var(--dot-note);"></div>
-      <div class="entry-body">
-        <span class="entry-date">30 ago 2026</span> <span class="fresh"></span>
-        <span class="entry-text" data-i18n="log_3082026tl">Aggiunto un pensiero.</span>
-        <span class="entry-tag">Pensieri</span>
+        <span class="entry-date">28 ago 2026</span> <span class="fresh"></span>
+        <span class="entry-text" data-i18n="log_2882026tl_2">Oggi visto il brutto tempo mi è venuta voglia di ascoltare un po' di salsa classica, poi per il resto è un famoso venerdì pigro come tanto mi piace chiamarli 😁, poi per il resto vediamo come andrà questa giornata uggiosa.</span>
+        <span class="entry-tag">Update</span>
       </div>
     </div>
     <!-- AUTO-TIMELINE:END -->
@@ -1785,6 +1845,55 @@
  </div>
  </div>
 
+ <!-- RECAP: statistiche generate automaticamente dai Pensieri -->
+ <div class="recap-panel">
+ <div class="recap-panel-head" data-i18n="recap_title">Il mio archivio in numeri</div>
+ <!-- AUTO-RECAP:START -->
+          <div class="recap-grid">
+            <div class="recap-stat">
+              <div class="recap-num">8</div>
+              <div class="recap-label" data-i18n="recap_label_pensieri">Pensieri scritti</div>
+            </div>
+            <div class="recap-stat">
+              <div class="recap-num">506</div>
+              <div class="recap-label" data-i18n="recap_label_parole">Parole totali</div>
+            </div>
+            <div class="recap-stat">
+              <div class="recap-num">63</div>
+              <div class="recap-label" data-i18n="recap_label_media">Parole a nota</div>
+            </div>
+            <div class="recap-stat">
+              <div class="recap-num recap-num-small"><span data-i18n="recap_day_sunday">domenica</span></div>
+              <div class="recap-label" data-i18n="recap_label_giorno">Giorno più attivo</div>
+            </div>
+            <div class="recap-stat">
+              <div class="recap-num recap-num-small">"sito"</div>
+              <div class="recap-label" data-i18n="recap_label_parola">Parola più usata</div>
+            </div>
+            <div class="recap-stat">
+              <div class="recap-num">😄</div>
+              <div class="recap-label" data-i18n="recap_label_emoji">Emoji preferita</div>
+            </div>
+          </div>
+
+          <div class="recap-mood-box">
+            <div class="recap-mood-title" data-i18n="recap_mood_title">Andamento dell'umore</div>
+              <svg viewBox="0 0 600 130" class="recap-mood-chart" preserveAspectRatio="none">
+                <line x1="16" y1="65.0" x2="584" y2="65.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"></line>
+                <polyline points="16.0,65.0 97.1,77.2 178.3,28.2 259.4,16.0 340.6,89.5 421.7,65.0 502.9,101.8 584.0,65.0" fill="none" stroke="var(--forest)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                  <circle cx="16.0" cy="65.0" r="3.5" fill="var(--forest)"></circle>
+                  <circle cx="97.1" cy="77.2" r="3.5" fill="var(--forest)"></circle>
+                  <circle cx="178.3" cy="28.2" r="3.5" fill="var(--forest)"></circle>
+                  <circle cx="259.4" cy="16.0" r="3.5" fill="var(--forest)"></circle>
+                  <circle cx="340.6" cy="89.5" r="3.5" fill="var(--forest)"></circle>
+                  <circle cx="421.7" cy="65.0" r="3.5" fill="var(--forest)"></circle>
+                  <circle cx="502.9" cy="101.8" r="3.5" fill="var(--forest)"></circle>
+                  <circle cx="584.0" cy="65.0" r="3.5" fill="var(--forest)"></circle>
+              </svg>
+          </div>
+    <!-- AUTO-RECAP:END -->
+ </div>
+
  <!-- FOGLIO A QUADRETTI: note random -->
  <div class="scribble-pad">
  <div class="scribble-pad-head" data-i18n="scribble_head">Pensieri (fai un click sulla data per leggere cosa è successo 😉)</div>
@@ -1794,7 +1903,7 @@
             <summary class="year-header">📅 2026</summary>
             <div class="year-body">
             <details class="month-folder">
-              <summary class="month-header">📁 <span data-i18n="month_agosto">Agosto</span></summary>
+              <summary class="month-header">📁 Agosto</summary>
               <div class="month-body">
                 <details class="note-item">
                   <summary class="note-date" data-i18n="note_14agosto2026_date">+ 14 agosto 2026</summary>
@@ -1857,27 +1966,8 @@
                 </details>
 
                 <details class="note-item">
-                  <summary class="note-date" data-i18n="note_27agosto2026_date">+ 27 agosto 2026</summary>
+                  <summary class="note-date" data-i18n="note_27agosto2026_date">+ 27 agosto 2026 <span class="fresh"></span></summary>
                   <p data-i18n="note_27agosto2026_text">Oggi ho sistemato delle cose a livello visivo, senza compromettere la struttura del sito, ormai per fortuna ho imparato. Spero di riuscire a mettere anche qualche foto nei pensieri, però magari nei fini settimana, durante la settimana principalmente o è ufficio o è casa 🏠.</p>
-                </details>
-
-                <details class="note-item">
-                  <summary class="note-date" data-i18n="note_28agosto2026_date">+ 28 agosto 2026</summary>
-                  <p data-i18n="note_28agosto2026_text">Oggi visto il brutto tempo mi è venuta voglia di ascoltare un po' di salsa classica, poi per il resto è un famoso venerdì pigro come tanto mi piace chiamarli 😁, poi per il resto vediamo come andrà questa giornata uggiosa.</p>
-                </details>
-
-                <details class="note-item">
-                  <summary class="note-date" data-i18n="note_29agosto2026_date">+ 29 agosto 2026</summary>
-                  <p data-i18n="note_29agosto2026_text">Oggi voglio solo rilassarmi e non pensare a niente, la parola d'ordine è relax, anche perché è sabato.</p>
-                </details>
-
-                <details class="note-item">
-                  <summary class="note-date" data-i18n="note_30agosto2026_date">+ 30 agosto 2026 <span class="fresh"></span></summary>
-                  <p data-i18n="note_30agosto2026_text">Sono andato al The space con Marta a vedere Spider Man: Brand New Day, sinceramente aspettavo qualcosa di diverso , mi ha leggermente deluso, d'altronde quest'anno sono usciti un sacco di film che hanno sodisfatto completamente le mie aspettative , qualcuno di questi doveva deludermi 😄, peccato perché Spider Man è il mio eroe preferito.</p>
-                <div class="note-photo-single" onclick="openMediaZoom(this)">
-                  <img src="foto/pensierilocanda.jpg" alt="Foto del 30 agosto 2026">
-                </div>
-
                 </details>
               </div>
             </details>
@@ -2484,6 +2574,24 @@
  // ---- Dizionario Traduzioni ----
  const translations = {
  it: {
+      yt_search_placeholder: "Cerca nei preferiti...",
+      nav_login: "Accedi",
+      log_2882026tl_2: "Oggi visto il brutto tempo mi è venuta voglia di ascoltare un po' di salsa classica, poi per il resto è un famoso venerdì pigro come tanto mi piace chiamarli 😁, poi per il resto vediamo come andrà questa giornata uggiosa.",
+      recap_title: "Il mio archivio in numeri",
+      recap_label_pensieri: "Pensieri scritti",
+      recap_label_parole: "Parole totali",
+      recap_label_media: "Parole a nota",
+      recap_label_giorno: "Giorno più attivo",
+      recap_label_parola: "Parola più usata",
+      recap_label_emoji: "Emoji preferita",
+      recap_mood_title: "Andamento dell'umore",
+      recap_day_monday: "lunedì",
+      recap_day_tuesday: "martedì",
+      recap_day_wednesday: "mercoledì",
+      recap_day_thursday: "giovedì",
+      recap_day_friday: "venerdì",
+      recap_day_saturday: "sabato",
+      recap_day_sunday: "domenica",
       nav_home: "Home",
       nav_about: "Chi sono",
       nav_gallery: "Galleria",
@@ -2590,7 +2698,6 @@
       film_scrubs: "È una celebre sitcom creata da Bill Lawrence. La serie segue la vita quotidiana e surreale del giovane medico John \"J.D.\" Dorian all'interno dell'ospedale Sacred Heart. Tra sogni ad occhi aperti, drammi umani e comicità, J.D. impara il lavoro e la crescita personale insieme ai suoi colleghi.",
       film_trainspotting: "Trainspotting racconta la vita di Mark Renton, un giovane di Edimburgo che sceglie di vivere ai margini della società facendosi di eroina insieme al suo gruppo di amici disadattati. Tra tentativi di disintossicazione, momenti tragici e piccoli crimini, la storia culmina in un grosso colpo di droga che Mark sfrutta per fuggire e cambiare vita.",
       film_28_giorni_dopo: "28 giorni dopo è un film horror del 2002 diretto da Danny Boyle, incentrato su un'epidemia globale causata da un virus della rabbia.",
-      film_Matrix: "Matrix ruota attorno al giovane hacker Neo (Keanu Reeves), il quale scopre che la realtà quotidiana è solo una simulazione virtuale creata dalle macchine per schiavizzare l'umanità ed usarla come fonte di energia.",
       games_title_main: "Videogiochi",
       games_title_sub: "Gaming & Titoli Preferiti",
       game_the_last_of_us: "PS4 · Azione-avventura",
@@ -2624,6 +2731,24 @@
       login_back: "Chiudi",
     },
  en: {
+      yt_search_placeholder: "Search your favourites...",
+      nav_login: "Log in",
+      log_2882026tl_2: "Given the rubbish weather today, I fancied listening to a bit of classic salsa; apart from that, it's one of those famous 'lazy Fridays' as I like to call them 😁; as for the rest, we'll see how this gloomy day turns out.",
+      recap_title: "My archive in numbers",
+      recap_label_pensieri: "Thoughts written",
+      recap_label_parole: "Total words",
+      recap_label_media: "Words per note",
+      recap_label_giorno: "Most active day",
+      recap_label_parola: "Most used word",
+      recap_label_emoji: "Favourite emoji",
+      recap_mood_title: "Mood over time",
+      recap_day_monday: "Monday",
+      recap_day_tuesday: "Tuesday",
+      recap_day_wednesday: "Wednesday",
+      recap_day_thursday: "Thursday",
+      recap_day_friday: "Friday",
+      recap_day_saturday: "Saturday",
+      recap_day_sunday: "Sunday",
       nav_home: "Home",
       nav_about: "About me",
       nav_gallery: "Gallery",
@@ -2727,10 +2852,9 @@
       film_shrek: "Shrek’s peaceful solitude in the swamp is shattered when the evil Lord Farquaad banishes all the fairy-tale creatures there. To get his land back, Shrek agrees to rescue Princess Fiona from a dragon, discovering, by the end of his journey, love and the girl’s true nature.",
       film_pluribus: "It is a science fiction television series created by Vince Gilligan and starring Rhea Seehorn. The plot follows Carol Sturka, a writer from Albuquerque: a virus of extraterrestrial origin transforms the whole of humanity into a single, peaceful, happy collective mind, leaving her and a handful of others who are immune to fight to restore free will.",
       film_il_signore_degli_anelli: "The Lord of the Rings is a famous epic novel by J.R.R. Tolkien. The story follows the young hobbit Frodo Baggins on a long journey to destroy the powerful and evil One Ring by casting it into the fires of Mount Doom in Mordor, in order to save Middle-earth from the Dark Lord Sauron.",
-      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the everyday and surreal life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human drama and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
+      film_scrubs: "It is a famous sitcom created by Bill Lawrence. The series follows the everyday and surreal life of the young doctor John ‘J.D.’ Dorian at Sacred Heart Hospital. Amidst daydreams, human dramas and comedy, J.D. learns the ropes and grows as a person alongside his colleagues.",
       film_trainspotting: "Trainspotting tells the story of Mark Renton, a young man from Edinburgh who chooses to live on the fringes of society, shooting up heroin with his group of misfit friends. Amidst attempts at rehabilitation, tragic moments and petty crimes, the story culminates in a major drug deal which Mark uses as an opportunity to escape and turn his life around.",
       film_28_giorni_dopo: "28 Days Later is a 2002 horror film directed by Danny Boyle, centring on a global epidemic caused by a rabies virus.",
-      film_Matrix: "*The Matrix* centres on the young hacker Neo (Keanu Reeves), who discovers that everyday reality is merely a virtual simulation created by machines to enslave humanity and use it as a source of energy.",
       games_title_main: "Video Games",
       games_title_sub: "Gaming &amp; Favourite Games",
       game_the_last_of_us: "PS4 · Action-adventure",
