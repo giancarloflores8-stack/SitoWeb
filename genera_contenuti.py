@@ -245,7 +245,7 @@ def genera_html_pensieri(voci):
 
             blocchi_mese.append(
                 f'            <details class="month-folder">\n'
-                f'              <summary class="month-header">📁 {mese_nome}</summary>\n'
+                f'              <summary class="month-header">📁 <span data-i18n="month_{mese_nome.lower()}">{mese_nome}</span></summary>\n'
                 f'              <div class="month-body">\n'
                 + '\n\n'.join(righe_note) +
                 f'\n              </div>\n'
