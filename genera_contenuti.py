@@ -437,15 +437,18 @@ def genera_recap(voci):
 
     # --- Grafico SVG dell'andamento dell'umore, usa le variabili CSS del sito ---
     larghezza = 600
-    altezza = 130
+    altezza_grafico = 130  # area del grafico vero e proprio (linee, punti, emoji)
+    spazio_etichetta_x = 20  # riga in più in fondo, solo per l'etichetta dell'asse orizzontale
+    altezza_totale = altezza_grafico + spazio_etichetta_x
     margine = 16
+    margine_sinistro = 34  # spazio in più a sinistra per le emoji guida dell'asse Y
     n = len(punteggi_umore)
     max_assoluto = max(1, max(abs(p) for p in punteggi_umore))
 
     punti = []
     for i, punteggio in enumerate(punteggi_umore):
-        x = margine + (i / max(1, n - 1)) * (larghezza - 2 * margine)
-        y = (altezza / 2) - (punteggio / max_assoluto) * (altezza / 2 - margine)
+        x = margine_sinistro + (i / max(1, n - 1)) * (larghezza - margine_sinistro - margine)
+        y = (altezza_grafico / 2) - (punteggio / max_assoluto) * (altezza_grafico / 2 - margine)
         punti.append((round(x, 1), round(y, 1)))
 
     punti_linea = ' '.join(f"{x},{y}" for x, y in punti)
@@ -454,13 +457,20 @@ def genera_recap(voci):
         for x, y in punti
     )
 
+    centro_x = margine_sinistro + (larghezza - margine_sinistro - margine) / 2
+
     html_grafico = (
-        f'              <svg viewBox="0 0 {larghezza} {altezza}" class="recap-mood-chart" preserveAspectRatio="none">\n'
-        f'                <line x1="{margine}" y1="{altezza / 2}" x2="{larghezza - margine}" y2="{altezza / 2}" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"></line>\n'
+        f'              <svg viewBox="0 0 {larghezza} {altezza_totale}" class="recap-mood-chart" preserveAspectRatio="none">\n'
+        f'                <text x="4" y="{margine + 4}" class="recap-mood-axis-emoji">😊</text>\n'
+        f'                <text x="4" y="{altezza_grafico / 2 + 4}" class="recap-mood-axis-emoji">😐</text>\n'
+        f'                <text x="4" y="{altezza_grafico - margine + 4}" class="recap-mood-axis-emoji">😔</text>\n'
+        f'                <line x1="{margine_sinistro}" y1="{altezza_grafico / 2}" x2="{larghezza - margine}" y2="{altezza_grafico / 2}" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"></line>\n'
         f'                <polyline points="{punti_linea}" fill="none" stroke="var(--forest)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>\n'
         f'{cerchi}\n'
+        f'                <text x="{centro_x}" y="{altezza_totale - 4}" text-anchor="middle" class="recap-mood-axis-x" data-i18n="recap_mood_axis_x">ogni pensiero scritto, in ordine →</text>\n'
         f'              </svg>'
     )
+
 
     giorno_html = (
         f'<span data-i18n="{chiave_giorno}">{giorno_top_it}</span>' if chiave_giorno else giorno_top_it
