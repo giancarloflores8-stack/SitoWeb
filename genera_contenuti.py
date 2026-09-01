@@ -3,6 +3,7 @@ import re
 import sys
 from datetime import datetime
 from collections import Counter
+from html import escape as escape_html
 
 MESI_IT = {
     'gennaio': 1, 'febbraio': 2, 'marzo': 3, 'aprile': 4, 'maggio': 5, 'giugno': 6,
@@ -452,10 +453,22 @@ def genera_recap(voci):
         punti.append((round(x, 1), round(y, 1)))
 
     punti_linea = ' '.join(f"{x},{y}" for x, y in punti)
-    cerchi = '\n'.join(
-        f'                  <circle cx="{x}" cy="{y}" r="3.5" fill="var(--forest)"></circle>'
-        for x, y in punti
-    )
+
+    righe_cerchi = []
+    for (x, y), v in zip(punti, voci_con_pensiero):
+        data_singola = v['data_obj']
+        data_formattata = f"{data_singola.day} {MESI_NOME_IT[data_singola.month]} {data_singola.year}"
+        data_sicura = escape_html(data_formattata, quote=True)
+        testo_sicuro = escape_html(v['pensiero'], quote=True)
+        riga = (
+            f'                  <g class="recap-mood-point" tabindex="0" role="button"'
+            f' data-data="{data_sicura}" data-testo="{testo_sicuro}">\n'
+            f'                    <circle cx="{x}" cy="{y}" r="10" fill="transparent"></circle>\n'
+            f'                    <circle cx="{x}" cy="{y}" r="3.5" fill="var(--forest)" class="recap-mood-dot"></circle>\n'
+            f'                  </g>'
+        )
+        righe_cerchi.append(riga)
+    cerchi = '\n'.join(righe_cerchi)
 
     centro_x = margine_sinistro + (larghezza - margine_sinistro - margine) / 2
 
