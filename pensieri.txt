@@ -80,5 +80,5 @@ TIMELINE: Aggiunto un pensiero.
 TAG: Pensieri
 ---
 DATA:  1 settembre 2026
-TIMELINE: Oggi è finalmente arrivato il 1 settembre🍂 , vediamo cosa ci riserverà questa nuova stagione sia lavorativa che personale 😁. 
+PENSIERO: Oggi è finalmente arrivato il 1 settembre🍂 , vediamo cosa ci riserverà questa nuova stagione sia lavorativa che personale 😁. 
 ---
