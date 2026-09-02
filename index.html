@@ -1534,6 +1534,9 @@
  }
  .yt-modal-video{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
  .yt-modal-video iframe{ position:absolute; inset:0; width:100%; height:100%; border:none; }
+ .yt-modal-info{ padding:1.4rem 1.6rem 1.6rem; max-height:35vh; overflow-y:auto; }
+ .yt-modal-info h3{ font-size:1.2rem; margin-bottom:0.6rem; }
+ .yt-modal-info p{ color:var(--ink-soft); font-size:0.92rem; line-height:1.7; }
 
  /* ============ LOGIN MODAL (demo — nessun dato viene mai inviato o salvato) ============ */
  .login-modal{
@@ -2891,6 +2894,10 @@
  <div class="yt-modal-video">
  <iframe id="ytFrame" src="" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
  </div>
+ <div class="yt-modal-info">
+ <h3 id="ytModalTitle"></h3>
+ <p id="ytModalDesc"></p>
+ </div>
 </div>
 
 <!-- ============ LOGIN MODAL (demo — nessun dato viene mai inviato o salvato) ============ -->
@@ -3597,10 +3604,18 @@
  // ---- YouTube Modal ----
  const ytModal = document.getElementById('ytModal');
  const ytFrame = document.getElementById('ytFrame');
+ const ytModalTitle = document.getElementById('ytModalTitle');
+ const ytModalDesc = document.getElementById('ytModalDesc');
 
  const openYtModal = (item) => {
  const id = item.dataset.ytId;
  ytFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+
+ const titoloEl = item.querySelector('.title');
+ const descEl = item.querySelector('.sub');
+ if (ytModalTitle) ytModalTitle.textContent = titoloEl ? titoloEl.textContent.trim() : '';
+ if (ytModalDesc) ytModalDesc.textContent = descEl ? descEl.textContent.trim() : '';
+
  ytModal.classList.add('open');
  document.body.style.overflow = 'hidden';
  };
