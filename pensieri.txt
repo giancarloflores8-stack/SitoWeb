@@ -116,3 +116,10 @@ PENSIERO: Oggi Padova parte con una giornata molto ma molto piovosa, dalle fines
 DATA: 9 settembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
+---
+DATA:  10 settembre 2026
+PENSIERO: Sono passato dal progetto Ipod al progetto "Spotify" gratis, non uso quella app schifosa a pagamento ma sfrutto una app che va a prendere la musica direttamente dal mio cloud di Google e adesso sto implementando un bot Telegram, che ogni volta che scarico musica, mando il file al mio bot e lui in automatico la carica sul mio drive senza dover muovere niente. Spero di riuscirci è un progetto ambizioso, speriamo che tutto funzioni, vi terrò aggiornati. Ahhh quasi dimenticavo, oggi i mocciosi sono tornati a scuola quindi le strade inizieranno piano piano a riempirsi come ogni anno.  
+---
+DATA: 10 settembre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
