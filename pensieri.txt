@@ -123,3 +123,10 @@ PENSIERO: Sono passato dal progetto Ipod al progetto "Spotify" gratis, non uso q
 DATA: 10 settembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
+---
+DATA:  11 settembre 2026
+PENSIERO: Oggi una vittoria ma con il sapore amaro, siamo riusciti a far partire l'automazione MA dopo abbiamo provato a farlo interagire direttamente con un gruppo Telegram così avrei avuto si i file su Telegram che nella mia cartella Drive, idea geniale realizzazione purtroppo non riuscita, è stata una vittoria mutilata, ma almeno abbiamo fatto un passo avanti rispetto a ieri.  
+---
+DATA: 11 settembre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
