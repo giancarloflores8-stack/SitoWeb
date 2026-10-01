@@ -166,9 +166,3 @@ DATA: 01 ottobre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
-DATA:  01 gennaio 2027
-PENSIERO: prova. 
----
-DATA: 01 gennaio 2027
-TIMELINE: Aggiunto un pensiero.  
-TAG: Pensieri
