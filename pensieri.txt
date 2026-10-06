@@ -166,3 +166,10 @@ DATA: 01 ottobre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  06 ottobre 2026
+PENSIERO: Ultimamente la mia vita o Vica è super movimentata, lavora da qua lavora di la, fai questo fai l'altro, segui questo segui l'altro, in più la tipa dell'appartamento ci ha paccati 📦, insomma un mix di cose da fare e da seguire, insomma vediamo come procederanno questi mesi, scusate se non sono tanto attivo. 
+---
+DATA: 06 ottobre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
