@@ -180,3 +180,10 @@ DATA: 08 ottobre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  14 ottobre 2026
+PENSIERO: Wooo la vita è davvero strana, oggi ho ricevuto una notizia particolare da un collega molto caro per me, è strano perché non è la prima volta che mi capita che lavorativamente qualcuno se ne vada, però ecco fa strano ogni volta, vedere una persona quasi tutti i giorni e poi non vederla più, però dai la vita o Vica continua, è l'unica cosa che rimane da fare è auguragli il meglio e andare avanti, alla fine la salvezza è individuale 😂 come dicono i predicatori dominicani 😂.     
+---
+DATA: 14 ottobre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
