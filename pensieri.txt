@@ -4,7 +4,7 @@ TIMELINE: Idea e Creazione del sito WEB
 TAG: Ufficio💼
 ---
 DATA: 15 agosto 2026
-PENSIERO: Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito, d'altronde sono in vacanza posso fare quello che voglio 😄, Gemini e Laude mi hanno dato una grossa mano, è difficile trovare i bug in quasi 1800 righe di codice, e si che è un sito molto statico, non oso pensare come siano i siti che devono gestire utenti, mail e pagamenti 😱.
+PENSIERO: Il giorno di ferragosto visto che non ho organizzato nulla con nessuno, ho deciso di mettere mano al sito, d'altronde sono in vacanza posso fare quello che voglio 😄, Gemini e Claude mi hanno dato una grossa mano, è difficile trovare i bug in quasi 1800 righe di codice, e si che è un sito molto statico, non oso pensare come siano i siti che devono gestire utenti, mail e pagamenti 😱.
 TIMELINE: Implementazione del sito web sia di contenuti che a livello codice
 TAG: Casa 🏠
 ---
