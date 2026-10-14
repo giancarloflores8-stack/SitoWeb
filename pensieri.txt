@@ -41,7 +41,7 @@ TIMELINE: Finito un progetto importante
 TAG: CASA
 ---
 DATA: 26 agosto 2026
-PENSIERO: Dopo un estenuante de bug e infiniti minuti di dello, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di UE design, ma non prima di un backup di tutto, d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.
+PENSIERO: Dopo un estenuante debug e infiniti minuti di deploy, posso ufficialmente dire che la struttura è solida e le implementazioni/automazioni funzionano, il passo successivo sarà quello di UE design, ma non prima di un backup di tutto, d'altronde perdere tutto adesso mi distruggerebbe, vi terrò aggiornati comunque, la cosa più frustrante è quando risolvi una cosa e ne rompi 3.
 ---
 DATA: 27 agosto 2026
 PENSIERO: Oggi ho sistemato delle cose a livello visivo, senza compromettere la struttura del sito, ormai per fortuna ho imparato. Spero di riuscire a mettere anche qualche foto nei pensieri, però magari nei fini settimana, durante la settimana principalmente o è ufficio o è casa 🏠. 
@@ -61,7 +61,7 @@ DATA: 29 agosto 2026
 PENSIERO: Oggi voglio solo rilassarmi e non pensare a niente, la parola d'ordine è relax, anche perché è sabato. 
 ---
 DATA: 30 agosto 2026
-PENSIERO: Sono andato al Ohe space con Marta a vedere Spider Man: Brand New Day, sinceramente aspettavo qualcosa di diverso, mi ha leggermente deluso, d'altronde quest'anno sono usciti un sacco di film che hanno soddisfatto completamente le mie aspettative, qualcuno di questi doveva deludermi 😄, peccato perché Spider Man è il mio eroe preferito.  
+PENSIERO: Sono andato al The space con Marta a vedere Spider Man: Brand New Day, sinceramente aspettavo qualcosa di diverso, mi ha leggermente deluso, d'altronde quest'anno sono usciti un sacco di film che hanno soddisfatto completamente le mie aspettative, qualcuno di questi doveva deludermi 😄, peccato perché Spider Man è il mio eroe preferito.  
 FOTO: pensierilocanda.jpg
 ---
 DATA: 30 agosto 2026
