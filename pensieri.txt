@@ -1,5 +1,5 @@
 DATA: 14 agosto 2026
-PENSIERO: Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task, quindi ho deciso di creare e mettere online il mio sito personale, visto che alle superiori ho imparato a utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.
+PENSIERO: Mi trovavo da solo a lavoro, e avevo già finito tutti i miei task, quindi a casa 🏠 ho deciso di creare e mettere online il mio sito personale, visto che alle superiori ho imparato a utilizzare HTML, JAVA e CSS, ho deciso di provaci visto che non ho mai avuto tempo per un progetto personale.
 TIMELINE: Idea e Creazione del sito WEB
 TAG: Ufficio💼
 ---
@@ -198,6 +198,13 @@ DATA:  19 ottobre 2026
 PENSIERO: Mamma mamma che sonno oggi 😴😑.  
 ---
 DATA: 19 ottobre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
+DATA:  22 ottobre 2026
+PENSIERO: Boh, tante incognite, speriamo che piano piano riescano a sciogliersi tutti i nodi che sono sul mio pettine .  
+---
+DATA: 22 ottobre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
