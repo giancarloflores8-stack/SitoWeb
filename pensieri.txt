@@ -236,3 +236,10 @@ DATA: 29 ottobre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  30 ottobre 2026
+PENSIERO: Oggi è arrivato lo stipendio yuppiiiii 🥳, peccato che tra poco tutti questi soldi usciranno , praticamente dovrò dare la mia tanto agognata tredicesima indietro, purtroppo è la vita o Vica se preferite, però dai piano piano risparmiando come ho sempre fatto i soldi torneranno indietro, spero ed aspiro come dicono dalle mie parti, per il resto cerco di tenere le spese personali al minimo e cerco di risparmiare il più possibile come ho sempre fatto, dai forza e coraggio che venrdìììììììììììììì 😊. 
+---
+DATA: 30 ottobre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
