@@ -250,3 +250,10 @@ DATA: 2 novembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  6 novembre 2026
+PENSIERO: Oggi è un giorno particolare, oggi il mio collega Igor AKA Tyler the Creator, ci lascia per sempre, nella mia vita o Vica lavorativa mi è già successa come esperienza, ma ogni volta è difficile accettarlo, vedere una persona per mesi e poi non vederla più non è semplice, non è bello, ma come dicono i predicatori dominicani, la salvazione è individuale, e quindi l'unica cosa e accettare ed andare avanti, dai forza e coraggio che è venerdì e che bisogna andare avanti e farcela, l'obbiettivo è la casa di proprietà e la stabilità economica. Non altro. Family First 
+---
+DATA: 6 novembre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
