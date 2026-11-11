@@ -264,3 +264,10 @@ DATA: 10 novembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  11 novembre 2026
+PENSIERO: Oggi più che mai l'assenza di Igor AKA Tyler the Creator si fa sentire. Non vedere il mio collega di banco fa strano, però come detto e ribadito, la salvazione è individuale. Ieri è tornata mia mamma a casa, e tra un po' la casa 🏠 si riempirà di nuovo, un po' che palle, mi era piaciuta la solitudine, sono sempre stato un amante della solitudine, del poter fare quello che voglio quando lo voglio, tra poco in teoria potrò farlo , mi sa tra qualche mese spero, comunque sto svagando dal tema principale , il mio brutto umore probabilmente è dato anche dal tempo di schifo che c'è fuori, probabilmente se fosse estate e ci fosse un sole della madonna, probabilmente sarebbe tutto diverso. 
+---
+DATA: 11 novembre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
