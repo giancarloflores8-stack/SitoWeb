@@ -271,3 +271,10 @@ DATA: 11 novembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  13 novembre 2026
+PENSIERO: Igor AKA Tyler the Creator, sta bene ,mi fa piacere che possa vivere il sogno americano a Malta, però mi ha fatto pensare alla mia di situazione, cioè io mi trovo bene a livello di stabilità , però semplicemente vorrei avere più soldi, non per una questione di ego, semplicemente per stare più tranquillo, poter uscire a mangiare una pizza e non dover contare le monete , oppure poter mettere via qualche soldo per poter comprare una casa un giorno, penso che il mio disagio non sia solo mio, ma sia una cosa generazionale. Poi fuori è un tempo di merda quindi figuratevi , tanti pensieri brutti e spero che spariscano il prima possibile. 
+---
+DATA: 13 novembre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
