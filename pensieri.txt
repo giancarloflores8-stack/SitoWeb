@@ -292,3 +292,10 @@ DATA: 19 novembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  23 novembre 2026
+PENSIERO: Oggi tanto ma tanto ma tanto sonno 😴😴😴, speriamo sia una giornata produttiva e corta. 
+---
+DATA: 23 novembre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
