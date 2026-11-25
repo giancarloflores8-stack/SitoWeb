@@ -1,3 +1,4 @@
+
 name: Auto Traduttore Sito Intero
 
 on:
@@ -21,10 +22,10 @@ jobs:
       - name: Configura Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.12'
 
       - name: Installa dipendenze
-        run: pip install beautifulsoup4 deepl
+        run: python -m pip install beautifulsoup4 deepl==1.33.0
 
       - name: Traduci intero sito
         env:
