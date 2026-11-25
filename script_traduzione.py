@@ -16,7 +16,7 @@ if not DEEPL_API_KEY:
     print("   e passala al workflow con: env: DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}")
     sys.exit(1)
 
-traduttore = deepl.Translator(DEEPL_API_KEY)
+traduttore = deepl.DeepLClient(DEEPL_API_KEY)
 _esecutore = ThreadPoolExecutor(max_workers=1)
 
 
