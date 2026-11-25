@@ -2,9 +2,12 @@
 name: Auto Traduttore Sito Intero
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'index.html'
+      - 'script_traduzione.py'
+      - '.github/workflows/**'
 
 permissions:
   contents: write
@@ -15,17 +18,25 @@ jobs:
     timeout-minutes: 15
     env:
       PYTHONUNBUFFERED: "1"
+
     steps:
       - name: Scarica il repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configura Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Installa dipendenze
-        run: python -m pip install beautifulsoup4 deepl==1.33.0
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install beautifulsoup4 deepl
+
+      - name: Verifica libreria DeepL
+        run: |
+          python -m pip show deepl
+          python -c "import deepl; print('Percorso:', deepl.__file__); print('DeepLClient disponibile:', hasattr(deepl, 'DeepLClient'))"
 
       - name: Traduci intero sito
         env:
