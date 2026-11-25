@@ -306,10 +306,4 @@ DATA: 25 novembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
-DATA:  26 novembre 2026
-PENSIERO: Prova solo per divertimento . 
----
-DATA: 26 novembre 2026
-TIMELINE: Aggiunto un pensiero.  
-TAG: Pensieri
----
+
