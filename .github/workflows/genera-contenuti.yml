@@ -1,6 +1,8 @@
+
 name: Genera Contenuti da pensieri.txt
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'pensieri.txt'
@@ -15,17 +17,25 @@ jobs:
     timeout-minutes: 15
     env:
       PYTHONUNBUFFERED: "1"
+
     steps:
       - name: Scarica il repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configura Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.12'
 
       - name: Installa dipendenze
-        run: pip install beautifulsoup4 deepl
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install beautifulsoup4 deepl
+
+      - name: Verifica libreria DeepL
+        run: |
+          python -m pip show deepl
+          python -c "import deepl; print('Percorso:', deepl.__file__); print('DeepLClient disponibile:', hasattr(deepl, 'DeepLClient'))"
 
       - name: Genera Pensieri e Attività recente dal testo
         run: python genera_contenuti.py
