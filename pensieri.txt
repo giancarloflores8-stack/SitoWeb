@@ -313,3 +313,10 @@ DATA: 26 novembre 2026
 TIMELINE: Aggiunto un pensiero.  
 TAG: Pensieri
 ---
+DATA:  27 novembre 2026
+PENSIERO: Oggi non c'è nessuno in ufficio, sarà una giornata lunga e probabilmente senza chiacchere, vedremo come va, tanto questa sera è un altra vita o Vica se preferite, io prima preferivo, adesso, un po' meno😂. 
+---
+DATA: 27 novembre 2026
+TIMELINE: Aggiunto un pensiero.  
+TAG: Pensieri
+---
